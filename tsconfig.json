@@ -1,11 +1,35 @@
 {
   "extends": "expo/tsconfig.base",
   "compilerOptions": {
-    "strict": true,
     "baseUrl": ".",
     "paths": {
-      "@/*": ["*"]
+      "@/*": [
+        "./*"
+      ]
     }
   },
-  "include": ["**/*.ts", "**/*.tsx", ".expo/types/**/*.ts", "expo-env.d.ts", "nativewind-env.d.ts"]
+  "include": [
+    "**/*.ts",
+    "**/*.tsx",
+    ".expo/types/**/*.ts",
+    "expo-env.d.ts",
+    "app/(auth)/dashboard/edit/merchantForm.js",
+    "app/(auth)/dashboard/edit/trainerForm.js",
+    "app/(auth)/dashboard/profile/edit.js",
+    "app/(auth)/dashboard/_layout.js",
+    "app/(auth)/dashboard/index.js",
+    "app/(auth)/_layout.js",
+    "app/(auth)/index.js",
+    "app/(stacks)/(feautred)/merchants.js",
+    "app/(stacks)/(feautred)/trainers.js",
+    "app/(stacks)/category/merchant/[slug].js",
+    "app/(stacks)/category/trainer/[slug].js",
+    "app/(stacks)/category/[id].js",
+    "app/(stacks)/register/_layout.js",
+    "app/(stacks)/register/merchant.js",
+    "app/(stacks)/register/trainer.js",
+    "components/notification/NotificationContainer.js",
+    "components/notification/Notification.js",
+    "nativewind-env.d.ts"
+, "context/auth-context.js", "context/notification-context.js"  ]
 }
