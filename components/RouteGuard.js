@@ -4,36 +4,18 @@ import { useEffect } from 'react';
 import Loading from './Loading';
 
 // Define routes that are NOT allowed for authenticated users (regardless of role)
-const DISALLOWED_FOR_AUTHENTICATED = [
-  '(stacks)/register', // Registration page
-  '(stacks)/forgot-password', // Forgot password page
-  '(stacks)/forgot-password', // Forgot password in stacks
-];
+const DISALLOWED_FOR_AUTHENTICATED = ['(stacks)/register', '(stacks)/forgot-password'];
 
 // Define role-based route restrictions
 const ROLE_BASED_RESTRICTIONS = {
-  USER: [
-    '(admin)', // All admin routes
-  ],
-  MERCHANT: [
-    '(admin)', // All admin routes
-  ],
-  TRAINER: [
-    '(admin)', // All admin routes
-  ],
-  ADMIN: [
-    // Admin can access everything, so empty array
-  ],
+  USER: ['(admin)'],
+  MERCHANT: ['(admin)'],
+  TRAINER: ['(admin)'],
+  ADMIN: [],
 };
 
 // Define public routes (accessible without authentication)
-const PUBLIC_ROUTES = [
-  '(stacks)', // All stack routes
-  '(stacks)/login', // Login in stacks
-  '(stacks)/register', // Register in stacks
-  'index', // Home page
-  '(auth)',
-];
+const PUBLIC_ROUTES = ['(stacks)', '(stacks)/login', '(stacks)/register', 'index', '(auth)'];
 
 // Define default routes for each role after login
 const DEFAULT_ROUTES = {
@@ -42,6 +24,23 @@ const DEFAULT_ROUTES = {
   TRAINER: '/(auth)/dashboard',
   USER: '/(auth)/dashboard',
 };
+
+// Helper function to normalize paths for comparison
+function normalizePath(path) {
+  return path.replace(/\//g, '/').trim();
+}
+
+// Helper function to check if a route matches
+function routeMatches(currentPath, targetRoute) {
+  const normalizedCurrent = normalizePath(currentPath);
+  const normalizedTarget = normalizePath(targetRoute);
+
+  // Remove parentheses for comparison if needed
+  return (
+    normalizedCurrent.includes(normalizedTarget) ||
+    normalizedCurrent.replace(/[()]/g, '') === normalizedTarget.replace(/[()]/g, '')
+  );
+}
 
 export default function RouteGuard({ children }) {
   const { isAuthenticated, loading, user } = useAuth();
@@ -53,7 +52,8 @@ export default function RouteGuard({ children }) {
       return;
     }
 
-    const currentPath = segments.join('/');
+    // Build current path from segments
+    const currentPath = segments.length > 0 ? `/${segments.join('/')}` : '/';
     const userRole = user?.role?.toUpperCase() || 'USER';
 
     console.log('🔍 RouteGuard Debug:');
@@ -67,7 +67,7 @@ export default function RouteGuard({ children }) {
     if (isAuthenticated) {
       // Check if current route is disallowed for all authenticated users
       const isDisallowedForAuthenticated = DISALLOWED_FOR_AUTHENTICATED.some((route) =>
-        currentPath.includes(route.replace(/\//g, ''))
+        routeMatches(currentPath, route)
       );
 
       if (isDisallowedForAuthenticated) {
@@ -81,10 +81,9 @@ export default function RouteGuard({ children }) {
 
       // Check role-based restrictions
       const roleRestrictions = ROLE_BASED_RESTRICTIONS[userRole] || [];
-      const isDisallowedForRole = roleRestrictions.some((route) => {
-        const routeWithoutSlashes = route.replace(/\//g, '');
-        return currentPath.includes(routeWithoutSlashes);
-      });
+      const isDisallowedForRole = roleRestrictions.some((route) =>
+        routeMatches(currentPath, route)
+      );
 
       if (isDisallowedForRole) {
         console.log(
@@ -94,15 +93,13 @@ export default function RouteGuard({ children }) {
           DEFAULT_ROUTES[userRole]
         );
         router.replace(DEFAULT_ROUTES[userRole]);
+        return;
       }
     }
     // 2. Handle unauthenticated users
     else {
       // Check if current route requires authentication
-      const isPublicRoute = PUBLIC_ROUTES.some((route) => {
-        const routeWithoutSlashes = route.replace(/\//g, '');
-        return currentPath.includes(routeWithoutSlashes);
-      });
+      const isPublicRoute = PUBLIC_ROUTES.some((route) => routeMatches(currentPath, route));
 
       if (!isPublicRoute && segments.length > 0) {
         console.log('❌ Not authenticated for protected route, redirecting to login');

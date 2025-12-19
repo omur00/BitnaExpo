@@ -21,8 +21,8 @@ import { useMutation } from '@apollo/client/react';
 export default function LoginScreen() {
   const router = useRouter();
   const [formData, setFormData] = useState({
-    email: 'omur0070@gmail.com',
-    password: '123123123',
+    email: 'hezam30@gmail.com',
+    password: 'Hezammateralshraikah1977/#',
   });
   const { login } = useAuth();
   const [loading, setLoading] = useState(false);

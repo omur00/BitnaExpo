@@ -77,6 +77,13 @@ const StacksLayout = () => {
       />
 
       <Stack.Screen
+        name="user/edit"
+        options={{
+          headerTitle: 'تعديل المستخدم',
+        }}
+      />
+
+      <Stack.Screen
         name="generateRestEmails"
         options={{
           headerTitle: 'مولد إعادة كلمة المرور',

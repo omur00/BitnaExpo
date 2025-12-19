@@ -7,13 +7,13 @@ export default function RegisterLayout() {
         headerShown: false,
       }}>
       <Stack.Screen
-        name="merchant"
+        name="merchants"
         options={{
           headerTitle: 'تاجر مميز',
         }}
       />
       <Stack.Screen
-        name="trainer"
+        name="trainers"
         options={{
           headerTitle: 'مدرب مميز',
         }}

@@ -42,7 +42,11 @@ export const AuthProvider = ({ children }) => {
   const login = async (userData) => {
     setUser(userData);
     await AsyncStorage.setItem('jobPortalUser', JSON.stringify(userData));
-    router.push('/(auth)/dashboard');
+    if (userData.role === 'admin') {
+      router.push('/(admin)');
+    } else {
+      router.push('/(auth)/dashboard');
+    }
   };
 
   const signup = async (userData) => {

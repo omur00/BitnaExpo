@@ -1,4 +1,3 @@
-// app/register/trainer.jsx
 import React, { useState } from 'react';
 import {
   View,
@@ -14,7 +13,6 @@ import { REGISTER_TRAINER, GET_CATEGORIES, GET_CITIES } from '@/utils/queries';
 import { Ionicons } from '@expo/vector-icons';
 import { Picker } from '@/components/ui/picker';
 import { PhoneInputField } from '@/components/ui/phone-input';
-import { FilePicker } from '@/components/ui/file-picker';
 import { useMutation, useQuery } from '@apollo/client/react';
 import { useAuth } from '@/context/auth-context';
 import ImageUpload from '@/components/ui/ImageUpload';
@@ -137,6 +135,14 @@ export default function TrainerRegistration() {
   };
 
   const nextStep = () => {
+    if (currentStep === 1 && !isStep1Valid()) {
+      Alert.alert('خطأ', 'يرجى ملء جميع الحقول المطلوبة في الخطوة الأولى');
+      return;
+    }
+    if (currentStep === 2 && !isStep2Valid()) {
+      Alert.alert('خطأ', 'يرجى ملء جميع الحقول المطلوبة في الخطوة الثانية');
+      return;
+    }
     setCurrentStep(currentStep + 1);
   };
 
@@ -247,6 +253,7 @@ export default function TrainerRegistration() {
     }));
   };
 
+  // Progress bar steps
   const steps = [
     { number: 1, title: 'المعلومات الشخصية' },
     { number: 2, title: 'معلومات التواصل' },
@@ -255,102 +262,143 @@ export default function TrainerRegistration() {
 
   return (
     <ScrollView className="flex-1 bg-gray-50" showsVerticalScrollIndicator={false}>
-      <View className="container mx-auto max-w-2xl px-4 py-8">
-        <View className="rounded-2xl bg-white p-8 shadow-lg">
-          {/* Header */}
-          <View className="mb-8 text-center">
-            <Text className="text-gray-600">املأ البيانات التالية لعرض خدماتك على المنصة</Text>
-          </View>
+      {/* Header with Progress Bar */}
+      <View className="border-b border-gray-200 bg-white px-6 pb-6 pt-8">
+        <View className="mb-4">
+          <Text className="mt-1 text-gray-600">املأ البيانات التالية لعرض خدماتك على المنصة</Text>
+        </View>
 
-          {error && (
-            <View className="mb-6 rounded-lg border border-red-200 bg-red-50 p-4">
-              <Text className="text-red-700">{error.message}</Text>
+        {/* Progress Bar */}
+        <View className="mb-2 flex-row items-center justify-between">
+          {steps.map((step, index) => (
+            <React.Fragment key={step.number}>
+              <View className="flex-row items-center gap-2">
+                <View
+                  className={`flex h-8 w-8 items-center justify-center rounded-full border-2 ${
+                    currentStep >= step.number
+                      ? 'border-[#CAA453] bg-[#CAA453]'
+                      : 'border-gray-300 bg-white'
+                  }`}>
+                  <Text
+                    className={`font-medium ${
+                      currentStep >= step.number ? 'text-white' : 'text-gray-500'
+                    }`}>
+                    {step.number}
+                  </Text>
+                </View>
+                {currentStep === step.number && (
+                  <Text className="text-sm font-medium text-[#CAA453]">{step.title}</Text>
+                )}
+              </View>
+              {index < steps.length - 1 && (
+                <View
+                  className={`mx-2 h-0.5 flex-1 ${
+                    currentStep > step.number ? 'bg-[#CAA453]' : 'bg-gray-300'
+                  }`}
+                />
+              )}
+            </React.Fragment>
+          ))}
+        </View>
+      </View>
+
+      {/* Form Content */}
+      <View className="p-6">
+        {error && (
+          <View className="mb-6 rounded-xl border border-red-200 bg-red-50 p-4">
+            <View className="flex-row items-start gap-2">
+              <Ionicons name="alert-circle-outline" size={20} color="#DC2626" />
+              <Text className="flex-1 text-red-700">{error.message}</Text>
             </View>
-          )}
+          </View>
+        )}
 
-          {/* Step 1: Personal Information */}
-          {currentStep === 1 && (
-            <View className="flex flex-col gap-8">
-              <View className="mb-4 border-r-4 border-blue-600 pr-3">
-                <Text className="text-xl font-bold text-gray-800">المعلومات الشخصية</Text>
+        {/* Step 1: Personal Information */}
+        {currentStep === 1 && (
+          <View className="gap-6">
+            <View className="gap-1">
+              <View className="flex-row items-center gap-2">
+                <Ionicons name="person-circle-outline" size={20} color="#374151" />
+                <Text className="text-lg font-bold text-gray-800">المعلومات الشخصية</Text>
+              </View>
+              <Text className="text-sm text-gray-600">البيانات الأساسية لملفك التدريبي</Text>
+            </View>
+
+            <View className="gap-4">
+              <View className="gap-2">
+                <View className="flex-row items-center gap-1">
+                  <Text className="text-sm font-medium text-gray-700">الإسم الكامل</Text>
+                  <Text className="text-red-500">*</Text>
+                </View>
+                <TextInput
+                  value={formData.fullName}
+                  onChangeText={(value) => handleChange('fullName', value)}
+                  placeholder="الاسم الكامل"
+                  className="w-full rounded-lg border border-gray-300 bg-white p-3 text-gray-900"
+                  placeholderTextColor="#9CA3AF"
+                  textAlign="right"
+                />
               </View>
 
-              <View className="grid grid-cols-1 gap-6 md:grid-cols-2">
-                <View>
-                  <View className="mb-2 flex-row gap-1">
-                    <Text className="font-bold text-gray-700">الإسم الكامل</Text>
-                    <Text className="text-[12px] text-gray-700">* إجباري</Text>
-                  </View>
-                  <TextInput
-                    value={formData.fullName}
-                    onChangeText={(value) => handleChange('fullName', value)}
-                    placeholder="الاسم الكامل"
-                    className="w-full rounded-lg border border-gray-300 px-4 py-3 text-gray-900"
-                    placeholderTextColor="#9CA3AF"
-                  />
+              <View className="gap-2">
+                <View className="flex-row items-center gap-1">
+                  <Text className="text-sm font-medium text-gray-700">التخصص</Text>
+                  <Text className="text-red-500">*</Text>
                 </View>
-
-                <View>
-                  <View className="mb-2 flex-row gap-1">
-                    <Text className="font-bold text-gray-700">التخصص</Text>
-                    <Text className="text-[12px] text-gray-700">* إجباري</Text>
-                  </View>
-                  <TextInput
-                    value={formData.specialization}
-                    onChangeText={(value) => handleChange('specialization', value)}
-                    placeholder="مثال: تطوير الذات، البرمجة، التسويق"
-                    className="w-full rounded-lg border border-gray-300 px-4 py-3 text-gray-900"
-                    placeholderTextColor="#9CA3AF"
-                  />
-                </View>
+                <TextInput
+                  value={formData.specialization}
+                  onChangeText={(value) => handleChange('specialization', value)}
+                  placeholder="مثال: تطوير الذات، البرمجة، التسويق"
+                  className="w-full rounded-lg border border-gray-300 bg-white p-3 text-gray-900"
+                  placeholderTextColor="#9CA3AF"
+                  textAlign="right"
+                />
               </View>
 
-              <View className="grid grid-cols-1 gap-6 md:grid-cols-2">
-                <View>
-                  <View className="mb-2 flex-row gap-1">
-                    <Text className="font-bold text-gray-700">مجال التدريب</Text>
-                    <Text className="text-[12px] text-gray-700">* إجباري</Text>
-                  </View>
-                  <Picker
-                    options={[
-                      { label: 'اختر المجال', value: '' },
-                      ...(categoriesData?.categories?.map((category) => ({
-                        label: category.nameAr,
-                        value: category.id,
-                      })) || []),
-                    ]}
-                    value={formData.categoryId}
-                    onValueChange={(value) => handleChange('categoryId', value)}
-                    placeholder="اختر المجال"
-                    style={{ borderRadius: 8 }}
-                  />
+              <View className="gap-2">
+                <View className="flex-row items-center gap-1">
+                  <Text className="text-sm font-medium text-gray-700">مجال التدريب</Text>
+                  <Text className="text-red-500">*</Text>
                 </View>
-
-                <View>
-                  <View className="mb-2 flex-row gap-1">
-                    <Text className="font-bold text-gray-700">الدولة</Text>
-                    <Text className="text-[12px] text-gray-700">* إجباري</Text>
-                  </View>
-                  <Picker
-                    options={[
-                      { label: 'اختر الدولة', value: '' },
-                      ...(citiesData?.cities?.map((city) => ({
-                        label: city.nameAr,
-                        value: city.id,
-                      })) || []),
-                    ]}
-                    value={formData.cityId}
-                    onValueChange={(value) => handleChange('cityId', value)}
-                    placeholder="اختر المدينة"
-                    style={{ borderRadius: 8 }}
-                  />
-                </View>
+                <Picker
+                  options={[
+                    { label: 'اختر المجال', value: '' },
+                    ...(categoriesData?.categories?.map((category) => ({
+                      label: category.nameAr,
+                      value: category.id,
+                    })) || []),
+                  ]}
+                  value={formData.categoryId}
+                  onValueChange={(value) => handleChange('categoryId', value)}
+                  placeholder="اختر المجال"
+                  style={{ backgroundColor: 'white', borderRadius: 10 }}
+                />
               </View>
 
-              <View>
-                <View className="mb-2 flex-row gap-1">
-                  <Text className="font-bold text-gray-700">نبذة عنك</Text>
-                  <Text className="text-[12px] text-gray-700">* إجباري</Text>
+              <View className="gap-2">
+                <View className="flex-row items-center gap-1">
+                  <Text className="text-sm font-medium text-gray-700">المدينة</Text>
+                  <Text className="text-red-500">*</Text>
+                </View>
+                <Picker
+                  options={[
+                    { label: 'اختر المدينة', value: '' },
+                    ...(citiesData?.cities?.map((city) => ({
+                      label: city.nameAr,
+                      value: city.id,
+                    })) || []),
+                  ]}
+                  value={formData.cityId}
+                  onValueChange={(value) => handleChange('cityId', value)}
+                  placeholder="اختر المدينة"
+                  style={{ backgroundColor: 'white', borderRadius: 10 }}
+                />
+              </View>
+
+              <View className="gap-2">
+                <View className="flex-row items-center gap-1">
+                  <Text className="text-sm font-medium text-gray-700">نبذة عنك</Text>
+                  <Text className="text-red-500">*</Text>
                 </View>
                 <TextInput
                   value={formData.description}
@@ -358,423 +406,486 @@ export default function TrainerRegistration() {
                   multiline
                   numberOfLines={4}
                   placeholder="اخبرنا عن نفسك، خبراتك، مؤهلاتك، وأسلوبك في التدريب..."
-                  className="w-full rounded-lg border border-gray-300 px-4 py-3 text-gray-500"
+                  className="h-56 w-full rounded-lg border border-gray-300 bg-white p-3 text-gray-900"
                   placeholderTextColor="#9CA3AF"
+                  textAlign="right"
                   textAlignVertical="top"
                 />
-                <Text className="mt-1 text-sm text-gray-500">
-                  اكتب نبذة شاملة عن خبراتك ومؤهلاتك
+                <Text className="text-xs text-gray-500">اكتب نبذة شاملة عن خبراتك ومؤهلاتك</Text>
+              </View>
+            </View>
+
+            <TouchableOpacity
+              onPress={nextStep}
+              disabled={!isStep1Valid()}
+              className={`flex-row items-center justify-center gap-2 rounded-lg py-3 ${
+                isStep1Valid() ? 'bg-[#CAA453]' : 'bg-gray-300'
+              }`}>
+              <Text className="text-lg font-bold text-white">التالي</Text>
+              <Ionicons name="arrow-back-outline" size={20} color="white" />
+            </TouchableOpacity>
+          </View>
+        )}
+
+        {/* Step 2: Contact Information */}
+        {currentStep === 2 && (
+          <View className="gap-6">
+            <View className="gap-1">
+              <View className="flex-row items-center gap-2">
+                <Ionicons name="call-outline" size={20} color="#374151" />
+                <Text className="text-lg font-bold text-gray-800">معلومات التواصل</Text>
+              </View>
+              <Text className="text-sm text-gray-600">وسائل التواصل التي سيظهر للعملاء</Text>
+            </View>
+
+            <View className="mb-2 rounded-xl border border-blue-200 bg-blue-50 p-4">
+              <View className="flex-row items-start gap-2">
+                <Ionicons name="information-circle-outline" size={20} color="#1D4ED8" />
+                <Text className="flex-1 text-blue-800">
+                  <Text className="font-bold">ملاحظة:</Text> يرجى تقديم وسائل التواصل التي تريد أن
+                  يراها العملاء على صفحتك
                 </Text>
               </View>
-
-              <TouchableOpacity
-                onPress={nextStep}
-                disabled={!isStep1Valid()}
-                className={`rounded-xl py-4 ${isStep1Valid() ? 'bg-[#CAA453]' : 'bg-gray-300'}`}>
-                <Text className="text-center font-bold text-white">التالي</Text>
-              </TouchableOpacity>
             </View>
-          )}
 
-          {/* Step 2: Contact Information */}
-          {currentStep === 2 && (
-            <View className="flex flex-col gap-8">
-              <View>
-                <View className="mb-4 border-r-4 border-blue-600 pr-3">
-                  <Text className="text-xl font-bold text-gray-800">معلومات التواصل</Text>
+            <View className="gap-4">
+              <View className="gap-2">
+                <View className="flex-row items-center gap-1">
+                  <Text className="text-sm font-medium text-gray-700">رقم الجوال</Text>
+                  <Text className="text-red-500">*</Text>
                 </View>
-
-                <View className="mb-6 rounded-lg border border-blue-200 bg-blue-50 p-4">
-                  <Text className="text-sm text-blue-800">
-                    <Text className="font-bold">ملاحظة:</Text> يرجى تقديم وسائل التواصل التي تريد أن
-                    يراها العملاء على صفحتك
-                  </Text>
-                </View>
+                <PhoneInputField
+                  value={formData.phone}
+                  onChangeText={(value) => handleChange('phone', value)}
+                  placeholder="أدخل رقم الهاتف"
+                />
               </View>
 
-              <View className="flex flex-col gap-5">
-                <View>
-                  <View className="mb-2 flex-row gap-1">
-                    <Text className="font-bold text-gray-700">رقم الجوال</Text>
-                    <Text className="text-[12px] text-gray-700">* إجباري</Text>
-                  </View>
-                  <PhoneInputField
-                    value={formData.phone}
-                    onChangeText={(value) => handleChange('phone', value)}
-                    placeholder="أدخل رقم الهاتف"
-                  />
-                </View>
-
-                <View>
-                  <View className="mb-2 flex-row gap-1">
-                    <Text className="font-bold text-gray-700">رقم الواتساب</Text>
-                    <Text className="text-[12px] text-gray-700">(إختياري)</Text>
-                  </View>
-                  <PhoneInputField
-                    value={formData.whatsapp}
-                    onChangeText={(value) => handleChange('whatsapp', value)}
-                    placeholder="05XXXXXXXX"
-                  />
-                </View>
+              <View className="gap-2">
+                <Text className="text-sm font-medium text-gray-700">رقم الواتساب (إختياري)</Text>
+                <PhoneInputField
+                  value={formData.whatsapp}
+                  onChangeText={(value) => handleChange('whatsapp', value)}
+                  placeholder="05XXXXXXXX"
+                />
               </View>
 
-              <View>
-                <View className="mb-2 flex-row gap-1">
-                  <Text className="font-bold text-gray-700">البريد الإلكتروني</Text>
-                  <Text className="text-[12px] text-gray-700">* إجباري</Text>
+              <View className="gap-2">
+                <View className="flex-row items-center gap-1">
+                  <Text className="text-sm font-medium text-gray-700">البريد الإلكتروني</Text>
+                  <Text className="text-red-500">*</Text>
                 </View>
                 <TextInput
                   value={formData.email}
                   onChangeText={(value) => handleChange('email', value)}
                   placeholder="example@email.com"
                   keyboardType="email-address"
-                  className="w-full rounded-lg border border-gray-300 px-4 py-3 text-gray-900"
+                  autoCapitalize="none"
+                  className="w-full rounded-lg border border-gray-300 bg-white p-3 text-gray-900"
                   placeholderTextColor="#9CA3AF"
+                  textAlign="right"
                 />
               </View>
 
-              <View>
-                <View className="mb-2 flex-row gap-1">
-                  <Text className="font-bold text-gray-700">الموقع الإلكتروني</Text>
-                  <Text className="text-[12px] text-gray-700">إختياري</Text>
-                </View>
+              <View className="gap-2">
+                <Text className="text-sm font-medium text-gray-700">
+                  الموقع الإلكتروني (إختياري)
+                </Text>
                 <TextInput
                   value={formData.website}
                   onChangeText={(value) => handleChange('website', value)}
                   placeholder="https://example.com"
-                  className="w-full rounded-lg border border-gray-300 px-4 py-3 text-gray-900"
+                  className="w-full rounded-lg border border-gray-300 bg-white p-3 text-gray-900"
                   placeholderTextColor="#9CA3AF"
+                  textAlign="right"
                 />
               </View>
 
-              <View>
-                <View className="mb-2 flex-row gap-1">
-                  <Text className="text-gray-700">
-                    <Text className="font-bold">كلمة المرور</Text>
-                    <Text className="text-[12px]"> * إجباري</Text>
+              <View className="gap-2">
+                <View className="flex-row items-center gap-1">
+                  <Text className="text-sm font-medium text-gray-700" numberOfLines={1}>
+                    كلمة المرور
                   </Text>
+                  <Text className="text-red-500">*</Text>
                 </View>
                 <TextInput
                   value={formData.password}
                   onChangeText={(value) => handleChange('password', value)}
                   secureTextEntry
-                  placeholder="*&%^899"
-                  className="w-full rounded-lg border border-gray-300 px-4 py-3 text-gray-500"
+                  placeholder="أدخل كلمة المرور"
+                  className="w-full rounded-lg border border-gray-300 bg-white p-3 text-gray-900"
                   placeholderTextColor="#9CA3AF"
+                  textAlign="right"
                 />
               </View>
 
-              <View>
-                <View className="flex">
-                  <View className="mb-2 flex-row gap-1">
-                    <Text className="text-gray-700">
-                      <Text className="font-bold">تاكيد كلمة المرور</Text>
-                      <Text className="text-[12px]"> * إجباري</Text>
+              <View className="gap-2">
+                <View className="flex-row items-center gap-1">
+                  <Text className="text-sm font-medium text-gray-700" numberOfLines={1}>
+                    تأكيد كلمة المرور
+                  </Text>
+                  <Text className="text-red-500">*</Text>
+                </View>
+                <TextInput
+                  value={formData.confpassword}
+                  onChangeText={(value) => handleChange('confpassword', value)}
+                  secureTextEntry
+                  placeholder="أعد إدخال كلمة المرور"
+                  className="w-full rounded-lg border border-gray-300 bg-white p-3 text-gray-900"
+                  placeholderTextColor="#9CA3AF"
+                  textAlign="right"
+                />
+                {formData.password !== formData.confpassword && (
+                  <View className="flex-row items-center gap-1">
+                    <Ionicons name="alert-circle-outline" size={16} color="#DC2626" />
+                    <Text className="text-sm text-red-600">
+                      كلمة المرور وتأكيد كلمة المرور غير متطابقتان
                     </Text>
                   </View>
-                  <TextInput
-                    value={formData.confpassword}
-                    onChangeText={(value) => handleChange('confpassword', value)}
-                    secureTextEntry
-                    placeholder="*&%^899"
-                    className="w-full rounded-lg border border-gray-300 px-4 py-3 text-gray-500"
-                    placeholderTextColor="#9CA3AF"
-                  />
-                </View>
-                {formData.password !== formData.confpassword && (
-                  <Text className="text-red-800">
-                    * كلمة المرور وتأكيد كلمة المرور غير متطابقتان
-                  </Text>
                 )}
               </View>
 
-              <View>
-                <View className="mb-2 flex-row gap-1">
-                  <Text className="font-bold text-gray-700">حساب الإنستقرام</Text>
-                  <Text className="text-[12px] text-gray-700">إختياري</Text>
-                </View>
+              <View className="gap-2">
+                <Text className="text-sm font-medium text-gray-700">حساب إنستجرام (إختياري)</Text>
                 <TextInput
                   value={formData.instagram}
                   onChangeText={(value) => handleChange('instagram', value)}
                   placeholder="@username"
-                  className="w-full rounded-lg border border-gray-300 px-4 py-3 text-gray-900"
+                  className="w-full rounded-lg border border-gray-300 bg-white p-3 text-gray-900"
                   placeholderTextColor="#9CA3AF"
+                  textAlign="right"
                 />
               </View>
 
-              <View>
-                <View className="mb-2 flex-row items-center justify-between">
-                  <View className="flex-row gap-1">
-                    <Text className="font-bold text-gray-700">الدورات والخدمات</Text>
-                    <Text className="text-[12px] text-gray-700">إختياري</Text>
+              {/* Courses Section */}
+              <View className="gap-3">
+                <View className="flex-row items-center justify-between">
+                  <View className="gap-1">
+                    <Text className="text-sm font-medium text-gray-700">الدورات والخدمات</Text>
+                    <Text className="text-xs text-gray-500">إختياري</Text>
                   </View>
                   <TouchableOpacity
                     onPress={addCourse}
-                    className="rounded-lg bg-green-500 px-3 py-1">
-                    <Text className="text-sm text-white">+ إضافة دورة</Text>
+                    className="flex-row items-center gap-1 rounded-lg bg-emerald-600 px-3 py-2">
+                    <Ionicons name="add-circle-outline" size={16} color="white" />
+                    <Text className="text-sm text-white">إضافة دورة</Text>
                   </TouchableOpacity>
                 </View>
 
                 {formData.courses.map((course, index) => (
                   <View
                     key={index}
-                    className="mb-4 space-y-4 rounded-lg border border-gray-200 p-4">
+                    className="gap-4 rounded-xl border border-gray-200 bg-white p-4">
                     <View className="flex-row items-center justify-between">
-                      <Text className="font-semibold text-gray-700">الدورة {index + 1}</Text>
+                      <View className="flex-row items-center gap-2">
+                        <Ionicons name="school-outline" size={18} color="#374151" />
+                        <Text className="font-semibold text-gray-700">الدورة {index + 1}</Text>
+                      </View>
                       {formData.courses.length > 1 && (
                         <TouchableOpacity
                           onPress={() => removeCourse(index)}
-                          className="rounded bg-red-100 px-2 py-1">
+                          className="flex-row items-center gap-1 rounded-lg bg-red-100 px-3 py-1.5">
+                          <Ionicons name="trash-outline" size={14} color="#DC2626" />
                           <Text className="text-sm text-red-600">حذف</Text>
                         </TouchableOpacity>
                       )}
                     </View>
 
                     <View className="gap-4">
-                      <View className="grid grid-cols-1 gap-4 md:grid-cols-2">
-                        <View>
-                          <Text className="mb-1 text-xs text-gray-600">اسم الدورة</Text>
+                      <View className="gap-3">
+                        <View className="gap-2">
+                          <Text className="text-xs text-gray-600">اسم الدورة</Text>
                           <TextInput
                             value={course.name}
                             onChangeText={(value) => handleCourseChange(index, 'name', value)}
                             placeholder="اسم الدورة"
-                            className="w-full rounded-lg border border-gray-300 p-2 text-black"
+                            className="w-full rounded-lg border border-gray-300 bg-white p-3 text-gray-900"
+                            textAlign="right"
                           />
                         </View>
-                        <View>
-                          <Text className="mb-1 text-xs text-gray-600">المدة</Text>
-                          <TextInput
-                            value={course.duration}
-                            onChangeText={(value) => handleCourseChange(index, 'duration', value)}
-                            placeholder="3 أشهر، 40 ساعة..."
-                            keyboardType="numeric"
-                            className="w-full rounded-lg border border-gray-300 p-2 text-black"
-                          />
-                        </View>
-                        <View>
-                          <Text className="mb-1 text-xs text-gray-600">عدد الجلسات</Text>
-                          <TextInput
-                            value={course.sessions}
-                            onChangeText={(value) => handleCourseChange(index, 'sessions', value)}
-                            placeholder="8"
-                            keyboardType="numeric"
-                            className="w-full rounded-lg border border-gray-300 p-2 text-black"
-                          />
-                        </View>
-                        <View>
-                          <Text className="mb-1 text-xs text-gray-600">السعر (دينار كويتي)</Text>
-                          <TextInput
-                            value={course.price}
-                            onChangeText={(value) => handleCourseChange(index, 'price', value)}
-                            placeholder="1000"
-                            keyboardType="numeric"
-                            className="w-full rounded-lg border border-gray-300 p-2 text-black"
-                          />
-                        </View>
-                      </View>
 
-                      <View>
-                        <Text className="mb-1 text-xs text-gray-600">المستوى</Text>
-                        <Picker
-                          options={levelOptions}
-                          value={course.level}
-                          onValueChange={(value) => handleCourseChange(index, 'level', value)}
-                          placeholder="اختر المستوى"
-                          style={{ borderRadius: 8 }}
-                        />
-                      </View>
-
-                      <View>
-                        <Text className="mb-1 text-xs text-gray-600">الوصف</Text>
-                        <TextInput
-                          value={course.description}
-                          onChangeText={(value) => handleCourseChange(index, 'description', value)}
-                          placeholder="وصف الدورة والمحتوى"
-                          multiline
-                          numberOfLines={2}
-                          className="w-full rounded-lg border border-gray-300 p-2 text-black"
-                        />
-                      </View>
-
-                      <View>
-                        <View className="mb-2 flex-row items-center justify-between">
-                          <Text className="text-xs text-gray-600">ما يشمل البرنامج</Text>
-                          <TouchableOpacity
-                            onPress={() => addIncludeItem(index)}
-                            className="rounded bg-blue-100 px-2 py-1">
-                            <Text className="text-xs text-blue-600">+ إضافة عنصر</Text>
-                          </TouchableOpacity>
+                        <View className="flex-row gap-3">
+                          <View className="flex-1 gap-1">
+                            <Text className="text-xs text-gray-600">المدة (أشهر)</Text>
+                            <TextInput
+                              value={course.duration}
+                              onChangeText={(value) => handleCourseChange(index, 'duration', value)}
+                              placeholder="3"
+                              keyboardType="numeric"
+                              className="w-full rounded-lg border border-gray-300 bg-white p-3 text-gray-900"
+                              textAlign="right"
+                            />
+                          </View>
+                          <View className="flex-1 gap-1">
+                            <Text className="text-xs text-gray-600">عدد الجلسات</Text>
+                            <TextInput
+                              value={course.sessions}
+                              onChangeText={(value) => handleCourseChange(index, 'sessions', value)}
+                              placeholder="8"
+                              keyboardType="numeric"
+                              className="w-full rounded-lg border border-gray-300 bg-white p-3 text-gray-900"
+                              textAlign="right"
+                            />
+                          </View>
                         </View>
-                        <View className="space-y-2">
-                          {course.includes.map((include, includeIndex) => (
-                            <View key={includeIndex} className="flex-row gap-2">
-                              <TextInput
-                                value={include}
-                                onChangeText={(value) =>
-                                  handleIncludeChange(index, includeIndex, value)
-                                }
-                                placeholder="مثال: التقييم الشخصي، متابعة التقدم..."
-                                className="flex-1 rounded-lg border border-gray-300 p-2 text-black"
-                              />
-                              <TouchableOpacity
-                                onPress={() => removeIncludeItem(index, includeIndex)}
-                                className="rounded-lg bg-red-100 px-3 py-2">
-                                <Text className="text-red-600">حذف</Text>
-                              </TouchableOpacity>
-                            </View>
-                          ))}
-                          {course.includes.length === 0 && (
-                            <Text className="py-2 text-center text-xs text-gray-500">
-                              لا توجد عناصر مضافة. اضغط على "إضافة عنصر" لإضافة ما يشمل البرنامج.
-                            </Text>
-                          )}
+
+                        <View className="flex-row gap-3">
+                          <View className="flex-1 gap-1">
+                            <Text className="text-xs text-gray-600">السعر (دينار كويتي)</Text>
+                            <TextInput
+                              value={course.price}
+                              onChangeText={(value) => handleCourseChange(index, 'price', value)}
+                              placeholder="1000"
+                              keyboardType="numeric"
+                              className="w-full rounded-lg border border-gray-300 bg-white p-3 text-gray-900"
+                              textAlign="right"
+                            />
+                          </View>
+                          <View className="flex-1 gap-1">
+                            <Text className="text-xs text-gray-600">المستوى</Text>
+                            <Picker
+                              options={levelOptions}
+                              value={course.level}
+                              onValueChange={(value) => handleCourseChange(index, 'level', value)}
+                              placeholder="اختر المستوى"
+                              style={{ backgroundColor: 'white', borderRadius: 10 }}
+                            />
+                          </View>
+                        </View>
+
+                        <View className="gap-1">
+                          <Text className="text-xs text-gray-600">الوصف</Text>
+                          <TextInput
+                            value={course.description}
+                            onChangeText={(value) =>
+                              handleCourseChange(index, 'description', value)
+                            }
+                            placeholder="وصف الدورة والمحتوى"
+                            multiline
+                            numberOfLines={3}
+                            className="h-32 w-full rounded-lg border border-gray-300 bg-white p-3 text-gray-900"
+                            textAlign="right"
+                            textAlignVertical="top"
+                          />
+                        </View>
+
+                        <View className="gap-2">
+                          <View className="flex-row items-center justify-between">
+                            <Text className="text-xs text-gray-600">ما يشمل البرنامج</Text>
+                            <TouchableOpacity
+                              onPress={() => addIncludeItem(index)}
+                              className="flex-row items-center gap-1 rounded-lg bg-blue-100 px-3 py-1.5">
+                              <Ionicons name="add-circle-outline" size={14} color="#2563EB" />
+                              <Text className="text-xs text-blue-600">إضافة عنصر</Text>
+                            </TouchableOpacity>
+                          </View>
+                          <View className="gap-2">
+                            {course.includes.map((include, includeIndex) => (
+                              <View key={includeIndex} className="flex-row gap-2">
+                                <TextInput
+                                  value={include}
+                                  onChangeText={(value) =>
+                                    handleIncludeChange(index, includeIndex, value)
+                                  }
+                                  placeholder="مثال: التقييم الشخصي، متابعة التقدم..."
+                                  className="flex-1 rounded-lg border border-gray-300 bg-white p-3 text-gray-900"
+                                  textAlign="right"
+                                />
+                                <TouchableOpacity
+                                  onPress={() => removeIncludeItem(index, includeIndex)}
+                                  className="flex-row items-center gap-1 rounded-lg bg-red-100 px-3 py-2">
+                                  <Ionicons name="trash-outline" size={14} color="#DC2626" />
+                                  <Text className="text-red-600">حذف</Text>
+                                </TouchableOpacity>
+                              </View>
+                            ))}
+                            {course.includes.length === 0 && (
+                              <View className="items-center py-3">
+                                <Ionicons name="list-outline" size={24} color="#9CA3AF" />
+                                <Text className="mt-1 text-xs text-gray-500">
+                                  لا توجد عناصر مضافة
+                                </Text>
+                              </View>
+                            )}
+                          </View>
                         </View>
                       </View>
                     </View>
                   </View>
                 ))}
               </View>
+            </View>
 
-              <View className="flex-row justify-between pt-4">
-                <TouchableOpacity
-                  onPress={prevStep}
-                  className="flex-row items-center rounded-lg bg-gray-500 px-4 py-2">
-                  <Text className="mr-1 font-bold text-white">السابق</Text>
-                </TouchableOpacity>
+            <View className="flex-row gap-3">
+              <TouchableOpacity
+                onPress={prevStep}
+                className="flex-1 flex-row items-center justify-center gap-2 rounded-lg border border-gray-300 bg-white py-3">
+                <Ionicons name="arrow-forward" size={20} color="#374151" />
+                <Text className="font-bold text-gray-700">السابق</Text>
+              </TouchableOpacity>
 
+              <TouchableOpacity
+                onPress={nextStep}
+                disabled={!isStep2Valid()}
+                className={`flex-1 flex-row items-center justify-center gap-2 rounded-lg py-3 ${
+                  isStep2Valid() ? 'bg-[#CAA453]' : 'bg-gray-300'
+                }`}>
+                <Text className="text-lg font-bold text-white">التالي</Text>
+                <Ionicons name="arrow-back" size={20} color="white" />
+              </TouchableOpacity>
+            </View>
+          </View>
+        )}
+
+        {/* Step 3: Documents & Additional Info */}
+        {currentStep === 3 && (
+          <View className="gap-6">
+            <View className="gap-1">
+              <View className="flex-row items-center gap-2">
+                <Ionicons name="document-text-outline" size={20} color="#374151" />
+                <Text className="text-lg font-bold text-gray-800">
+                  المستندات والمعلومات الإضافية
+                </Text>
+              </View>
+              <Text className="text-sm text-gray-600">المستندات المطلوبة للتحقق</Text>
+            </View>
+
+            <View className="mb-2 rounded-xl border border-amber-200 bg-amber-50 p-4">
+              <View className="flex-row items-start gap-2">
+                <Ionicons name="information-circle-outline" size={20} color="#D97706" />
+                <Text className="flex-1 text-amber-800">
+                  <Text className="font-bold">ملاحظة:</Text> يرجى تحميل المستند المطلوب حسب نوع
+                  النشاط.
+                </Text>
+              </View>
+            </View>
+
+            <View className="gap-4">
+              <View className="gap-2">
+                <View className="flex-row items-center gap-1">
+                  <Text className="text-sm font-medium text-gray-700">نوع المستند</Text>
+                  <Text className="text-red-500">*</Text>
+                </View>
+                <Picker
+                  options={[
+                    { label: 'اختر نوع المستند', value: '' },
+                    ...documentTypes.map((doc) => ({
+                      label: doc.label,
+                      value: doc.value,
+                    })),
+                  ]}
+                  value={formData.documentType}
+                  onValueChange={(value) => handleChange('documentType', value)}
+                  placeholder="اختر نوع المستند"
+                  style={{ backgroundColor: 'white', borderRadius: 10 }}
+                />
+              </View>
+
+              <View className="gap-2">
+                <View className="flex-row items-center gap-1">
+                  <Text className="text-sm font-medium text-gray-700">رفع المستند</Text>
+                  <Text className="text-red-500">*</Text>
+                </View>
+                <ImageUpload
+                  label=""
+                  value={formData.verificationDocument}
+                  onChange={handleDocumentUrlChange}
+                  type="document"
+                  folder="/merchants/logos"
+                />
+              </View>
+
+              <View className="gap-2">
+                <Text className="text-sm font-medium text-gray-700">ملاحظات إضافية (إختياري)</Text>
+                <TextInput
+                  value={formData.additionalNotes}
+                  onChangeText={(value) => handleChange('additionalNotes', value)}
+                  placeholder="أوقات العمل، مميزات إضافية، معلومات أخرى..."
+                  multiline
+                  numberOfLines={3}
+                  className="h-56 w-full rounded-lg border border-gray-300 bg-white p-3 text-gray-900"
+                  placeholderTextColor="#9CA3AF"
+                  textAlign="right"
+                  textAlignVertical="top"
+                />
+              </View>
+
+              <View className="rounded-xl border border-gray-200 bg-white p-4">
                 <TouchableOpacity
-                  onPress={nextStep}
-                  disabled={!isStep2Valid()}
-                  className={`flex-row items-center rounded-lg px-4 py-2 font-bold ${
-                    isStep2Valid() ? 'bg-blue-600' : 'bg-gray-300'
-                  }`}>
-                  <Text className="font-bold text-white">التالي</Text>
+                  onPress={() => setIsAgreed(!isAgreed)}
+                  className="flex-row items-start gap-3">
+                  <View
+                    className={`mt-1 h-6 w-6 items-center justify-center rounded border ${
+                      isAgreed ? 'border-[#CAA453] bg-[#CAA453]' : 'border-gray-400 bg-white'
+                    }`}>
+                    {isAgreed && <Ionicons name="checkmark" size={16} color="white" />}
+                  </View>
+                  <View className="flex-1 gap-1">
+                    <Text className="text-gray-700">
+                      أوافق على{' '}
+                      <Text
+                        className="font-bold text-[#CAA453]"
+                        onPress={(e) => {
+                          e.stopPropagation();
+                          router.push('/(stacks)/termsAndConditions');
+                        }}
+                        suppressHighlighting={true}>
+                        الشروط والأحكام العامة
+                      </Text>{' '}
+                      لمنصة بيتنا
+                    </Text>
+                    <Text className="text-sm text-gray-500">
+                      بموافقتي، أقر بأني قد قرأت وفهمت جميع الشروط والأحكام المذكورة
+                    </Text>
+                  </View>
                 </TouchableOpacity>
               </View>
             </View>
-          )}
 
-          {/* Step 3: Documents & Additional Info */}
-          {currentStep === 3 && (
-            <View className="flex flex-col gap-8">
-              <View>
-                <View className="mb-4 border-r-4 border-amber-600 pr-3">
-                  <Text className="text-xl font-bold text-gray-800">
-                    المستندات والمعلومات الإضافية
-                  </Text>
-                </View>
-
-                <View className="mb-6 rounded-lg border border-amber-200 bg-amber-50 p-4">
-                  <Text className="text-sm text-amber-800">
-                    <Text className="font-bold">ملاحظة:</Text> يرجى تحميل المستند المطلوب حسب نوع
-                    النشاط. المستندات تساعدنا في التحقق من صحة المعلومات وتأكيد هويتك.
-                  </Text>
-                </View>
-              </View>
-
-              <View className="flex flex-col gap-5">
-                <View>
-                  <View className="mb-2 flex-row gap-1">
-                    <Text className="font-bold text-gray-700">نوع المستند</Text>
-                    <Text className="text-[12px] text-gray-700">* إجباري</Text>
-                  </View>
-                  <Picker
-                    options={[
-                      { label: 'اختر نوع المستند', value: '' },
-                      ...documentTypes.map((doc) => ({
-                        label: doc.label,
-                        value: doc.value,
-                      })),
-                    ]}
-                    value={formData.documentType}
-                    onValueChange={(value) => handleChange('documentType', value)}
-                    placeholder="اختر نوع المستند"
-                    style={{ borderRadius: 8 }}
-                  />
-                </View>
-
-                <View>
-                  <ImageUpload
-                    label="رفع المستند *"
-                    value={formData.verificationDocument}
-                    onChange={handleDocumentUrlChange}
-                    type="document"
-                    folder="/merchants/logos"
-                  />
-                </View>
-
-                <View>
-                  <View className="mb-2 flex-row gap-1">
-                    <Text className="font-bold text-gray-700">ملاحظات إضافية</Text>
-                    <Text className="text-[12px] text-gray-700">إختياري</Text>
-                  </View>
-                  <TextInput
-                    value={formData.additionalNotes}
-                    onChangeText={(value) => handleChange('additionalNotes', value)}
-                    placeholder="أوقات العمل، مميزات إضافية، معلومات أخرى..."
-                    multiline
-                    numberOfLines={3}
-                    className="w-full rounded-lg border border-gray-300 px-4 py-3 text-gray-500"
-                    placeholderTextColor="#9CA3AF"
-                    textAlignVertical="top"
-                  />
-                </View>
-
-                <View className="flex-row items-start">
-                  <TouchableOpacity
-                    onPress={() => setIsAgreed(!isAgreed)}
-                    className="flex-row items-start gap-2">
-                    <View
-                      className={`mt-1 h-6 w-6 items-center justify-center rounded border ${
-                        isAgreed ? 'border-green-600 bg-green-600' : 'border-gray-300 bg-white'
-                      }`}>
-                      {isAgreed && <Ionicons name="checkmark" size={16} color="white" />}
-                    </View>
-                    <View className="mr-3 flex-1">
-                      <Text className="text-sm text-gray-700">
-                        أوافق على
-                        <Text className="font-medium text-green-600">الشروط والأحكام العامة</Text>
-                        لمنصة بيتنا
-                      </Text>
-                      <Text className="mt-1 text-sm text-gray-500">
-                        بموافقتي، أقر بأني قد قرأت وفهمت جميع الشروط والأحكام المذكورة
-                      </Text>
-                    </View>
-                  </TouchableOpacity>
-                </View>
-              </View>
-
-              <View className="flex-row justify-between pt-6">
+            <View className="gap-4">
+              <View className="flex-row gap-3">
                 <TouchableOpacity
                   onPress={prevStep}
-                  className="flex-row items-center rounded-lg bg-gray-500 px-4 py-2">
-                  <Text className="mr-1 font-bold text-white">السابق</Text>
+                  className="flex-1 flex-row items-center justify-center gap-2 rounded-lg border border-gray-300 bg-white py-3">
+                  <Ionicons name="arrow-forward" size={20} color="#374151" />
+                  <Text className="font-bold text-gray-700">السابق</Text>
                 </TouchableOpacity>
 
                 <TouchableOpacity
                   onPress={handleSubmit}
-                  disabled={loading || !isStep3Valid()}
-                  className={`flex-row items-center rounded-lg px-4 py-2 font-bold ${
-                    loading || !isStep3Valid() ? 'bg-gray-300' : 'bg-amber-600'
+                  disabled={loading || !isStep3Valid() || !isAgreed}
+                  className={`flex-1 flex-row items-center justify-center gap-2 rounded-lg py-3 ${
+                    loading || !isStep3Valid() || !isAgreed ? 'bg-gray-300' : 'bg-[#CAA453]'
                   }`}>
                   {loading ? (
-                    <View className="flex-row items-center">
+                    <>
                       <ActivityIndicator size="small" color="white" />
-                      <Text className="mr-2 font-bold text-white">جاري التسجيل...</Text>
-                    </View>
+                      <Text className="font-bold text-white">جاري التسجيل...</Text>
+                    </>
                   ) : (
-                    <Text className="font-bold text-white">تقديم طلب التسجيل</Text>
+                    <>
+                      <Ionicons name="checkmark-circle-outline" size={20} color="white" />
+                      <Text className="font-bold text-white">تقديم الطلب</Text>
+                    </>
                   )}
                 </TouchableOpacity>
               </View>
 
-              <Text className="mt-4 text-center text-sm text-gray-600">
-                بعد تقديم الطلب، سيتم مراجعته من قبل الإدارة وسيتم إشعارك عند الموافقة
-              </Text>
+              <View className="rounded-lg bg-gray-100 p-3">
+                <View className="flex-row items-start gap-2">
+                  <Ionicons name="time-outline" size={16} color="#6B7280" />
+                  <Text className="flex-1 text-sm text-gray-600">
+                    بعد تقديم الطلب، سيتم مراجعته من قبل الإدارة وسيتم إشعارك عند الموافقة
+                  </Text>
+                </View>
+              </View>
             </View>
-          )}
-        </View>
+          </View>
+        )}
       </View>
+
+      {/* Bottom padding for scroll */}
+      <View className="h-20" />
     </ScrollView>
   );
 }

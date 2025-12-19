@@ -79,9 +79,23 @@ const StacksLayout = () => {
         }}
       />
       <Stack.Screen
+        name="(feautred)"
+        options={{
+          headerTitle: 'الجهات المميزة',
+        }}
+      />
+
+      <Stack.Screen
         name="register"
         options={{
           headerTitle: 'إنشاء حساب',
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name="termsAndConditions"
+        options={{
+          headerTitle: 'الشروط والأحكام العامة',
           headerShown: false,
         }}
       />

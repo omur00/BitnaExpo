@@ -90,23 +90,6 @@ export default function FeaturedTrainersPage() {
 
   return (
     <ScrollView className="flex-1 bg-[#F7F9FA]" showsVerticalScrollIndicator={false}>
-      {/* Header */}
-      <View className="bg-white">
-        <View className="px-4 py-6">
-          <View className="flex-row items-center gap-4">
-            <TouchableOpacity
-              onPress={() => router.push('/')}
-              className="flex-row items-center gap-2">
-              <Ionicons name="arrow-back" size={20} color="#CAA453" />
-              <Text className="font-semibold text-[#CAA453]">العودة للرئيسية</Text>
-            </TouchableOpacity>
-            <View className="border-b-2 border-[#CAA453] pb-2">
-              <Text className="text-2xl font-bold text-[#1E2053]">جميع المدربين المتميزين</Text>
-            </View>
-          </View>
-        </View>
-      </View>
-
       {/* Featured Trainers Grid */}
       <View className="px-4 py-6">
         <View className="flex-col flex-wrap gap-4">

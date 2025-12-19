@@ -37,10 +37,10 @@ export default function CustomDrawerContent(props) {
       visible: isAuthenticated && user?.role === 'admin', // Only for admins
     },
     {
-      label: 'الصفحة الشخصية',
+      label: 'اللوحة الشخصية',
       icon: 'apps-outline',
       route: '/(auth)/dashboard',
-      visible: isAuthenticated, // Only when logged in
+      visible: isAuthenticated && user?.role !== 'admin', // Only when logged in
     },
   ];
 

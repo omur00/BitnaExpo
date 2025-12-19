@@ -90,23 +90,6 @@ export default function FeaturedMerchantsPage() {
 
   return (
     <ScrollView className="flex-1" showsVerticalScrollIndicator={false}>
-      {/* Header */}
-      <View className="bg-[#F7F9FA]">
-        <View className="px-4 py-6">
-          <View className="flex-row items-center gap-4">
-            <TouchableOpacity
-              onPress={() => router.push('/')}
-              className="flex-row items-center gap-2">
-              <Ionicons name="arrow-back" size={20} color="#CAA453" />
-              <Text className="font-semibold text-[#CAA453]">العودة للرئيسية</Text>
-            </TouchableOpacity>
-            <View className="border-b-2 border-[#CAA453] pb-2">
-              <Text className="text-2xl font-bold text-[#1E2053]">جميع الجهات المميزة</Text>
-            </View>
-          </View>
-        </View>
-      </View>
-
       {/* Featured Merchants Grid */}
       <View className="px-4 py-6">
         <View className="flex flex-col flex-wrap gap-4">

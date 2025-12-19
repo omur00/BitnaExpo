@@ -2,25 +2,71 @@ import { useState } from 'react';
 import {
   View,
   Text,
-  ScrollView,
+  FlatList,
   TouchableOpacity,
   ActivityIndicator,
-  Pressable,
+  RefreshControl,
 } from 'react-native';
 import { Link, useRouter } from 'expo-router';
 import { GET_ALL_CATEGORIES } from '@/utils/queries';
-import { ArrowRight, ChevronLeft, ChevronRight } from 'lucide-react-native';
+import { ArrowLeft } from 'lucide-react-native';
 import { useQuery } from '@apollo/client/react';
 import Loading from '@/components/Loading';
+import { Ionicons } from '@expo/vector-icons';
 
 export default function CategoriesPage() {
-  const [currentPage, setCurrentPage] = useState(1);
-  const router = useRouter();
-  const { data, loading, error } = useQuery(GET_ALL_CATEGORIES, {
-    variables: { page: currentPage, limit: 12 },
+  const [page, setPage] = useState(1);
+  const [hasMore, setHasMore] = useState(true);
+  const [refreshing, setRefreshing] = useState(false);
+
+  const { data, loading, error, fetchMore, refetch } = useQuery(GET_ALL_CATEGORIES, {
+    variables: { page: 1, limit: 10 }, // Load 10 items per page
   });
 
-  if (loading) return <Loading />;
+  // Handle refreshing
+  const onRefresh = async () => {
+    setRefreshing(true);
+    setHasMore(true);
+    setPage(1);
+    await refetch({ page: 1 });
+    setRefreshing(false);
+  };
+
+  // Handle loading more data
+  const loadMore = () => {
+    if (!hasMore || loading) return;
+
+    const nextPage = page + 1;
+    setPage(nextPage);
+
+    fetchMore({
+      variables: {
+        page: nextPage,
+        limit: 10,
+      },
+      updateQuery: (prevResult, { fetchMoreResult }) => {
+        if (!fetchMoreResult?.getAllCategories?.categories?.length) {
+          setHasMore(false);
+          return prevResult;
+        }
+
+        const newCategories = [
+          ...prevResult.getAllCategories.categories,
+          ...fetchMoreResult.getAllCategories.categories,
+        ];
+
+        return {
+          getAllCategories: {
+            ...prevResult.getAllCategories,
+            categories: newCategories,
+            hasNextPage: fetchMoreResult.getAllCategories.hasNextPage,
+          },
+        };
+      },
+    });
+  };
+
+  if (loading && !data) return <Loading />;
 
   if (error)
     return (
@@ -31,117 +77,101 @@ export default function CategoriesPage() {
       </View>
     );
 
-  const { categories, totalPages, hasNextPage, hasPreviousPage } = data?.getAllCategories || {};
+  const { categories } = data?.getAllCategories || {};
+
+  // Render footer loader
+  const renderFooter = () => {
+    if (!hasMore) return null;
+
+    return (
+      <View className="items-center py-8">
+        <ActivityIndicator size="small" color="#CAA453" />
+        <Text className="mt-2 text-sm text-[#4E6882]">جاري تحميل المزيد...</Text>
+      </View>
+    );
+  };
+
+  // Render each category item
+  const renderItem = ({ item: category, index }) => (
+    <Link key={category.id} href={`/category/${category.id}`} asChild>
+      <TouchableOpacity className="w-full px-4 mb-4">
+        <View className="flex-row items-center rounded-2xl border border-gray-100 bg-white p-6 transition-all active:scale-[0.98]">
+          {/* Icon Container with Counter */}
+          <View className="relative mr-4">
+            <View className="h-16 w-16 items-center justify-center rounded-2xl bg-[#1E2053] shadow-lg">
+              <Ionicons name="grid-outline" size={28} color="#FFFFFF" />
+            </View>
+            <View className="absolute -right-2 -top-2 h-8 w-8 items-center justify-center rounded-full bg-[#CAA453] shadow-lg">
+              <Text className="text-xs font-bold text-white">{index + 1}</Text>
+            </View>
+          </View>
+
+          {/* Text Content - Takes remaining space */}
+          <View className="flex-1">
+            <View className="mb-2">
+              <Text className="text-lg font-bold text-[#1E2053]" numberOfLines={1}>
+                {category.nameAr}
+              </Text>
+            </View>
+            <View className="flex-row items-center gap-1">
+              <Text className="text-base font-semibold text-[#CAA453]">
+                {category.merchantsCount}
+              </Text>
+              <Text className="text-sm text-[#7A8699]">نشاط تجاري</Text>
+            </View>
+          </View>
+
+          {/* Arrow Icon */}
+          <View className="ml-4">
+            <ArrowLeft size={20} color="#CAA453" />
+          </View>
+        </View>
+      </TouchableOpacity>
+    </Link>
+  );
+
+  // Render empty state
+  const renderEmpty = () => (
+    <View className="flex-1 items-center justify-center py-20">
+      <View className="mb-4 h-24 w-24 items-center justify-center rounded-full bg-gray-100">
+        <Ionicons name="grid-outline" size={40} color="#7A8699" />
+      </View>
+      <Text className="text-lg font-semibold text-[#1E2053]">لا توجد أقسام متاحة</Text>
+      <Text className="mt-2 text-sm text-[#7A8699]">سيتم إضافة الأقسام قريباً</Text>
+    </View>
+  );
 
   return (
-    <ScrollView className="flex-1 bg-[#F7F9FA]">
+    <View className="flex-1 bg-[#F7F9FA]">
       {/* Header */}
-      <View className="bg-white shadow-sm">
-        <View className="container mx-auto px-4 py-6">
-          <View className="flex-row items-center gap-4">
-            <Pressable onPress={() => router.back()} className="flex-row items-center gap-2">
-              <ArrowRight size={20} color="#CAA453" />
-              <Text className="font-semibold text-[#CAA453]">العودة للرئيسية</Text>
-            </Pressable>
-            <Text className="border-b-2 border-[#CAA453] pb-2 text-2xl font-bold text-[#1E2053]">
-              جميع الأقسام
-            </Text>
-          </View>
+      <View className="bg-white px-4 py-8">
+        <View className="container mx-auto">
+          <Text className="text-center text-lg text-[#4E6882]">
+            اكتشف جميع الأقسام والأنشطة المتاحة على المنصة
+          </Text>
         </View>
       </View>
 
-      {/* Categories Grid */}
-      <View className="bg-white py-12">
-        <View className="container mx-auto px-4">
-          <View className="mb-12 items-center">
-            <Text className="mx-auto max-w-2xl text-center text-lg text-[#4E6882]">
-              اكتشف جميع الأقسام والأنشطة المتاحة على المنصة
-            </Text>
-          </View>
-
-          <View className="-mx-2 flex-row flex-wrap">
-            {categories?.map((category, index) => (
-              <Link key={category.id} href={`/category/${category.id}`} asChild>
-                <TouchableOpacity className="w-1/2 p-2 lg:w-1/3 xl:w-1/5">
-                  <View className="rounded-2xl border border-gray-100 bg-white p-6 transition-all active:scale-95">
-                    {/* Content */}
-                    <View className="relative">
-                      {/* Icon Container */}
-                      <View className="relative mb-4">
-                        <View className="mx-auto h-16 w-16 items-center justify-center rounded-2xl bg-[#1E2053] shadow-lg">
-                          <Ionicons name="grid-outline" size={28} color="#FFFFFF" />
-                        </View>
-
-                        {/* Floating Counter */}
-                        <View className="absolute -right-2 -top-2 h-8 w-8 items-center justify-center rounded-full bg-[#CAA453] shadow-lg">
-                          <Text className="text-xs font-bold text-white">{index + 1}</Text>
-                        </View>
-                      </View>
-
-                      {/* Text Content */}
-                      <Text
-                        className="mb-2 text-center text-base font-bold text-[#1E2053]"
-                        numberOfLines={1}>
-                        {category.nameAr}
-                      </Text>
-
-                      <View className="flex-row items-center justify-center gap-2">
-                        <Text className="text-sm font-semibold text-[#CAA453]">
-                          {category.merchantsCount}
-                        </Text>
-                        <Text className="text-sm text-[#7A8699]">نشاط</Text>
-                      </View>
-                    </View>
-                  </View>
-                </TouchableOpacity>
-              </Link>
-            ))}
-          </View>
-
-          {/* Pagination */}
-          {totalPages > 1 && (
-            <View className="mt-16 flex-row items-center justify-center gap-3">
-              <TouchableOpacity
-                onPress={() => setCurrentPage((prev) => prev - 1)}
-                disabled={!hasPreviousPage}
-                className={`flex-row items-center gap-2 rounded-xl border border-gray-200 bg-white px-6 py-3 ${
-                  !hasPreviousPage ? 'opacity-50' : ''
-                }`}>
-                <ChevronRight size={16} color="#1E2053" />
-                <Text className="text-sm font-semibold text-[#1E2053]">السابق</Text>
-              </TouchableOpacity>
-
-              <View className="flex-row gap-2">
-                {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
-                  <TouchableOpacity
-                    key={page}
-                    onPress={() => setCurrentPage(page)}
-                    className={`h-12 w-12 items-center justify-center rounded-xl ${
-                      currentPage === page ? 'bg-[#CAA453]' : 'border border-gray-200 bg-white'
-                    }`}>
-                    <Text
-                      className={`text-sm font-semibold ${
-                        currentPage === page ? 'text-white' : 'text-[#1E2053]'
-                      }`}>
-                      {page}
-                    </Text>
-                  </TouchableOpacity>
-                ))}
-              </View>
-
-              <TouchableOpacity
-                onPress={() => setCurrentPage((prev) => prev + 1)}
-                disabled={!hasNextPage}
-                className={`flex-row items-center gap-2 rounded-xl border border-gray-200 bg-white px-6 py-3 ${
-                  !hasNextPage ? 'opacity-50' : ''
-                }`}>
-                <Text className="text-sm font-semibold text-[#1E2053]">التالي</Text>
-                <ChevronLeft size={16} color="#1E2053" />
-              </TouchableOpacity>
-            </View>
-          )}
-        </View>
-      </View>
-    </ScrollView>
+      {/* Categories List */}
+      <FlatList
+        data={categories}
+        renderItem={renderItem}
+        keyExtractor={(item) => item.id}
+        contentContainerStyle={{ padding: 16 }}
+        onEndReached={loadMore}
+        onEndReachedThreshold={0.3}
+        ListFooterComponent={renderFooter}
+        ListEmptyComponent={renderEmpty}
+        refreshControl={
+          <RefreshControl
+            refreshing={refreshing}
+            onRefresh={onRefresh}
+            colors={['#CAA453']}
+            tintColor="#CAA453"
+          />
+        }
+        showsVerticalScrollIndicator={false}
+      />
+    </View>
   );
 }
