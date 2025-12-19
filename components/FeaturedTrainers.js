@@ -17,37 +17,35 @@ const FeaturedTrainers = ({
         {/* Loading Header */}
         <View className="mb-4 flex-row items-center justify-between">
           <View className="flex-row items-center gap-3">
-            <View className="h-10 w-10 animate-pulse rounded-lg bg-gray-200" />
+            <View className="h-10 w-10 rounded-lg bg-gray-200" />
             <View className="gap-1">
-              <View className="h-6 w-40 animate-pulse rounded bg-gray-200" />
-              <View className="h-4 w-28 animate-pulse rounded bg-gray-200" />
+              <View className="h-6 w-40 rounded bg-gray-200" />
+              <View className="h-4 w-28 rounded bg-gray-200" />
             </View>
           </View>
-          <View className="h-8 w-20 animate-pulse rounded bg-gray-200" />
+          <View className="h-8 w-20 rounded bg-gray-200" />
         </View>
 
         {/* Loading Trainers */}
         <ScrollView horizontal showsHorizontalScrollIndicator={false} className="mb-4">
           <View className="flex-row gap-3">
             {[...Array(4)].map((_, index) => (
-              <View
-                key={index}
-                className="w-64 animate-pulse rounded-xl border border-gray-200 bg-white">
+              <View key={index} className="w-64 rounded-xl border border-gray-200 bg-white">
                 {/* Trainer Image */}
-                <View className="h-40 rounded-t-xl bg-gray-200" />
+                <View className="h-36 rounded-t-xl bg-gray-200" />
+
+                {/* Logo */}
+                <View className="absolute right-4 top-28 h-16 w-16 rounded-full border-4 border-white bg-gray-300" />
 
                 {/* Content */}
-                <View className="p-4">
-                  <View className="mb-3 flex-row items-start justify-between">
-                    <View className="flex-1 gap-1">
-                      <View className="h-5 w-32 rounded bg-gray-200" />
-                      <View className="h-4 w-24 rounded bg-gray-200" />
-                    </View>
-                    <View className="h-6 w-6 rounded-full bg-gray-200" />
+                <View className="p-4 pt-8">
+                  <View className="mb-3">
+                    <View className="mb-1 h-5 w-32 rounded bg-gray-200" />
+                    <View className="h-4 w-24 rounded bg-gray-200" />
                   </View>
 
                   <View className="mb-2 h-3 w-full rounded bg-gray-200" />
-                  <View className="mb-3 h-3 w-4/5 rounded bg-gray-200" />
+                  <View className="mb-4 h-3 w-4/5 rounded bg-gray-200" />
 
                   <View className="flex-row items-center justify-between">
                     <View className="h-4 w-16 rounded bg-gray-200" />
@@ -111,78 +109,140 @@ const FeaturedTrainers = ({
       {/* Horizontal Scroll Trainers */}
       <ScrollView horizontal showsHorizontalScrollIndicator={false} className="mb-4">
         <View className="flex-row gap-3">
-          {featuredTrainers.map((trainer) => (
-            <TouchableOpacity
-              key={trainer.id}
-              onPress={() => router.push(`/category/trainer/${trainer.slug}`)}
-              className="w-72 rounded-xl border border-gray-200 bg-white"
-              activeOpacity={0.7}>
-              {/* Trainer Header with Gradient */}
-              <View className="relative h-36 overflow-hidden rounded-t-xl">
-                {/* Background Gradient */}
-                <View className="absolute inset-0 bg-gradient-to-br from-[#1E2053] to-[#2A4F68]" />
+          {featuredTrainers.map((trainer) => {
+            const hasCoverImage = trainer.coverImage && trainer.coverImage.url;
+            const hasLogo = trainer.logo && trainer.logo.url;
 
-                {/* Trainer Image */}
-                <View className="absolute -bottom-8 right-4 h-20 w-20 overflow-hidden rounded-full border-4 border-white bg-gray-100">
-                  {trainer.logo ? (
+            return (
+              <TouchableOpacity
+                key={trainer.id}
+                onPress={() => router.push(`/category/trainer/${trainer.slug}`)}
+                className="w-72 overflow-hidden rounded-xl border border-gray-200 bg-white"
+                activeOpacity={0.7}>
+                {/* Cover Image */}
+                <View className="relative h-36">
+                  {hasCoverImage ? (
                     <Image
-                      source={{ uri: trainer.logo.url }}
+                      source={{ uri: trainer.coverImage.url }}
                       className="h-full w-full"
                       resizeMode="cover"
                     />
                   ) : (
-                    <View className="h-full w-full items-center justify-center bg-gray-200">
-                      <Ionicons name="person-outline" size={32} color="#6B7280" />
-                    </View>
+                    <View className="h-full w-full bg-[#1E2053]" />
                   )}
-                </View>
 
-                {/* Featured Badge */}
-                <View className="absolute left-3 top-3 flex-row items-center gap-1 rounded-full bg-[#CAA453] px-2 py-1">
-                  <Ionicons name="star" size={12} color="white" />
-                  <Text className="text-xs font-medium text-white">مميز</Text>
-                </View>
-              </View>
+                  {/* Logo */}
+                  <View className="absolute -bottom-8 right-4 h-16 w-16 overflow-hidden rounded-full border-4 border-white bg-white">
+                    {hasLogo ? (
+                      <Image
+                        source={{ uri: trainer.logo.url }}
+                        className="h-full w-full"
+                        resizeMode="cover"
+                      />
+                    ) : (
+                      <View className="h-full w-full items-center justify-center bg-gray-100">
+                        <Ionicons name="person-outline" size={28} color="#6B7280" />
+                      </View>
+                    )}
+                  </View>
 
-              {/* Trainer Info */}
-              <View className="p-4 pt-10">
-                <View className="mb-2 flex-row items-start justify-between">
-                  <View className="flex-1">
-                    <Text className="text-lg font-bold text-gray-900" numberOfLines={1}>
-                      {trainer.fullName}
-                    </Text>
-                    <Text className="text-sm font-medium text-[#CAA453]" numberOfLines={1}>
-                      {trainer.specialization}
-                    </Text>
+                  {/* Featured Badge */}
+                  <View className="absolute left-3 top-3 flex-row items-center gap-1 rounded-full bg-[#CAA453] px-2 py-1">
+                    <Ionicons name="star" size={12} color="white" />
+                    <Text className="text-xs font-medium text-white">مميز</Text>
                   </View>
                 </View>
 
-                {/* Description */}
-                <Text className="mb-3 text-sm leading-relaxed text-gray-600" numberOfLines={2}>
-                  {trainer.description || 'مدرب متميز على المنصة'}
-                </Text>
+                {/* Trainer Info */}
+                <View className="p-4 pt-10">
+                  <View className="mb-2 flex-row items-start justify-between">
+                    <View className="flex-1">
+                      <Text className="text-lg font-bold text-gray-900" numberOfLines={1}>
+                        {trainer.fullName}
+                      </Text>
+                      <View className="mt-1 flex-row items-center gap-1">
+                        <Ionicons name="location-outline" size={14} color="#6B7280" />
+                        <Text className="text-sm text-gray-600" numberOfLines={1}>
+                          {trainer.city?.nameAr || 'غير محدد'}
+                        </Text>
+                      </View>
+                    </View>
+                  </View>
 
-                {/* Stats */}
-                <View className="flex-row items-center justify-between border-t border-gray-100 pt-3">
+                  {/* Description */}
+                  <Text className="mb-4 text-sm leading-relaxed text-gray-600" numberOfLines={2}>
+                    {trainer.description || 'مدرب متميز على المنصة'}
+                  </Text>
+
+                  {/* Category and Rating */}
+                  <View className="flex-row items-center justify-between border-t border-gray-100 pt-3">
+                    <View className="flex-row items-center gap-2">
+                      <View className="flex-row items-center gap-1 rounded-full bg-gray-100 px-3 py-1">
+                        <Ionicons name="pricetag-outline" size={12} color="#6B7280" />
+                        <Text className="text-xs font-medium text-gray-700" numberOfLines={1}>
+                          {trainer.category?.nameAr || 'عام'}
+                        </Text>
+                      </View>
+                    </View>
+                  </View>
+                </View>
+              </TouchableOpacity>
+            );
+          })}
+        </View>
+      </ScrollView>
+
+      {/* Grid View for Larger Screens */}
+      <View className="mb-4 hidden gap-3 md:grid md:grid-cols-2 lg:grid-cols-4">
+        {featuredTrainers.slice(0, 4).map((trainer) => {
+          const hasLogo = trainer.logo && trainer.logo.url;
+
+          return (
+            <TouchableOpacity
+              key={trainer.id}
+              onPress={() => router.push(`/category/trainer/${trainer.slug}`)}
+              className="overflow-hidden rounded-xl border border-gray-200 bg-white"
+              activeOpacity={0.7}>
+              {/* Compact Cover */}
+              <View className="h-24 bg-[#1E2053]" />
+
+              {/* Logo */}
+              <View className="absolute right-4 top-16 h-12 w-12 rounded-full border-4 border-white bg-white">
+                {hasLogo ? (
+                  <Image
+                    source={{ uri: trainer.logo.url }}
+                    className="h-full w-full"
+                    resizeMode="cover"
+                  />
+                ) : (
+                  <View className="h-full w-full items-center justify-center bg-gray-100">
+                    <Ionicons name="person-outline" size={20} color="#6B7280" />
+                  </View>
+                )}
+              </View>
+
+              {/* Content */}
+              <View className="p-3 pt-6">
+                <Text className="mb-1 text-sm font-bold text-gray-900" numberOfLines={1}>
+                  {trainer.fullName}
+                </Text>
+                <Text className="mb-2 text-xs text-gray-600" numberOfLines={1}>
+                  {trainer.specialization || 'مدرب'}
+                </Text>
+                <View className="flex-row items-center justify-between">
                   <View className="flex-row items-center gap-1">
-                    <Ionicons name="location-outline" size={14} color="#6B7280" />
-                    <Text className="text-xs text-gray-600" numberOfLines={1}>
+                    <Ionicons name="location-outline" size={12} color="#6B7280" />
+                    <Text className="text-xs text-gray-500">
                       {trainer.city?.nameAr || 'غير محدد'}
                     </Text>
                   </View>
-
-                  <View className="flex-row items-center gap-1">
-                    <Ionicons name="pricetag-outline" size={14} color="#6B7280" />
-                    <Text className="text-xs text-gray-600" numberOfLines={1}>
-                      {trainer.category?.nameAr || 'عام'}
-                    </Text>
-                  </View>
+                  <Ionicons name="chevron-back" size={14} color="#9CA3AF" />
                 </View>
               </View>
             </TouchableOpacity>
-          ))}
-        </View>
-      </ScrollView>
+          );
+        })}
+      </View>
 
       {/* See All Button */}
       {featuredTrainers.length > 4 && (

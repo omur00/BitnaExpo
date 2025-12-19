@@ -4,18 +4,18 @@ export default function RegisterLayout() {
   return (
     <Stack
       screenOptions={{
-        headerShown: false,
+        headerShown: true,
       }}>
       <Stack.Screen
         name="merchants"
         options={{
-          headerTitle: 'تاجر مميز',
+          headerTitle: 'التجار والأسر المنتجة',
         }}
       />
       <Stack.Screen
         name="trainers"
         options={{
-          headerTitle: 'مدرب مميز',
+          headerTitle: 'المدربون',
         }}
       />
     </Stack>

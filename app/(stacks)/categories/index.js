@@ -93,41 +93,43 @@ export default function CategoriesPage() {
 
   // Render each category item
   const renderItem = ({ item: category, index }) => (
-    <Link key={category.id} href={`/category/${category.id}`} asChild>
-      <TouchableOpacity className="w-full px-4 mb-4">
-        <View className="flex-row items-center rounded-2xl border border-gray-100 bg-white p-6 transition-all active:scale-[0.98]">
-          {/* Icon Container with Counter */}
-          <View className="relative mr-4">
-            <View className="h-16 w-16 items-center justify-center rounded-2xl bg-[#1E2053] shadow-lg">
-              <Ionicons name="grid-outline" size={28} color="#FFFFFF" />
-            </View>
-            <View className="absolute -right-2 -top-2 h-8 w-8 items-center justify-center rounded-full bg-[#CAA453] shadow-lg">
-              <Text className="text-xs font-bold text-white">{index + 1}</Text>
-            </View>
+    <TouchableOpacity
+      key={category.id}
+      onPress={() => router.push(`/(stacks)/category/${category.id}`)}
+      className="mb-4 w-full px-4"
+      activeOpacity={0.7}>
+      <View className="flex-row items-center rounded-2xl border border-gray-100 bg-white p-6">
+        {/* Icon Container with Counter */}
+        <View className="relative mr-4">
+          <View className="h-16 w-16 items-center justify-center rounded-2xl bg-[#1E2053]">
+            <Ionicons name="grid-outline" size={28} color="#FFFFFF" />
           </View>
-
-          {/* Text Content - Takes remaining space */}
-          <View className="flex-1">
-            <View className="mb-2">
-              <Text className="text-lg font-bold text-[#1E2053]" numberOfLines={1}>
-                {category.nameAr}
-              </Text>
-            </View>
-            <View className="flex-row items-center gap-1">
-              <Text className="text-base font-semibold text-[#CAA453]">
-                {category.merchantsCount}
-              </Text>
-              <Text className="text-sm text-[#7A8699]">نشاط تجاري</Text>
-            </View>
-          </View>
-
-          {/* Arrow Icon */}
-          <View className="ml-4">
-            <ArrowLeft size={20} color="#CAA453" />
+          <View className="absolute -right-2 -top-2 h-8 w-8 items-center justify-center rounded-full bg-[#CAA453]">
+            <Text className="text-xs font-bold text-white">{index + 1}</Text>
           </View>
         </View>
-      </TouchableOpacity>
-    </Link>
+
+        {/* Text Content - Takes remaining space */}
+        <View className="flex-1">
+          <View className="mb-2">
+            <Text className="text-lg font-bold text-[#1E2053]" numberOfLines={1}>
+              {category.nameAr}
+            </Text>
+          </View>
+          <View className="flex-row items-center gap-1">
+            <Text className="text-base font-semibold text-[#CAA453]">
+              {category.merchantsCount}
+            </Text>
+            <Text className="text-sm text-[#7A8699]">نشاط تجاري</Text>
+          </View>
+        </View>
+
+        {/* Arrow Icon */}
+        <View className="ml-4">
+          <Ionicons name="chevron-forward" size={20} color="#CAA453" />
+        </View>
+      </View>
+    </TouchableOpacity>
   );
 
   // Render empty state

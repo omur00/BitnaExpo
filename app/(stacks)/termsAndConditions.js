@@ -1,5 +1,6 @@
 import React from 'react';
 import { ScrollView, View, Text } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 const TermsAndConditions = () => {
   const sections = [
@@ -102,59 +103,52 @@ const TermsAndConditions = () => {
   ];
 
   return (
-    <View className="flex-1">
-      {/* Header */}
-      <View className="bg-green-600 px-4 py-5">
-        <Text className="text-center text-2xl font-bold text-white">الشروط والأحكام</Text>
+    <SafeAreaView className="flex-1">
+      <View className="flex-1">
+        <ScrollView className="flex-1" showsVerticalScrollIndicator={false}>
+          <View className="flex-col gap-6 p-4">
+            {sections.map((section, index) => (
+              <View key={index} className="rounded-lg bg-white p-4 shadow-lg">
+                {/* Section Header */}
+                <View className="mb-3 flex-row items-center gap-2">
+                  <Text className="text-xl font-bold text-gray-800">{section.title}</Text>
+                  <View className="h-0.5 flex-1 bg-green-200" />
+                </View>
+
+                {/* Section Content */}
+                <View className="pr-2">
+                  {section.content.map((item, itemIndex) => {
+                    if (typeof item === 'string') {
+                      return (
+                        <Text key={itemIndex} className="mb-2 text-base leading-6 text-gray-700">
+                          {item}
+                        </Text>
+                      );
+                    } else {
+                      return (
+                        <View key={itemIndex} className="mb-2 flex-row justify-end gap-3">
+                          <Text className="text-base font-semibold text-gray-700">
+                            {item.label}
+                          </Text>
+                          <Text className="flex-1 text-base text-gray-700">{item.text}</Text>
+                        </View>
+                      );
+                    }
+                  })}
+                </View>
+              </View>
+            ))}
+          </View>
+
+          {/* Footer */}
+          <View className="mt-4 border-t border-gray-200 bg-gray-100 p-4">
+            <Text className="text-center text-sm text-gray-600">
+              آخر تحديث: {new Date().toLocaleDateString('ar-EG')}
+            </Text>
+          </View>
+        </ScrollView>
       </View>
-
-      <ScrollView className="flex-1" showsVerticalScrollIndicator={false}>
-        <View className="flex-col gap-6 p-4">
-          {sections.map((section, index) => (
-            <View key={index} className="rounded-lg bg-white p-4 shadow-lg">
-              {/* Section Header */}
-              <View className="mb-3 flex-row items-center gap-2">
-                <Text className="text-xl font-bold text-gray-800">{section.title}</Text>
-                <View className="h-0.5 flex-1 bg-green-200" />
-              </View>
-
-              {/* Section Content */}
-              <View className="pr-2">
-                {section.content.map((item, itemIndex) => {
-                  if (typeof item === 'string') {
-                    return (
-                      <Text
-                        key={itemIndex}
-                        className="mb-2 text-base leading-6 text-gray-700">
-                        {item}
-                      </Text>
-                    );
-                  } else {
-                    return (
-                      <View key={itemIndex} className="mb-2 flex-row justify-end gap-3">
-                        <Text className="text-base font-semibold text-gray-700">
-                          {item.label}
-                        </Text>
-                        <Text className="flex-1 text-base text-gray-700">
-                          {item.text}
-                        </Text>
-                      </View>
-                    );
-                  }
-                })}
-              </View>
-            </View>
-          ))}
-        </View>
-
-        {/* Footer */}
-        <View className="mt-4 border-t border-gray-200 bg-gray-100 p-4">
-          <Text className="text-center text-sm text-gray-600">
-            آخر تحديث: {new Date().toLocaleDateString('ar-EG')}
-          </Text>
-        </View>
-      </ScrollView>
-    </View>
+    </SafeAreaView>
   );
 };
 

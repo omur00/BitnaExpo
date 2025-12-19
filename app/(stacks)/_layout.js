@@ -82,6 +82,7 @@ const StacksLayout = () => {
         name="(feautred)"
         options={{
           headerTitle: 'الجهات المميزة',
+          headerShown: false,
         }}
       />
 

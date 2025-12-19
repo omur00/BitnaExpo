@@ -9,7 +9,7 @@ import {
   FlatList,
   ActivityIndicator,
   RefreshControl,
-  Dimensions
+  Dimensions,
 } from 'react-native';
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
@@ -44,36 +44,30 @@ export default function CategoryDirectoryPage() {
     data: merchantsData,
     loading: merchantsLoading,
     fetchMore: fetchMoreMerchants,
-    refetch: refetchMerchants
-  } = useQuery(
-    GET_APPROVED_MERCHANTS_BY_CATEGORY,
-    {
-      variables: { 
-        categoryId: categoryId,
-        page: 1,
-        limit: 10 
-      },
-      notifyOnNetworkStatusChange: true,
-    }
-  );
+    refetch: refetchMerchants,
+  } = useQuery(GET_APPROVED_MERCHANTS_BY_CATEGORY, {
+    variables: {
+      categoryId: categoryId,
+      page: 1,
+      limit: 10,
+    },
+    notifyOnNetworkStatusChange: true,
+  });
 
   // Fetch trainers with pagination
   const {
     data: trainersData,
     loading: trainersLoading,
     fetchMore: fetchMoreTrainers,
-    refetch: refetchTrainers
-  } = useQuery(
-    GET_APPROVED_TRAINERS_BY_CATEGORY,
-    {
-      variables: { 
-        categoryId: categoryId,
-        page: 1,
-        limit: 10 
-      },
-      notifyOnNetworkStatusChange: true,
-    }
-  );
+    refetch: refetchTrainers,
+  } = useQuery(GET_APPROVED_TRAINERS_BY_CATEGORY, {
+    variables: {
+      categoryId: categoryId,
+      page: 1,
+      limit: 10,
+    },
+    notifyOnNetworkStatusChange: true,
+  });
 
   const currentCategory = categoriesData?.categories?.find((cat) => cat.id === categoryId);
 
@@ -81,8 +75,8 @@ export default function CategoryDirectoryPage() {
   const trainers = trainersData?.approvedTrainersByCategory?.trainers || [];
   const categories = categoriesData?.categories || [];
 
-  const totalMerchants = merchantsData?.approvedMerchantsByCategory?.total || 0;
-  const totalTrainers = trainersData?.approvedTrainersByCategory?.total || 0;
+  const totalMerchants = merchantsData?.approvedMerchantsByCategory?.totalCount || 0;
+  const totalTrainers = trainersData?.approvedTrainersByCategory?.totalCount || 0;
 
   useEffect(() => {
     setMerchantPage(1);
@@ -107,27 +101,27 @@ export default function CategoryDirectoryPage() {
     if (!hasMoreMerchants || merchantsLoading) return;
 
     const nextPage = merchantPage + 1;
-    
+
     fetchMoreMerchants({
       variables: {
         page: nextPage,
-        limit: 10
+        limit: 10,
       },
       updateQuery: (prevResult, { fetchMoreResult }) => {
         if (!fetchMoreResult) return prevResult;
-        
+
         return {
           approvedMerchantsByCategory: {
             ...fetchMoreResult.approvedMerchantsByCategory,
             merchants: [
               ...prevResult.approvedMerchantsByCategory.merchants,
-              ...fetchMoreResult.approvedMerchantsByCategory.merchants
-            ]
-          }
+              ...fetchMoreResult.approvedMerchantsByCategory.merchants,
+            ],
+          },
         };
-      }
+      },
     });
-    
+
     setMerchantPage(nextPage);
   };
 
@@ -135,27 +129,27 @@ export default function CategoryDirectoryPage() {
     if (!hasMoreTrainers || trainersLoading) return;
 
     const nextPage = trainerPage + 1;
-    
+
     fetchMoreTrainers({
       variables: {
         page: nextPage,
-        limit: 10
+        limit: 10,
       },
       updateQuery: (prevResult, { fetchMoreResult }) => {
         if (!fetchMoreResult) return prevResult;
-        
+
         return {
           approvedTrainersByCategory: {
             ...fetchMoreResult.approvedTrainersByCategory,
             trainers: [
               ...prevResult.approvedTrainersByCategory.trainers,
-              ...fetchMoreResult.approvedTrainersByCategory.trainers
-            ]
-          }
+              ...fetchMoreResult.approvedTrainersByCategory.trainers,
+            ],
+          },
         };
-      }
+      },
     });
-    
+
     setTrainerPage(nextPage);
   };
 
@@ -175,7 +169,7 @@ export default function CategoryDirectoryPage() {
   const renderMerchantCard = ({ item }) => (
     <TouchableOpacity
       onPress={() => router.push(`/category/merchant/${item.slug}`)}
-      className="rounded-xl border border-[#E5E7EB] bg-white shadow-lg mr-4"
+      className="mr-4 rounded-xl border border-[#E5E7EB] bg-white shadow-lg"
       style={{
         width: CARD_WIDTH,
         shadowColor: 'rgba(24,52,74,0.10)',
@@ -184,7 +178,7 @@ export default function CategoryDirectoryPage() {
         shadowRadius: 18,
         elevation: 4,
       }}>
-      <View className="h-32 items-center justify-center bg-[#F7F9FA] rounded-t-xl">
+      <View className="h-32 items-center justify-center rounded-t-xl bg-[#F7F9FA]">
         {item.logo?.url ? (
           <Image
             source={{ uri: item.logo.url }}
@@ -207,9 +201,7 @@ export default function CategoryDirectoryPage() {
         <View className="flex-row items-center justify-between">
           <View className="flex-row items-center gap-1">
             <Ionicons name="location-outline" size={12} color="#7A8699" />
-            <Text className="font-inter text-xs text-[#7A8699]">
-              {item.city.nameAr}
-            </Text>
+            <Text className="font-inter text-xs text-[#7A8699]">{item.city.nameAr}</Text>
           </View>
           {item.whatsapp && (
             <View className="flex-row items-center gap-1">
@@ -225,7 +217,7 @@ export default function CategoryDirectoryPage() {
   const renderTrainerCard = ({ item }) => (
     <TouchableOpacity
       onPress={() => router.push(`/trainer/${item.slug}`)}
-      className="rounded-xl border border-[#E5E7EB] bg-white shadow-lg mr-4"
+      className="mr-4 rounded-xl border border-[#E5E7EB] bg-white shadow-lg"
       style={{
         width: CARD_WIDTH,
         shadowColor: 'rgba(24,52,74,0.10)',
@@ -234,7 +226,7 @@ export default function CategoryDirectoryPage() {
         shadowRadius: 18,
         elevation: 4,
       }}>
-      <View className="h-32 items-center justify-center bg-[#F7F9FA] rounded-t-xl">
+      <View className="h-32 items-center justify-center rounded-t-xl bg-[#F7F9FA]">
         {item.logo?.url ? (
           <Image
             source={{ uri: item.logo.url }}
@@ -251,18 +243,14 @@ export default function CategoryDirectoryPage() {
         <Text className="font-inter mb-1 text-base font-bold text-[#18344A]" numberOfLines={1}>
           {item.fullName}
         </Text>
-        <Text className="font-inter mb-1 text-xs text-[#4E6882]">
-          {item.specialization}
-        </Text>
+        <Text className="font-inter mb-1 text-xs text-[#4E6882]">{item.specialization}</Text>
         <Text className="font-inter mb-2 text-xs text-[#4E6882]" numberOfLines={2}>
           {item.description}
         </Text>
         <View className="flex-row items-center justify-between">
           <View className="flex-row items-center gap-1">
             <Ionicons name="location-outline" size={12} color="#7A8699" />
-            <Text className="font-inter text-xs text-[#7A8699]">
-              {item.city.nameAr}
-            </Text>
+            <Text className="font-inter text-xs text-[#7A8699]">{item.city.nameAr}</Text>
           </View>
           {item.whatsapp && (
             <View className="flex-row items-center gap-1">
@@ -277,7 +265,7 @@ export default function CategoryDirectoryPage() {
 
   const renderMerchantFooter = () => {
     if (!hasMoreMerchants) return null;
-    
+
     return (
       <View className="items-center justify-center" style={{ width: CARD_WIDTH, marginRight: 16 }}>
         <ActivityIndicator size="small" color="#1E2053" />
@@ -288,7 +276,7 @@ export default function CategoryDirectoryPage() {
 
   const renderTrainerFooter = () => {
     if (!hasMoreTrainers) return null;
-    
+
     return (
       <View className="items-center justify-center" style={{ width: CARD_WIDTH, marginRight: 16 }}>
         <ActivityIndicator size="small" color="#1E2053" />
@@ -300,8 +288,8 @@ export default function CategoryDirectoryPage() {
   const loading = merchantsLoading && merchantPage === 1;
 
   return (
-    <ScrollView 
-      className="flex-1 bg-white" 
+    <ScrollView
+      className="flex-1 bg-white"
       showsVerticalScrollIndicator={false}
       refreshControl={
         <RefreshControl
@@ -312,7 +300,7 @@ export default function CategoryDirectoryPage() {
         />
       }>
       {/* Compact Header */}
-      <View className="bg-white px-4 py-4 border-b border-[#E5E7EB]">        
+      <View className="border-b border-[#E5E7EB] bg-white px-4 py-4">
         <View className="flex-row items-center justify-between">
           <View className="flex-1">
             <Text className="font-poppins text-xl font-bold text-[#1E2053]">
@@ -335,10 +323,8 @@ export default function CategoryDirectoryPage() {
           <TouchableOpacity
             key={category.id}
             onPress={() => setCategoryId(category.id)}
-            className={`rounded-full px-4 py-2 ${
-              category.id === categoryId 
-                ? 'bg-[#1E2053]' 
-                : 'bg-[#F7F9FA] border border-[#E5E7EB]'
+            className={`flex items-center justify-center rounded-full px-4 py-1 ${
+              category.id === categoryId ? 'bg-[#1E2053]' : 'border border-[#E5E7EB] bg-[#F7F9FA]'
             }`}>
             <Text
               className={`font-inter text-sm ${
@@ -429,7 +415,7 @@ export default function CategoryDirectoryPage() {
 
           {/* Empty State */}
           {merchants.length === 0 && trainers.length === 0 && !loading && (
-            <View className="items-center py-12 px-4">
+            <View className="items-center px-4 py-12">
               <View className="mb-4 h-20 w-20 items-center justify-center rounded-full bg-[#F7F9FA]">
                 <Ionicons name="file-tray-outline" size={32} color="#1E2053" />
               </View>

@@ -89,7 +89,7 @@ export default function MerchantPage() {
         {hasCoverImage && (
           <View className="h-48 w-full">
             <Image
-              source={{ uri: merchant.coverImage.url }} // FIXED: Access .url property
+              source={{ uri: merchant.coverImage.url }}
               className="h-full w-full"
               resizeMode="cover"
             />
@@ -97,21 +97,12 @@ export default function MerchantPage() {
           </View>
         )}
 
-        {/* Back Button */}
-        {hasCoverImage && (
-          <TouchableOpacity
-            onPress={() => window.history.back()}
-            className="absolute left-4 top-12 z-10 h-10 w-10 items-center justify-center rounded-full bg-white/20">
-            <Ionicons name="arrow-back" size={24} color="white" />
-          </TouchableOpacity>
-        )}
-
         {/* Business Card */}
         <View className={`px-4 ${hasCoverImage ? 'relative z-10 -mt-12' : 'pt-6'}`}>
           <View className="rounded-xl border border-[#E5E7EB] bg-white p-5">
-            <View className="flex-row items-start">
+            <View className="flex-row gap-2">
               {/* Logo */}
-              <View className={`${hasCoverImage ? '-mt-8 z' : ''}`}>
+              <View>
                 {hasLogo ? (
                   <Image
                     source={{ uri: merchant.logo.url }} // FIXED: Access .url property
@@ -119,8 +110,8 @@ export default function MerchantPage() {
                     resizeMode="cover"
                   />
                 ) : (
-                  <View className="h-20 w-20 items-center justify-center rounded-lg border-2 border-white">
-                    <Ionicons name="storefront-outline" size={32} color="white" />
+                  <View className="h-20 w-20 items-center justify-center rounded-lg border-2 border-gray-500">
+                    <Ionicons name="storefront-outline" size={32} color="black" />
                   </View>
                 )}
               </View>
@@ -135,13 +126,13 @@ export default function MerchantPage() {
                 </Text>
 
                 <View className="mt-3 flex-row flex-wrap gap-2">
-                  <View className="flex-row items-center rounded-full bg-[#F7F9FA] px-3 py-1.5">
+                  <View className="flex-row items-center gap-2 rounded-full bg-[#F7F9FA] px-3 py-1.5">
                     <Ionicons name="business-outline" size={14} color="#4E6882" />
-                    <Text className="font-inter mr-2 text-sm text-[#4E6882]">{categoryName}</Text>
+                    <Text className="font-inter text-sm text-[#4E6882]">{categoryName}</Text>
                   </View>
-                  <View className="flex-row items-center rounded-full bg-[#F7F9FA] px-3 py-1.5">
+                  <View className="flex-row items-center gap-2 rounded-full bg-[#F7F9FA] px-3 py-1.5">
                     <Ionicons name="location-outline" size={14} color="#4E6882" />
-                    <Text className="font-inter mr-2 text-sm text-[#4E6882]">{cityName}</Text>
+                    <Text className="font-inter text-sm text-[#4E6882]">{cityName}</Text>
                   </View>
                 </View>
               </View>
@@ -152,7 +143,7 @@ export default function MerchantPage() {
               {whatsappNumber && (
                 <TouchableOpacity
                   onPress={() => handleWhatsApp(whatsappNumber)}
-                  className="flex-1 flex-row items-center justify-center rounded-lg bg-[#1E2053] py-3">
+                  className="flex-1 flex-row items-center justify-center gap-1 rounded-lg bg-[#1E2053] py-3">
                   <Ionicons name="chatbubble-outline" size={16} color="white" />
                   <Text className="font-inter mr-2 text-sm font-semibold text-white">واتساب</Text>
                 </TouchableOpacity>
@@ -160,7 +151,7 @@ export default function MerchantPage() {
               {merchant.phone && (
                 <TouchableOpacity
                   onPress={() => handlePhoneCall(merchant.phone)}
-                  className="flex-1 flex-row items-center justify-center rounded-lg bg-[#CAA453] py-3">
+                  className="flex-1 flex-row items-center justify-center gap-1 rounded-lg bg-[#CAA453] py-3">
                   <Ionicons name="call-outline" size={16} color="#1E2053" />
                   <Text className="font-inter mr-2 text-sm font-semibold text-[#1E2053]">
                     اتصال
@@ -276,21 +267,6 @@ export default function MerchantPage() {
                 </Text>
               </View>
             )}
-
-            {merchant.rating && (
-              <View className="flex-row items-center justify-between rounded-lg bg-[#F7F9FA] p-3">
-                <View className="flex-row items-center gap-2">
-                  <Ionicons name="star" size={16} color="#FFB800" />
-                  <Text className="font-inter text-sm text-[#7A8699]">التقييم</Text>
-                </View>
-                <View className="flex-row items-center gap-1">
-                  <Text className="font-inter text-sm font-semibold text-[#18344A]">
-                    {merchant.rating}
-                  </Text>
-                  <Text className="font-inter text-xs text-[#7A8699]">/ 5</Text>
-                </View>
-              </View>
-            )}
           </View>
         </View>
 
@@ -374,43 +350,16 @@ export default function MerchantPage() {
               <TouchableOpacity
                 onPress={() => handleInstagram(merchant.instagram)}
                 className="flex-row items-center rounded-xl bg-[#F7F9FA] p-4">
-                <View className="mr-3 h-10 w-10 items-center justify-center rounded-lg bg-gradient-to-br from-[#405DE6] via-[#833AB4] to-[#C13584]">
+                <View className="mr-3 h-10 w-10 items-center justify-center rounded-lg bg-[#C13584]">
                   <Ionicons name="logo-instagram" size={20} color="white" />
                 </View>
                 <View className="flex-1">
                   <Text className="font-inter text-xs text-[#7A8699]">انستغرام</Text>
-                  <Text className="font-inter mt-1 text-sm font-semibold text-[#18344A]">
+                  <Text className="font-inter mt-1 text-sm font-semibold text-[#363636]">
                     {merchant.instagram}
                   </Text>
                 </View>
                 <Ionicons name="chevron-forward" size={20} color="#CBD0D6" />
-              </TouchableOpacity>
-            )}
-          </View>
-        </View>
-
-        {/* Quick Actions Footer */}
-        <View className="mb-6 rounded-xl bg-[#1E2053] p-5">
-          <Text className="font-poppins mb-4 text-center text-lg font-bold text-white">
-            تواصل مع النشاط
-          </Text>
-
-          <View className="flex-row gap-3">
-            {whatsappNumber && (
-              <TouchableOpacity
-                onPress={() => handleWhatsApp(whatsappNumber)}
-                className="flex-1 flex-row items-center justify-center rounded-lg bg-white py-3">
-                <Ionicons name="chatbubble-outline" size={18} color="#1E2053" />
-                <Text className="font-inter mr-2 text-sm font-semibold text-[#1E2053]">واتساب</Text>
-              </TouchableOpacity>
-            )}
-
-            {merchant.phone && (
-              <TouchableOpacity
-                onPress={() => handlePhoneCall(merchant.phone)}
-                className="flex-1 flex-row items-center justify-center rounded-lg bg-[#CAA453] py-3">
-                <Ionicons name="call-outline" size={18} color="#1E2053" />
-                <Text className="font-inter mr-2 text-sm font-semibold text-[#1E2053]">اتصال</Text>
               </TouchableOpacity>
             )}
           </View>

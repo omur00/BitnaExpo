@@ -126,7 +126,7 @@ const FeaturedMerchants = ({
                     resizeMode="cover"
                   />
                 ) : (
-                  <View className="h-full w-full bg-gradient-to-br from-[#1E2053] to-[#2A4F68]" />
+                  <View className="h-full w-full bg-[#1E2053]" />
                 )}
 
                 {/* Logo */}
@@ -165,9 +165,6 @@ const FeaturedMerchants = ({
                       </Text>
                     </View>
                   </View>
-                  <TouchableOpacity className="p-1">
-                    <Ionicons name="bookmark-outline" size={20} color="#9CA3AF" />
-                  </TouchableOpacity>
                 </View>
 
                 {/* Description */}
@@ -184,11 +181,6 @@ const FeaturedMerchants = ({
                         {merchant.category?.nameAr || 'عام'}
                       </Text>
                     </View>
-                  </View>
-
-                  <View className="flex-row items-center gap-1">
-                    <Ionicons name="star" size={14} color="#F59E0B" />
-                    <Text className="text-xs font-medium text-gray-700">4.5</Text>
                   </View>
                 </View>
               </View>

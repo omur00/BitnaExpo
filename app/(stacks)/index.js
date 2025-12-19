@@ -1,5 +1,14 @@
 import React from 'react';
-import { View, Text, ScrollView, Image, TouchableOpacity, Dimensions } from 'react-native';
+import {
+  View,
+  Text,
+  ScrollView,
+  Image,
+  TouchableOpacity,
+  Dimensions,
+  Alert,
+  Linking,
+} from 'react-native';
 import { GET_FEATURED_MERCHANTS, GET_CATEGORIES, GET_FEATURED_TRAINERS } from '@/utils/queries';
 import Loading from '@/components/Loading';
 import { useAuth } from '@/context/auth-context';
@@ -195,17 +204,16 @@ export default function HomePage() {
         </View>
 
         <View className="mb-4 flex-row flex-wrap justify-center gap-4">
-          <TouchableOpacity onPress={() => router.push('/about')}>
-            <Text className="text-sm text-gray-600">عن المنصة</Text>
-          </TouchableOpacity>
-          <TouchableOpacity onPress={() => router.push('/contact')}>
+          <TouchableOpacity
+            onPress={() => {
+              Linking.openURL('mailto:info@biitna.com').catch(() => {
+                Alert.alert('خطأ', 'لا يمكن فتح تطبيق البريد الإلكتروني');
+              });
+            }}>
             <Text className="text-sm text-gray-600">اتصل بنا</Text>
           </TouchableOpacity>
-          <TouchableOpacity onPress={() => router.push('/privacy')}>
-            <Text className="text-sm text-gray-600">الخصوصية</Text>
-          </TouchableOpacity>
-          <TouchableOpacity onPress={() => router.push('/terms')}>
-            <Text className="text-sm text-gray-600">الشروط</Text>
+          <TouchableOpacity onPress={() => router.push('/(stacks)/termsAndConditions')}>
+            <Text className="text-sm text-gray-600">الشروط والأحكام</Text>
           </TouchableOpacity>
         </View>
 

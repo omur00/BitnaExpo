@@ -112,9 +112,9 @@ export default function TrainerPage() {
               shadowRadius: 12,
               elevation: 5,
             }}>
-            <View className="flex-row items-start">
+            <View className="flex-row gap-2">
               {/* Profile Image */}
-              <View className="-mt-12 mr-4">
+              <View>
                 {hasLogo ? (
                   <View className="h-24 w-24 overflow-hidden rounded-2xl border-4 border-white">
                     <Image
@@ -421,7 +421,7 @@ export default function TrainerPage() {
               <TouchableOpacity
                 onPress={() => handleInstagram(trainer.instagram)}
                 className="flex-row items-center rounded-xl bg-[#F7F9FA] p-4 active:bg-[#EFF2F7]">
-                <View className="mr-3 h-10 w-10 items-center justify-center rounded-lg bg-gradient-to-br from-[#405DE6] via-[#833AB4] to-[#C13584]">
+                <View className="mr-3 h-10 w-10 items-center justify-center rounded-lg bg-[#C13584]">
                   <Ionicons name="logo-instagram" size={20} color="white" />
                 </View>
                 <View className="flex-1">
@@ -444,7 +444,7 @@ export default function TrainerPage() {
             {trainer.whatsapp && (
               <TouchableOpacity
                 onPress={() => handleWhatsApp(trainer.whatsapp)}
-                className="flex-1 flex-row items-center justify-center rounded-xl bg-gray-200 py-3 active:bg-white/90">
+                className="flex-1 flex-row gap-1 items-center justify-center rounded-xl bg-gray-200 py-3 active:bg-white/90">
                 <Ionicons name="chatbubble-outline" size={18} color="#1E2053" />
                 <Text className="font-inter mr-2 text-sm font-semibold text-[#1E2053]">واتساب</Text>
               </TouchableOpacity>
@@ -453,7 +453,7 @@ export default function TrainerPage() {
             {trainer.phone && (
               <TouchableOpacity
                 onPress={() => handlePhoneCall(trainer.phone)}
-                className="flex-1 flex-row items-center justify-center rounded-xl bg-[#CAA453] py-3">
+                className="flex-1 flex-row gap-1 items-center justify-center rounded-xl bg-[#CAA453] py-3">
                 <Ionicons name="call-outline" size={18} color="#1E2053" />
                 <Text className="font-inter mr-2 text-sm font-semibold text-[#1E2053]">اتصال</Text>
               </TouchableOpacity>
