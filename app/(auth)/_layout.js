@@ -10,9 +10,46 @@ export default function AuthLayout() {
   return (
     <>
       <Stack
-        screenOptions={() => ({
-          headerShown: false,
+        screenOptions={({ navigation, route }) => ({
+          headerShown: true,
+          headerTitleStyle: {
+            fontFamily: 'NotoKufiArabicMedium',
+            fontSize: 16,
+          },
+          headerLeft: () => {
+            if (route.name !== 'index') {
+              return (
+                <TouchableOpacity onPress={navigation.goBack} style={{ marginRight: 15 }}>
+                  <Ionicons name="arrow-forward" size={24} color="black" />
+                </TouchableOpacity>
+              );
+            }
+
+            return (
+              <TouchableOpacity
+                onPress={() => nav.dispatch(DrawerActions.openDrawer())}
+                style={{ marginRight: 15 }}>
+                <Ionicons name="menu" size={24} color="black" />
+              </TouchableOpacity>
+            );
+          },
         })}>
+        <Stack.Screen
+          name="index"
+          options={{
+            headerTitle: 'الرئيسية',
+            headerRight: () => (
+              <Image
+                source={logo}
+                style={{
+                  width: 30,
+                  height: 30,
+                  resizeMode: 'contain',
+                }}
+              />
+            ),
+          }}
+        />
         <Stack.Screen
           name="dashboard"
           options={{

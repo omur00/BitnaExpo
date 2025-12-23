@@ -104,18 +104,9 @@ export default function EditUserScreen() {
         {/* Header */}
         <View className="mb-6">
           <View className="mb-4 flex-row items-center justify-between">
-            <View className="flex-row items-center gap-2">
-              <TouchableOpacity onPress={() => router.back()} className="p-1">
-                <Ionicons name="arrow-back" size={24} color="#374151" />
-              </TouchableOpacity>
-              <View className="flex-row items-center gap-2">
-                <Ionicons name="person-circle-outline" size={24} color="#374151" />
-                <Text className="text-2xl font-bold text-gray-800">تعديل المستخدم</Text>
-              </View>
-            </View>
             <View className="flex-row items-center gap-1">
               <Ionicons name="person-outline" size={16} color="#6B7280" />
-              <Text className="text-sm text-gray-600">ID: {user.id.substring(0, 8)}...</Text>
+              <Text className="text-sm text-gray-600">ID: {user.id}</Text>
             </View>
           </View>
         </View>

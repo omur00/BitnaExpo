@@ -3,7 +3,13 @@ import React from 'react';
 
 function DashboardLayout() {
   return (
-    <Stack>
+    <Stack
+      screenOptions={{
+        headerTitleStyle: {
+          fontFamily: 'NotoKufiArabicMedium',
+          fontSize: 16,
+        },
+      }}>
       <Stack.Screen
         name="edit"
         options={{

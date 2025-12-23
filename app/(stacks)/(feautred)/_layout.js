@@ -5,6 +5,10 @@ export default function RegisterLayout() {
     <Stack
       screenOptions={{
         headerShown: true,
+        headerTitleStyle: {
+          fontFamily: 'NotoKufiArabicMedium',
+          fontSize: 16,
+        },
       }}>
       <Stack.Screen
         name="merchants"

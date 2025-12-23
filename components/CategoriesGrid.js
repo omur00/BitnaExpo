@@ -79,15 +79,17 @@ const CategoriesGrid = ({
             <Ionicons name="apps-outline" size={24} color="#1E2053" />
           </View>
           <View>
-            <Text className="text-xl font-bold text-gray-900">الأقسام</Text>
-            <Text className="text-sm text-gray-600">استكشف مختلف الأنشطة والخدمات</Text>
+            <Text className="font-arabic-bold text-lg text-gray-900">الأقسام</Text>
+            <Text className="font-arabic-regular text-xs text-gray-600">
+              استكشف مختلف الأنشطة والخدمات
+            </Text>
           </View>
         </View>
 
         <TouchableOpacity
           className="flex-row items-center gap-1"
           onPress={() => router.push('/categories')}>
-          <Text className="text-sm font-medium text-[#CAA453]">عرض الكل</Text>
+          <Text className="font-arabic-semibold text-sm text-[#CAA453]">عرض الكل</Text>
           <Ionicons name="chevron-back" size={16} color="#CAA453" />
         </TouchableOpacity>
       </View>
@@ -109,17 +111,17 @@ const CategoriesGrid = ({
 
                 {/* Category Name */}
                 <Text
-                  className="mb-1 text-center text-sm font-semibold text-gray-900"
+                  className="font-arabic-semibold mb-1 text-center text-xs text-gray-900"
                   numberOfLines={2}>
                   {category.nameAr}
                 </Text>
 
                 {/* Count Badge */}
                 <View className="flex-row items-center gap-1 rounded-full bg-gray-100 px-2 py-1">
-                  <Text className="text-xs font-medium text-gray-700">
+                  <Text className="font-arabic-semibold text-xs text-gray-700">
                     {category.merchantsCount || 0}
                   </Text>
-                  <Text className="text-xs text-gray-500">نشاط</Text>
+                  <Text className="font-arabic-regular text-xs text-gray-500">نشاط</Text>
                 </View>
               </View>
             </TouchableOpacity>
@@ -139,10 +141,12 @@ const CategoriesGrid = ({
               <Ionicons name="cube-outline" size={20} color="#1E2053" />
             </View>
             <View className="flex-1">
-              <Text className="text-sm font-semibold text-gray-900" numberOfLines={1}>
+              <Text className="font-arabic-semibold text-xs text-gray-900" numberOfLines={1}>
                 {category.nameAr}
               </Text>
-              <Text className="text-xs text-gray-500">{category.merchantsCount || 0} نشاط</Text>
+              <Text className="font-arabic-regular text-xs text-gray-500">
+                {category.merchantsCount || 0} نشاط
+              </Text>
             </View>
             <Ionicons name="chevron-back" size={16} color="#9CA3AF" />
           </TouchableOpacity>
@@ -155,7 +159,9 @@ const CategoriesGrid = ({
           onPress={() => router.push('/categories')}
           className="flex-row items-center justify-center gap-2 rounded-lg border border-gray-300 bg-white py-3"
           activeOpacity={0.8}>
-          <Text className="font-medium text-gray-700">عرض جميع الأقسام ({categories.length})</Text>
+          <Text className="font-arabic-semibold text-sm text-gray-700">
+            عرض جميع الأقسام ({categories.length})
+          </Text>
           <Ionicons name="chevron-back" size={16} color="#6B7280" />
         </TouchableOpacity>
       )}

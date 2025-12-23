@@ -6,6 +6,10 @@ function EditLayout() {
     <Stack
       screenOptions={{
         headerShown: false,
+        headerTitleStyle: {
+          fontFamily: 'NotoKufiArabicMedium',
+          fontSize: 16,
+        },
       }}>
       <Stack.Screen
         name="merchantForm"

@@ -76,202 +76,99 @@ export default function LoginScreen() {
     });
   };
 
-  return (
-    <KeyboardAvoidingView
-      style={styles.container}
-      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
-      <ScrollView
-        contentContainerStyle={styles.scrollContainer}
-        keyboardShouldPersistTaps="handled">
-        <View style={styles.card}>
-          <View style={styles.header}>
-            <Text style={styles.title}>تسجيل الدخول</Text>
-            <Text style={styles.subtitle}>ادخل إلى حسابك</Text>
+ return (
+  <KeyboardAvoidingView
+    className="flex-1 bg-white"
+    behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
+    <ScrollView
+      contentContainerStyle={{ flexGrow: 1, justifyContent: 'center' }}
+      className="p-5"
+      keyboardShouldPersistTaps="handled">
+      <View className="bg-white rounded-xl p-5 border border-gray-200 shadow-lg">
+        {/* Header */}
+        <View className="items-center mb-6">
+          <Text className="font-arabic-bold text-2xl text-[#1E2053] mb-2">تسجيل الدخول</Text>
+          <Text className="font-arabic-regular text-base text-gray-600">ادخل إلى حسابك</Text>
+        </View>
+
+        {/* Form */}
+        <View className="gap-4">
+          {/* Email Input */}
+          <View className="gap-2">
+            <Text className="font-arabic-semibold text-sm text-gray-800">
+              البريد الإلكتروني *
+            </Text>
+            <View className="flex-row-reverse items-center border border-gray-300 rounded-lg bg-white">
+              <Ionicons name="mail-outline" size={20} color="#4E6882" className="mx-3" />
+              <TextInput
+                className="flex-1 py-3 px-4 text-gray-800 font-arabic-regular text-sm"
+                placeholder="example@email.com"
+                placeholderTextColor="#9CA3AF"
+                value={formData.email}
+                onChangeText={(text) => handleChange('email', text)}
+                keyboardType="email-address"
+                autoCapitalize="none"
+                autoCorrect={false}
+              />
+            </View>
           </View>
 
-          <View style={styles.form}>
-            <View style={styles.inputContainer}>
-              <Text style={styles.label}>البريد الإلكتروني *</Text>
-              <View style={styles.inputWrapper}>
-                <Ionicons name="mail-outline" size={20} color="#4E6882" style={styles.inputIcon} />
-                <TextInput
-                  style={styles.input}
-                  placeholder="example@email.com"
-                  placeholderTextColor="#9CA3AF"
-                  value={formData.email}
-                  onChangeText={(text) => handleChange('email', text)}
-                  keyboardType="email-address"
-                  autoCapitalize="none"
-                  autoCorrect={false}
-                  textAlign="right"
-                />
-              </View>
+          {/* Password Input */}
+          <View className="gap-2">
+            <Text className="font-arabic-semibold text-sm text-gray-800">
+              كلمة المرور *
+            </Text>
+            <View className="flex-row-reverse items-center border border-gray-300 rounded-lg bg-white">
+              <Ionicons name="lock-closed-outline" size={20} color="#4E6882" className="mx-3" />
+              <TextInput
+                className="flex-1 py-3 px-4 text-gray-800 font-arabic-regular text-sm"
+                placeholder="أدخل كلمة المرور"
+                placeholderTextColor="#9CA3AF"
+                value={formData.password}
+                onChangeText={(text) => handleChange('password', text)}
+                secureTextEntry
+              />
             </View>
+          </View>
 
-            <View style={styles.inputContainer}>
-              <Text style={styles.label}>كلمة المرور *</Text>
-              <View style={styles.inputWrapper}>
-                <Ionicons
-                  name="lock-closed-outline"
-                  size={20}
-                  color="#4E6882"
-                  style={styles.inputIcon}
-                />
-                <TextInput
-                  style={styles.input}
-                  placeholder="أدخل كلمة المرور"
-                  placeholderTextColor="#9CA3AF"
-                  value={formData.password}
-                  onChangeText={(text) => handleChange('password', text)}
-                  secureTextEntry
-                  textAlign="right"
-                />
-              </View>
-            </View>
+          {/* Login Button */}
+          <TouchableOpacity
+            className={`rounded-lg py-4 mt-2 ${loading ? 'bg-gray-400' : 'bg-[#1E2053]'}`}
+            onPress={handleSubmit}
+            disabled={loading}>
+            {loading ? (
+              <ActivityIndicator color="#FFF" />
+            ) : (
+              <Text className="font-arabic-semibold text-base text-white text-center">
+                تسجيل الدخول
+              </Text>
+            )}
+          </TouchableOpacity>
 
+          {/* Links */}
+          <View className="items-center mt-4 gap-3">
             <TouchableOpacity
-              style={[styles.button, loading && styles.buttonDisabled]}
-              onPress={handleSubmit}
-              disabled={loading}>
-              {loading ? (
-                <ActivityIndicator color="#FFF" />
-              ) : (
-                <Text style={styles.buttonText}>تسجيل الدخول</Text>
-              )}
+              onPress={() => router.push('/(stacks)/register')}
+              className="py-1">
+              <Text className="font-arabic-regular text-sm text-gray-600 text-center">
+                <Text>لا تملك حساب؟ </Text>
+                <Text className="font-arabic-semibold text-[#1E2053]">أنشئ حساب جديد</Text>
+              </Text>
             </TouchableOpacity>
 
-            <View style={styles.linksContainer}>
-              <TouchableOpacity
-                onPress={() => router.push('/(stacks)/register')}
-                style={styles.linkButton}>
-                <Text style={styles.linkText}>
-                  <Text style={styles.regularText}>لا تملك حساب؟ </Text>
-                  <Text style={styles.boldLink}>أنشئ حساب جديد</Text>
-                </Text>
-              </TouchableOpacity>
-
-              <TouchableOpacity
-                onPress={() => router.push('/(auth)/forgotPassword')}
-                style={styles.linkButton}>
-                <Text style={styles.linkText}>نسيت كلمة المرور؟</Text>
-              </TouchableOpacity>
-            </View>
+            <TouchableOpacity
+              onPress={() => router.push('/(auth)/forgotPassword')}
+              className="py-1">
+              <Text className="font-arabic-regular text-sm text-gray-600 text-center">
+                نسيت كلمة المرور؟
+              </Text>
+            </TouchableOpacity>
           </View>
         </View>
-      </ScrollView>
-    </KeyboardAvoidingView>
-  );
+      </View>
+    </ScrollView>
+  </KeyboardAvoidingView>
+);
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#FFF',
-  },
-  scrollContainer: {
-    flexGrow: 1,
-    justifyContent: 'center',
-    padding: 20,
-  },
-  card: {
-    backgroundColor: '#FFF',
-    borderRadius: 12,
-    padding: 20,
-    shadowColor: '#18344A',
-    shadowOffset: {
-      width: 0,
-      height: 4,
-    },
-    shadowOpacity: 0.1,
-    shadowRadius: 18,
-    elevation: 8,
-    borderWidth: 1,
-    borderColor: '#E5E7EB',
-  },
-  header: {
-    alignItems: 'center',
-    marginBottom: 24,
-  },
-  title: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    color: '#1E2053',
-    marginBottom: 8,
-    fontFamily: Platform.OS === 'ios' ? 'Poppins-Bold' : 'Poppins-Bold',
-  },
-  subtitle: {
-    fontSize: 16,
-    color: '#4E6882',
-    fontFamily: Platform.OS === 'ios' ? 'Inter-Regular' : 'Inter-Regular',
-  },
-  form: {
-    gap: 16,
-  },
-  inputContainer: {
-    gap: 8,
-  },
-  label: {
-    fontSize: 14,
-    fontWeight: '600',
-    color: '#18344A',
-    fontFamily: Platform.OS === 'ios' ? 'Inter-SemiBold' : 'Inter-SemiBold',
-    textAlign: 'right',
-  },
-  inputWrapper: {
-    flexDirection: 'row-reverse',
-    alignItems: 'center',
-    borderWidth: 1,
-    borderColor: '#CBD0D6',
-    borderRadius: 8,
-    backgroundColor: '#FFF',
-  },
-  input: {
-    flex: 1,
-    paddingVertical: 12,
-    paddingHorizontal: 16,
-    fontSize: 14,
-    color: '#18344A',
-    fontFamily: Platform.OS === 'ios' ? 'Inter-Regular' : 'Inter-Regular',
-    textAlign: 'right',
-  },
-  inputIcon: {
-    marginHorizontal: 12,
-  },
-  button: {
-    backgroundColor: '#1E2053',
-    borderRadius: 8,
-    paddingVertical: 16,
-    alignItems: 'center',
-    marginTop: 8,
-  },
-  buttonDisabled: {
-    opacity: 0.5,
-  },
-  buttonText: {
-    color: '#FFF',
-    fontSize: 16,
-    fontWeight: '600',
-    fontFamily: Platform.OS === 'ios' ? 'Inter-SemiBold' : 'Inter-SemiBold',
-  },
-  linksContainer: {
-    alignItems: 'center',
-    marginTop: 16,
-    gap: 12,
-  },
-  linkButton: {
-    paddingVertical: 4,
-  },
-  linkText: {
-    fontSize: 14,
-    fontFamily: Platform.OS === 'ios' ? 'Inter-Regular' : 'Inter-Regular',
-    textAlign: 'center',
-  },
-  regularText: {
-    color: '#4E6882',
-  },
-  boldLink: {
-    color: '#1E2053',
-    fontWeight: '600',
-    fontFamily: Platform.OS === 'ios' ? 'Inter-SemiBold' : 'Inter-SemiBold',
-  },
-});
+

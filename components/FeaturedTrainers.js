@@ -93,15 +93,17 @@ const FeaturedTrainers = ({
             <Ionicons name="ribbon-outline" size={24} color="#1E2053" />
           </View>
           <View>
-            <Text className="text-xl font-bold text-gray-900">المدربون المتميزون</Text>
-            <Text className="text-sm text-gray-600">أفضل الخبراء والمتخصصين على المنصة</Text>
+            <Text className="font-arabic-bold text-lg text-gray-900">المدربون المتميزون</Text>
+            <Text className="font-arabic-regular text-xs text-gray-600">
+              أفضل الخبراء والمتخصصين على المنصة
+            </Text>
           </View>
         </View>
 
         <TouchableOpacity
           className="flex-row items-center gap-1"
           onPress={() => router.push('/(stacks)/(feautred)/trainers')}>
-          <Text className="text-sm font-medium text-[#CAA453]">عرض الكل</Text>
+          <Text className="font-arabic-semibold text-sm text-[#CAA453]">عرض الكل</Text>
           <Ionicons name="chevron-back" size={16} color="#CAA453" />
         </TouchableOpacity>
       </View>
@@ -149,7 +151,7 @@ const FeaturedTrainers = ({
                   {/* Featured Badge */}
                   <View className="absolute left-3 top-3 flex-row items-center gap-1 rounded-full bg-[#CAA453] px-2 py-1">
                     <Ionicons name="star" size={12} color="white" />
-                    <Text className="text-xs font-medium text-white">مميز</Text>
+                    <Text className="font-arabic-semibold text-xs text-white">مميز</Text>
                   </View>
                 </View>
 
@@ -157,12 +159,14 @@ const FeaturedTrainers = ({
                 <View className="p-4 pt-10">
                   <View className="mb-2 flex-row items-start justify-between">
                     <View className="flex-1">
-                      <Text className="text-lg font-bold text-gray-900" numberOfLines={1}>
+                      <Text className="font-arabic-bold text-base text-gray-900" numberOfLines={1}>
                         {trainer.fullName}
                       </Text>
                       <View className="mt-1 flex-row items-center gap-1">
                         <Ionicons name="location-outline" size={14} color="#6B7280" />
-                        <Text className="text-sm text-gray-600" numberOfLines={1}>
+                        <Text
+                          className="font-arabic-regular text-sm text-gray-600"
+                          numberOfLines={1}>
                           {trainer.city?.nameAr || 'غير محدد'}
                         </Text>
                       </View>
@@ -170,7 +174,9 @@ const FeaturedTrainers = ({
                   </View>
 
                   {/* Description */}
-                  <Text className="mb-4 text-sm leading-relaxed text-gray-600" numberOfLines={2}>
+                  <Text
+                    className="font-arabic-regular mb-4 text-sm leading-relaxed text-gray-600"
+                    numberOfLines={2}>
                     {trainer.description || 'مدرب متميز على المنصة'}
                   </Text>
 
@@ -179,7 +185,9 @@ const FeaturedTrainers = ({
                     <View className="flex-row items-center gap-2">
                       <View className="flex-row items-center gap-1 rounded-full bg-gray-100 px-3 py-1">
                         <Ionicons name="pricetag-outline" size={12} color="#6B7280" />
-                        <Text className="text-xs font-medium text-gray-700" numberOfLines={1}>
+                        <Text
+                          className="font-arabic-semibold text-xs text-gray-700"
+                          numberOfLines={1}>
                           {trainer.category?.nameAr || 'عام'}
                         </Text>
                       </View>
@@ -223,16 +231,16 @@ const FeaturedTrainers = ({
 
               {/* Content */}
               <View className="p-3 pt-6">
-                <Text className="mb-1 text-sm font-bold text-gray-900" numberOfLines={1}>
+                <Text className="font-arabic-bold mb-1 text-sm text-gray-900" numberOfLines={1}>
                   {trainer.fullName}
                 </Text>
-                <Text className="mb-2 text-xs text-gray-600" numberOfLines={1}>
+                <Text className="font-arabic-regular mb-2 text-xs text-gray-600" numberOfLines={1}>
                   {trainer.specialization || 'مدرب'}
                 </Text>
                 <View className="flex-row items-center justify-between">
                   <View className="flex-row items-center gap-1">
                     <Ionicons name="location-outline" size={12} color="#6B7280" />
-                    <Text className="text-xs text-gray-500">
+                    <Text className="font-arabic-regular text-xs text-gray-500">
                       {trainer.city?.nameAr || 'غير محدد'}
                     </Text>
                   </View>
@@ -250,7 +258,7 @@ const FeaturedTrainers = ({
           onPress={() => router.push('/(stacks)/(feautred)/trainers')}
           className="flex-row items-center justify-center gap-2 rounded-lg border border-gray-300 bg-white py-3"
           activeOpacity={0.8}>
-          <Text className="font-medium text-gray-700">
+          <Text className="font-arabic-semibold text-sm text-gray-700">
             عرض جميع المدربين ({featuredTrainers.length})
           </Text>
           <Ionicons name="chevron-back" size={16} color="#6B7280" />

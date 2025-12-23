@@ -365,7 +365,7 @@ export default function CategoryManagement() {
                         <View className="gap-1">
                           <Text className="text-sm font-medium text-gray-700">ترتيب العرض</Text>
                           <TextInput
-                            value={categoryForm.order.toString()}
+                            value={categoryForm?.order?.toString()}
                             onChangeText={(text) =>
                               setCategoryForm({
                                 ...categoryForm,

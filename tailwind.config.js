@@ -4,7 +4,19 @@ module.exports = {
 
   presets: [require('nativewind/preset')],
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        'arabic-black': ['NotoKufiArabicBlack'],
+        'arabic-bold': ['NotoKufiArabicBold'],
+        'arabic-extrabold': ['NotoKufiArabicExtraBold'],
+        'arabic-extralight': ['NotoKufiArabicExtraLight'],
+        'arabic-light': ['NotoKufiArabicLight'],
+        'arabic-medium': ['NotoKufiArabicMedium'],
+        'arabic-regular': ['NotoKufiArabicRegular'],
+        'arabic-semibold': ['NotoKufiArabicSemiBold'],
+        'arabic-thin': ['NotoKufiArabicThin'],
+      },
+    },
   },
   plugins: [],
   rtl: true,

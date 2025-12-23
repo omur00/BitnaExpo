@@ -33,8 +33,10 @@ export default function AdminDashboard() {
       <View className="px-4 pb-4 pt-6">
         <View className="rounded-xl border border-gray-200 bg-white px-4 py-5">
           <View className="flex-1">
-            <Text className="mb-1 text-2xl font-bold text-gray-900">لوحة تحكم المشرف</Text>
-            <Text className="text-sm text-gray-600">إدارة المنصة والموافقة على الطلبات</Text>
+            <Text className="font-arabic-bold mb-1 text-xl text-gray-900">لوحة تحكم المشرف</Text>
+            <Text className="font-arabic-light text-xs text-gray-600">
+              إدارة المنصة والموافقة على الطلبات
+            </Text>
           </View>
         </View>
       </View>
@@ -47,11 +49,13 @@ export default function AdminDashboard() {
             <TouchableOpacity
               className="mb-3 w-1/2 px-1"
               onPress={() => router.push('/(admin)/merchantReq')}>
-              <View className="rounded-xl border border-gray-200 bg-white p-4">
+              <View className="rounded-xl border border-gray-200 bg-white p-4 grow">
                 <View className="flex-row items-start justify-between">
                   <View className="flex-1">
-                    <Text className="mb-1 text-xs text-gray-600">طلبات التجار المعلقة</Text>
-                    <Text className="text-2xl font-bold text-gray-900">
+                    <Text className="font-arabic-regular mb-1 text-[11px] text-gray-600">
+                      طلبات التجار المعلقة
+                    </Text>
+                    <Text className="font-arabic-extrabold text-xl text-gray-900">
                       {stats.pendingMerchants}
                     </Text>
                   </View>
@@ -66,11 +70,13 @@ export default function AdminDashboard() {
             <TouchableOpacity
               className="mb-3 w-1/2 px-1"
               onPress={() => router.push('/(admin)/trainerReq')}>
-              <View className="rounded-xl border border-gray-200 bg-white p-4">
+              <View className="rounded-xl border border-gray-200 bg-white p-4 grow">
                 <View className="flex-row items-start justify-between">
                   <View className="flex-1">
-                    <Text className="mb-1 text-xs text-gray-600">طلبات المدربين المعلقة</Text>
-                    <Text className="text-2xl font-bold text-gray-900">
+                    <Text className="font-arabic-regular mb-1 text-[11px] text-gray-600">
+                      طلبات المدربين المعلقة
+                    </Text>
+                    <Text className="font-arabic-extrabold text-xl text-gray-900">
                       {stats.pendingTrainers}
                     </Text>
                   </View>
@@ -85,11 +91,15 @@ export default function AdminDashboard() {
             <TouchableOpacity
               className="mb-3 w-1/2 px-1"
               onPress={() => router.push('/(admin)/users')}>
-              <View className="rounded-xl border border-gray-200 bg-white p-4">
+              <View className="rounded-xl border border-gray-200 bg-white p-4 grow">
                 <View className="flex-row items-start justify-between">
                   <View className="flex-1">
-                    <Text className="mb-1 text-xs text-gray-600">إجمالي المستخدمين</Text>
-                    <Text className="text-2xl font-bold text-gray-900">{stats.totalUsers}</Text>
+                    <Text className="font-arabic-regular mb-1 text-[11px] text-gray-600">
+                      إجمالي المستخدمين
+                    </Text>
+                    <Text className="font-arabic-extrabold text-xl text-gray-900">
+                      {stats.totalUsers}
+                    </Text>
                   </View>
                   <View className="mr-2 rounded-lg bg-gray-100 p-2">
                     <Ionicons name="people-outline" size={20} color="#6B7280" />
@@ -100,11 +110,13 @@ export default function AdminDashboard() {
 
             {/* Total Activities */}
             <View className="mb-3 w-1/2 px-1">
-              <View className="rounded-xl border border-gray-200 bg-white p-4">
+              <View className="rounded-xl border border-gray-200 bg-white p-4 grow">
                 <View className="flex-row items-start justify-between">
                   <View className="flex-1">
-                    <Text className="mb-1 text-xs text-gray-600">الأنشطة النشطة</Text>
-                    <Text className="text-2xl font-bold text-gray-900">
+                    <Text className="font-arabic-regular mb-1 text-[11px] text-gray-600">
+                      الأنشطة النشطة
+                    </Text>
+                    <Text className="font-arabic-extrabold text-xl text-gray-900">
                       {stats.totalMerchants + stats.totalTrainers}
                     </Text>
                   </View>
@@ -123,10 +135,14 @@ export default function AdminDashboard() {
           <View className="rounded-xl border border-gray-200 bg-white">
             <View className="border-b border-gray-100 p-4">
               <View className="flex-row items-center justify-between">
-                <Text className="text-lg font-bold text-gray-900">الطلبات المعلقة للموافقة</Text>
+                <Text className="font-arabic-semibold text-base text-gray-900">
+                  الطلبات المعلقة للموافقة
+                </Text>
                 <View className="flex-row items-center gap-1 rounded-full bg-gray-100 px-3 py-1.5">
                   <Ionicons name="time-outline" size={14} color="#374151" />
-                  <Text className="text-xs text-gray-700">{totalPending} طلب</Text>
+                  <Text className="font-arabic-semibold text-[11px] text-gray-700">
+                    {totalPending} طلب
+                  </Text>
                 </View>
               </View>
             </View>
@@ -135,7 +151,7 @@ export default function AdminDashboard() {
               {/* Pending Merchants */}
               {approvalsData?.pendingMerchants?.slice(0, 3).map((merchant) => (
                 <View key={merchant.id} className="rounded-lg border border-gray-200 p-4">
-                  <View className="mb-3 flex-row items-start">
+                  <View className="mb-3 flex-row items-start gap-1">
                     <Ionicons
                       name="storefront-outline"
                       size={18}
@@ -145,18 +161,18 @@ export default function AdminDashboard() {
                     <View className="mr-3 flex-1">
                       <Text
                         onPress={() => router.push(`/(admin)/user/${merchant.userId}`)}
-                        className="mb-1 text-sm font-semibold text-gray-900">
+                        className="font-arabic-semibold mb-1 text-[13px] text-gray-900">
                         {merchant.businessName}
                       </Text>
-                      <View className="mb-1 flex-row items-center">
+                      <View className="mb-1 flex-row items-center gap-1">
                         <Ionicons name="location-outline" size={12} color="#6B7280" />
-                        <Text className="mr-1 text-xs text-gray-600">
+                        <Text className="font-arabic-regular mr-1 text-[11px] text-gray-600">
                           {merchant.category?.nameAr} - {merchant.city?.nameAr}
                         </Text>
                       </View>
-                      <View className="flex-row items-center">
+                      <View className="flex-row items-center gap-1">
                         <Ionicons name="calendar-outline" size={12} color="#6B7280" />
-                        <Text className="mr-1 text-xs text-gray-500">
+                        <Text className="font-arabic-regular mr-1 text-[11px] text-gray-500">
                           {formatDate(merchant.createdAt)}
                         </Text>
                       </View>
@@ -166,7 +182,7 @@ export default function AdminDashboard() {
                     onPress={() => router.push(`/(admin)/user/${merchant.userId}`)}
                     className="flex-row items-center justify-center gap-1 rounded-lg bg-gray-900 py-2.5">
                     <Ionicons name="eye-outline" size={14} color="white" />
-                    <Text className="text-xs font-medium text-white">مراجعة</Text>
+                    <Text className="font-arabic-medium text-xs text-white">مراجعة</Text>
                   </TouchableOpacity>
                 </View>
               ))}
@@ -184,13 +200,15 @@ export default function AdminDashboard() {
                     <View className="mr-3 flex-1">
                       <Text
                         onPress={() => router.push(`/(admin)/user/${trainer.userId}`)}
-                        className="mb-1 text-sm font-semibold text-gray-900">
+                        className="font-arabic-semibold mb-1 text-[13px] text-gray-900">
                         {trainer.fullName}
                       </Text>
-                      <Text className="mb-1 text-xs text-gray-600">{trainer.specialization}</Text>
+                      <Text className="font-arabic-regular mb-1 text-[11px] text-gray-600">
+                        {trainer.specialization}
+                      </Text>
                       <View className="flex-row items-center gap-1">
                         <Ionicons name="calendar-outline" size={12} color="#6B7280" />
-                        <Text className="text-xs text-gray-500">
+                        <Text className="font-arabic-regular text-[11px] text-gray-500">
                           {formatDate(trainer.createdAt)}
                         </Text>
                       </View>
@@ -200,7 +218,7 @@ export default function AdminDashboard() {
                     onPress={() => router.push(`/(admin)/user/${trainer.userId}`)}
                     className="flex-row items-center justify-center gap-1 rounded-lg bg-gray-900 py-2.5">
                     <Ionicons name="eye-outline" size={14} color="white" />
-                    <Text className="text-xs font-medium text-white">مراجعة</Text>
+                    <Text className="font-arabic-medium text-xs text-white">مراجعة</Text>
                   </TouchableOpacity>
                 </View>
               ))}
@@ -209,7 +227,9 @@ export default function AdminDashboard() {
                 approvalsData?.pendingTrainers?.length === 0 && (
                   <View className="items-center gap-2 py-6">
                     <Ionicons name="time-outline" size={32} color="#D1D5DB" />
-                    <Text className="text-sm text-gray-500">لا توجد طلبات معلقة للمراجعة</Text>
+                    <Text className="font-arabic-regular text-sm text-gray-500">
+                      لا توجد طلبات معلقة للمراجعة
+                    </Text>
                   </View>
                 )}
 
@@ -219,7 +239,7 @@ export default function AdminDashboard() {
                   <TouchableOpacity
                     onPress={() => router.push('/admin/users')}
                     className="flex-row items-center justify-center py-3">
-                    <Text className="text-sm font-medium text-gray-700">
+                    <Text className="font-arabic-medium text-sm text-gray-700">
                       عرض جميع الطلبات المعلقة ({totalPending})
                     </Text>
                     <Ionicons name="chevron-forward" size={14} color="#374151" className="mr-1" />
@@ -234,7 +254,9 @@ export default function AdminDashboard() {
             <View className="border-b border-gray-100 p-4">
               <View className="flex-row items-center">
                 <Ionicons name="cog-outline" size={20} color="#6B7280" className="ml-2" />
-                <Text className="text-lg font-bold text-gray-900">الإدارة السريعة</Text>
+                <Text className="font-arabic-semibold text-base text-gray-900">
+                  الإدارة السريعة
+                </Text>
               </View>
             </View>
 
@@ -243,70 +265,80 @@ export default function AdminDashboard() {
                 <View className="mb-3 w-1/2 px-1.5">
                   <TouchableOpacity
                     onPress={() => router.push('/(admin)/generateRestEmails')}
-                    className="items-center rounded-lg border border-gray-200 p-4">
+                    className="items-center rounded-lg border border-gray-200 p-4 grow">
                     <View className="mb-2 rounded-lg bg-gray-100 p-2">
                       <Ionicons name="person-outline" size={22} color="#6B7280" />
                     </View>
-                    <Text className="mb-1 text-center text-xs font-semibold text-gray-900">
+                    <Text className="font-arabic-semibold mb-1 text-center text-[11px] text-gray-900">
                       توليد رسائل استرجاع كلمة مرور
                     </Text>
-                    <Text className="text-xs text-gray-600">إدارة المستخدمين</Text>
+                    <Text className="font-arabic-light text-[11px] text-gray-600">
+                      إدارة المستخدمين
+                    </Text>
                   </TouchableOpacity>
                 </View>
 
                 <View className="mb-3 w-1/2 px-1.5">
                   <TouchableOpacity
                     onPress={() => router.push('/(admin)/merchantReq')}
-                    className="items-center rounded-lg border border-gray-200 p-4">
+                    className="items-center rounded-lg border border-gray-200 p-4 grow">
                     <View className="mb-2 rounded-lg bg-gray-100 p-2">
                       <Ionicons name="storefront-outline" size={22} color="#6B7280" />
                     </View>
-                    <Text className="mb-1 text-center text-xs font-semibold text-gray-900">
+                    <Text className="font-arabic-semibold mb-1 text-center text-[11px] text-gray-900">
                       إدارة التجار
                     </Text>
-                    <Text className="text-xs text-gray-600">{stats.totalMerchants} تاجر</Text>
+                    <Text className="font-arabic-light text-[11px] text-gray-600">
+                      {stats.totalMerchants} تاجر
+                    </Text>
                   </TouchableOpacity>
                 </View>
 
                 <View className="mb-3 w-1/2 px-1.5">
                   <TouchableOpacity
                     onPress={() => router.push('/(admin)/trainerReq')}
-                    className="items-center rounded-lg border border-gray-200 p-4">
+                    className="items-center rounded-lg border border-gray-200 p-4 grow">
                     <View className="mb-2 rounded-lg bg-gray-100 p-2">
                       <Ionicons name="school-outline" size={22} color="#6B7280" />
                     </View>
-                    <Text className="mb-1 text-center text-xs font-semibold text-gray-900">
+                    <Text className="font-arabic-semibold mb-1 text-center text-[11px] text-gray-900">
                       إدارة المدربين
                     </Text>
-                    <Text className="text-xs text-gray-600">{stats.totalTrainers} مدرب</Text>
+                    <Text className="font-arabic-light text-[11px] text-gray-600">
+                      {stats.totalTrainers} مدرب
+                    </Text>
                   </TouchableOpacity>
                 </View>
 
                 <View className="mb-3 w-1/2 px-1.5">
                   <TouchableOpacity
                     onPress={() => router.push('/(admin)/users')}
-                    className="items-center rounded-lg border border-gray-200 p-4">
+                    className="items-center rounded-lg border border-gray-200 p-4 grow">
                     <View className="mb-2 rounded-lg bg-gray-100 p-2">
                       <Ionicons name="people-outline" size={22} color="#6B7280" />
                     </View>
-                    <Text className="mb-1 text-center text-xs font-semibold text-gray-900">
+                    <Text className="font-arabic-semibold mb-1 text-center text-[11px] text-gray-900">
                       إدارة المستخدمين
                     </Text>
-                    <Text className="text-xs text-gray-600">{stats.totalUsers} مستخدم</Text>
+                    <Text className="font-arabic-light text-[11px] text-gray-600">
+                      {stats.totalUsers} مستخدم
+                    </Text>
                   </TouchableOpacity>
                 </View>
 
                 <View className="mb-3 w-1/2 px-1.5">
                   <TouchableOpacity
                     onPress={() => router.push('/(admin)/categories')}
-                    className="items-center rounded-lg border border-gray-200 p-4">
+                    className="items-center rounded-lg border border-gray-200 p-4 grow">
                     <View className="mb-2 rounded-lg bg-gray-100 p-2">
                       <Ionicons name="location-outline" size={22} color="#6B7280" />
                     </View>
-                    <Text className="mb-1 text-center text-xs font-semibold text-gray-900">
+                    <Text className="font-arabic-semibold mb-1 text-center text-[11px] text-gray-900">
                       الأقسام والمدن
                     </Text>
-                    <Text className="text-xs text-gray-600">إدارة المحتوى</Text>
+                    <Text className="font-arabic-light text-[11px] text-gray-600">
+                      إدارة المحتوى
+                    </Text>
                   </TouchableOpacity>
                 </View>
               </View>

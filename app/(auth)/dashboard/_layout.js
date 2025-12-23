@@ -11,6 +11,10 @@ function DashboardLayout() {
     <Stack
       screenOptions={({ navigation, route }) => ({
         headerShown: true,
+        headerTitleStyle: {
+          fontFamily: 'NotoKufiArabicMedium',
+          fontSize: 16,
+        },
         headerLeft: () => {
           if (route.name !== 'index') {
             return (

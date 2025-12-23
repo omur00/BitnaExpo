@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, Text, TouchableOpacity } from 'react-native';
-import { DrawerContentScrollView, DrawerItemList } from '@react-navigation/drawer';
+import { DrawerContentScrollView } from '@react-navigation/drawer';
 import { useAuth } from '@/context/auth-context';
 import { Ionicons } from '@expo/vector-icons';
 import { usePathname, useRouter, useSegments } from 'expo-router';
@@ -73,8 +73,12 @@ export default function CustomDrawerContent(props) {
                 <Ionicons name="person" size={24} color="#1E2053" />
               </View>
               <View>
-                <Text className="font-bold text-gray-800">{user.name || user.email}</Text>
-                <Text className="text-sm text-gray-600">{user.role || 'مستخدم'}</Text>
+                <Text className="font-arabic-bold text-base text-gray-800">
+                  {user.name || user.email}
+                </Text>
+                <Text className="font-arabic-regular text-xs text-gray-600">
+                  {user.role || 'مستخدم'}
+                </Text>
               </View>
             </View>
           ) : (
@@ -82,7 +86,7 @@ export default function CustomDrawerContent(props) {
               <View className="h-12 w-12 items-center justify-center rounded-full bg-gray-100">
                 <Ionicons name="person-outline" size={24} color="#6B7280" />
               </View>
-              <Text className="mr-3 text-gray-600">مرحباً بك</Text>
+              <Text className="font-arabic-regular mr-3 text-sm text-gray-600">مرحباً بك</Text>
             </View>
           )}
         </View>
@@ -104,7 +108,7 @@ export default function CustomDrawerContent(props) {
                   color={isActive(item.route) ? '#1E2053' : '#6B7280'}
                 />
                 <Text
-                  className={`mr-3 font-medium ${
+                  className={`font-arabic-medium mr-3 text-sm ${
                     isActive(item.route) ? 'text-[#1E2053]' : 'text-gray-700'
                   }`}>
                   {item.label}
@@ -121,7 +125,7 @@ export default function CustomDrawerContent(props) {
           disabled={logoutLoading}
           className="mx-4 flex-row items-center gap-3 border-t border-gray-200 px-4 py-3">
           <Ionicons name="log-out-outline" size={22} color="#EF4444" />
-          <Text className="font-medium text-red-600">
+          <Text className="font-arabic-medium text-sm text-red-600">
             {logoutLoading ? 'جاري تسجيل الخروج...' : 'تسجيل الخروج'}
           </Text>
         </TouchableOpacity>
@@ -133,13 +137,15 @@ export default function CustomDrawerContent(props) {
           disabled={logoutLoading}
           className="mx-4 flex-row items-center gap-3 border-t border-gray-200 px-4 py-3">
           <Ionicons name="log-in-outline" size={22} color="#EF4444" />
-          <Text className="font-medium text-red-600">تسجيل الدخول</Text>
+          <Text className="font-arabic-medium text-sm text-red-600">تسجيل الدخول</Text>
         </TouchableOpacity>
       )}
 
       {/* App Info */}
       <View className="border-t border-gray-200 p-4">
-        <Text className="text-center text-xs text-gray-500">منصة بيتنا © 2025</Text>
+        <Text className="font-arabic-light text-center text-xs text-gray-500">
+          منصة بيتنا © 2025
+        </Text>
       </View>
     </View>
   );

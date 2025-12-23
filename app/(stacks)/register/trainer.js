@@ -265,7 +265,9 @@ export default function TrainerRegistration() {
       {/* Header with Progress Bar */}
       <View className="border-b border-gray-200 bg-white px-6 pb-6 pt-8">
         <View className="mb-4">
-          <Text className="mt-1 text-gray-600">املأ البيانات التالية لعرض خدماتك على المنصة</Text>
+          <Text className="font-arabic-regular mt-1 text-sm text-gray-600">
+            املأ البيانات التالية لعرض خدماتك على المنصة
+          </Text>
         </View>
 
         {/* Progress Bar */}
@@ -280,14 +282,14 @@ export default function TrainerRegistration() {
                       : 'border-gray-300 bg-white'
                   }`}>
                   <Text
-                    className={`font-medium ${
+                    className={`font-arabic-semibold ${
                       currentStep >= step.number ? 'text-white' : 'text-gray-500'
                     }`}>
                     {step.number}
                   </Text>
                 </View>
                 {currentStep === step.number && (
-                  <Text className="text-sm font-medium text-[#CAA453]">{step.title}</Text>
+                  <Text className="font-arabic-semibold text-sm text-[#CAA453]">{step.title}</Text>
                 )}
               </View>
               {index < steps.length - 1 && (
@@ -308,7 +310,9 @@ export default function TrainerRegistration() {
           <View className="mb-6 rounded-xl border border-red-200 bg-red-50 p-4">
             <View className="flex-row items-start gap-2">
               <Ionicons name="alert-circle-outline" size={20} color="#DC2626" />
-              <Text className="flex-1 text-red-700">{error.message}</Text>
+              <Text className="font-arabic-regular flex-1 text-sm text-red-700">
+                {error.message}
+              </Text>
             </View>
           </View>
         )}
@@ -319,22 +323,24 @@ export default function TrainerRegistration() {
             <View className="gap-1">
               <View className="flex-row items-center gap-2">
                 <Ionicons name="person-circle-outline" size={20} color="#374151" />
-                <Text className="text-lg font-bold text-gray-800">المعلومات الشخصية</Text>
+                <Text className="font-arabic-bold text-base text-gray-800">المعلومات الشخصية</Text>
               </View>
-              <Text className="text-sm text-gray-600">البيانات الأساسية لملفك التدريبي</Text>
+              <Text className="font-arabic-regular text-sm text-gray-600">
+                البيانات الأساسية لملفك التدريبي
+              </Text>
             </View>
 
             <View className="gap-4">
               <View className="gap-2">
                 <View className="flex-row items-center gap-1">
-                  <Text className="text-sm font-medium text-gray-700">الإسم الكامل</Text>
+                  <Text className="font-arabic-semibold text-sm text-gray-700">الإسم الكامل</Text>
                   <Text className="text-red-500">*</Text>
                 </View>
                 <TextInput
                   value={formData.fullName}
                   onChangeText={(value) => handleChange('fullName', value)}
                   placeholder="الاسم الكامل"
-                  className="w-full rounded-lg border border-gray-300 bg-white p-3 text-gray-900"
+                  className="font-arabic-regular w-full rounded-lg border border-gray-300 bg-white p-3 text-sm text-gray-900"
                   placeholderTextColor="#9CA3AF"
                   textAlign="right"
                 />
@@ -342,14 +348,14 @@ export default function TrainerRegistration() {
 
               <View className="gap-2">
                 <View className="flex-row items-center gap-1">
-                  <Text className="text-sm font-medium text-gray-700">التخصص</Text>
+                  <Text className="font-arabic-semibold text-sm text-gray-700">التخصص</Text>
                   <Text className="text-red-500">*</Text>
                 </View>
                 <TextInput
                   value={formData.specialization}
                   onChangeText={(value) => handleChange('specialization', value)}
                   placeholder="مثال: تطوير الذات، البرمجة، التسويق"
-                  className="w-full rounded-lg border border-gray-300 bg-white p-3 text-gray-900"
+                  className="font-arabic-regular w-full rounded-lg border border-gray-300 bg-white p-3 text-sm text-gray-900"
                   placeholderTextColor="#9CA3AF"
                   textAlign="right"
                 />
@@ -357,7 +363,7 @@ export default function TrainerRegistration() {
 
               <View className="gap-2">
                 <View className="flex-row items-center gap-1">
-                  <Text className="text-sm font-medium text-gray-700">مجال التدريب</Text>
+                  <Text className="font-arabic-semibold text-sm text-gray-700">مجال التدريب</Text>
                   <Text className="text-red-500">*</Text>
                 </View>
                 <Picker
@@ -377,7 +383,7 @@ export default function TrainerRegistration() {
 
               <View className="gap-2">
                 <View className="flex-row items-center gap-1">
-                  <Text className="text-sm font-medium text-gray-700">المدينة</Text>
+                  <Text className="font-arabic-semibold text-sm text-gray-700">المدينة</Text>
                   <Text className="text-red-500">*</Text>
                 </View>
                 <Picker
@@ -397,7 +403,7 @@ export default function TrainerRegistration() {
 
               <View className="gap-2">
                 <View className="flex-row items-center gap-1">
-                  <Text className="text-sm font-medium text-gray-700">نبذة عنك</Text>
+                  <Text className="font-arabic-semibold text-sm text-gray-700">نبذة عنك</Text>
                   <Text className="text-red-500">*</Text>
                 </View>
                 <TextInput
@@ -406,12 +412,14 @@ export default function TrainerRegistration() {
                   multiline
                   numberOfLines={4}
                   placeholder="اخبرنا عن نفسك، خبراتك، مؤهلاتك، وأسلوبك في التدريب..."
-                  className="h-56 w-full rounded-lg border border-gray-300 bg-white p-3 text-gray-900"
+                  className="font-arabic-regular h-56 w-full rounded-lg border border-gray-300 bg-white p-3 text-sm text-gray-900"
                   placeholderTextColor="#9CA3AF"
                   textAlign="right"
                   textAlignVertical="top"
                 />
-                <Text className="text-xs text-gray-500">اكتب نبذة شاملة عن خبراتك ومؤهلاتك</Text>
+                <Text className="font-arabic-regular text-xs text-gray-500">
+                  اكتب نبذة شاملة عن خبراتك ومؤهلاتك
+                </Text>
               </View>
             </View>
 
@@ -421,7 +429,7 @@ export default function TrainerRegistration() {
               className={`flex-row items-center justify-center gap-2 rounded-lg py-3 ${
                 isStep1Valid() ? 'bg-[#CAA453]' : 'bg-gray-300'
               }`}>
-              <Text className="text-lg font-bold text-white">التالي</Text>
+              <Text className="font-arabic-bold text-base text-white">التالي</Text>
               <Ionicons name="arrow-back-outline" size={20} color="white" />
             </TouchableOpacity>
           </View>
@@ -433,17 +441,19 @@ export default function TrainerRegistration() {
             <View className="gap-1">
               <View className="flex-row items-center gap-2">
                 <Ionicons name="call-outline" size={20} color="#374151" />
-                <Text className="text-lg font-bold text-gray-800">معلومات التواصل</Text>
+                <Text className="font-arabic-bold text-base text-gray-800">معلومات التواصل</Text>
               </View>
-              <Text className="text-sm text-gray-600">وسائل التواصل التي سيظهر للعملاء</Text>
+              <Text className="font-arabic-regular text-sm text-gray-600">
+                وسائل التواصل التي سيظهر للعملاء
+              </Text>
             </View>
 
             <View className="mb-2 rounded-xl border border-blue-200 bg-blue-50 p-4">
               <View className="flex-row items-start gap-2">
                 <Ionicons name="information-circle-outline" size={20} color="#1D4ED8" />
-                <Text className="flex-1 text-blue-800">
-                  <Text className="font-bold">ملاحظة:</Text> يرجى تقديم وسائل التواصل التي تريد أن
-                  يراها العملاء على صفحتك
+                <Text className="font-arabic-regular flex-1 text-sm text-blue-800">
+                  <Text className="font-arabic-bold">ملاحظة:</Text> يرجى تقديم وسائل التواصل التي
+                  تريد أن يراها العملاء على صفحتك
                 </Text>
               </View>
             </View>
@@ -451,7 +461,7 @@ export default function TrainerRegistration() {
             <View className="gap-4">
               <View className="gap-2">
                 <View className="flex-row items-center gap-1">
-                  <Text className="text-sm font-medium text-gray-700">رقم الجوال</Text>
+                  <Text className="font-arabic-semibold text-sm text-gray-700">رقم الجوال</Text>
                   <Text className="text-red-500">*</Text>
                 </View>
                 <PhoneInputField
@@ -462,7 +472,9 @@ export default function TrainerRegistration() {
               </View>
 
               <View className="gap-2">
-                <Text className="text-sm font-medium text-gray-700">رقم الواتساب (إختياري)</Text>
+                <Text className="font-arabic-semibold text-sm text-gray-700">
+                  رقم الواتساب (إختياري)
+                </Text>
                 <PhoneInputField
                   value={formData.whatsapp}
                   onChangeText={(value) => handleChange('whatsapp', value)}
@@ -472,7 +484,9 @@ export default function TrainerRegistration() {
 
               <View className="gap-2">
                 <View className="flex-row items-center gap-1">
-                  <Text className="text-sm font-medium text-gray-700">البريد الإلكتروني</Text>
+                  <Text className="font-arabic-semibold text-sm text-gray-700">
+                    البريد الإلكتروني
+                  </Text>
                   <Text className="text-red-500">*</Text>
                 </View>
                 <TextInput
@@ -481,21 +495,21 @@ export default function TrainerRegistration() {
                   placeholder="example@email.com"
                   keyboardType="email-address"
                   autoCapitalize="none"
-                  className="w-full rounded-lg border border-gray-300 bg-white p-3 text-gray-900"
+                  className="font-arabic-regular w-full rounded-lg border border-gray-300 bg-white p-3 text-sm text-gray-900"
                   placeholderTextColor="#9CA3AF"
                   textAlign="right"
                 />
               </View>
 
               <View className="gap-2">
-                <Text className="text-sm font-medium text-gray-700">
+                <Text className="font-arabic-semibold text-sm text-gray-700">
                   الموقع الإلكتروني (إختياري)
                 </Text>
                 <TextInput
                   value={formData.website}
                   onChangeText={(value) => handleChange('website', value)}
                   placeholder="https://example.com"
-                  className="w-full rounded-lg border border-gray-300 bg-white p-3 text-gray-900"
+                  className="font-arabic-regular w-full rounded-lg border border-gray-300 bg-white p-3 text-sm text-gray-900"
                   placeholderTextColor="#9CA3AF"
                   textAlign="right"
                 />
@@ -503,7 +517,7 @@ export default function TrainerRegistration() {
 
               <View className="gap-2">
                 <View className="flex-row items-center gap-1">
-                  <Text className="text-sm font-medium text-gray-700" numberOfLines={1}>
+                  <Text className="font-arabic-semibold text-sm text-gray-700" numberOfLines={1}>
                     كلمة المرور
                   </Text>
                   <Text className="text-red-500">*</Text>
@@ -513,7 +527,7 @@ export default function TrainerRegistration() {
                   onChangeText={(value) => handleChange('password', value)}
                   secureTextEntry
                   placeholder="أدخل كلمة المرور"
-                  className="w-full rounded-lg border border-gray-300 bg-white p-3 text-gray-900"
+                  className="font-arabic-regular w-full rounded-lg border border-gray-300 bg-white p-3 text-sm text-gray-900"
                   placeholderTextColor="#9CA3AF"
                   textAlign="right"
                 />
@@ -521,7 +535,7 @@ export default function TrainerRegistration() {
 
               <View className="gap-2">
                 <View className="flex-row items-center gap-1">
-                  <Text className="text-sm font-medium text-gray-700" numberOfLines={1}>
+                  <Text className="font-arabic-semibold text-sm text-gray-700" numberOfLines={1}>
                     تأكيد كلمة المرور
                   </Text>
                   <Text className="text-red-500">*</Text>
@@ -531,14 +545,14 @@ export default function TrainerRegistration() {
                   onChangeText={(value) => handleChange('confpassword', value)}
                   secureTextEntry
                   placeholder="أعد إدخال كلمة المرور"
-                  className="w-full rounded-lg border border-gray-300 bg-white p-3 text-gray-900"
+                  className="font-arabic-regular w-full rounded-lg border border-gray-300 bg-white p-3 text-sm text-gray-900"
                   placeholderTextColor="#9CA3AF"
                   textAlign="right"
                 />
                 {formData.password !== formData.confpassword && (
                   <View className="flex-row items-center gap-1">
                     <Ionicons name="alert-circle-outline" size={16} color="#DC2626" />
-                    <Text className="text-sm text-red-600">
+                    <Text className="font-arabic-regular text-sm text-red-600">
                       كلمة المرور وتأكيد كلمة المرور غير متطابقتان
                     </Text>
                   </View>
@@ -546,12 +560,14 @@ export default function TrainerRegistration() {
               </View>
 
               <View className="gap-2">
-                <Text className="text-sm font-medium text-gray-700">حساب إنستجرام (إختياري)</Text>
+                <Text className="font-arabic-semibold text-sm text-gray-700">
+                  حساب إنستجرام (إختياري)
+                </Text>
                 <TextInput
                   value={formData.instagram}
                   onChangeText={(value) => handleChange('instagram', value)}
                   placeholder="@username"
-                  className="w-full rounded-lg border border-gray-300 bg-white p-3 text-gray-900"
+                  className="font-arabic-regular w-full rounded-lg border border-gray-300 bg-white p-3 text-sm text-gray-900"
                   placeholderTextColor="#9CA3AF"
                   textAlign="right"
                 />
@@ -561,14 +577,16 @@ export default function TrainerRegistration() {
               <View className="gap-3">
                 <View className="flex-row items-center justify-between">
                   <View className="gap-1">
-                    <Text className="text-sm font-medium text-gray-700">الدورات والخدمات</Text>
-                    <Text className="text-xs text-gray-500">إختياري</Text>
+                    <Text className="font-arabic-semibold text-sm text-gray-700">
+                      الدورات والخدمات
+                    </Text>
+                    <Text className="font-arabic-regular text-xs text-gray-500">إختياري</Text>
                   </View>
                   <TouchableOpacity
                     onPress={addCourse}
                     className="flex-row items-center gap-1 rounded-lg bg-emerald-600 px-3 py-2">
                     <Ionicons name="add-circle-outline" size={16} color="white" />
-                    <Text className="text-sm text-white">إضافة دورة</Text>
+                    <Text className="font-arabic-semibold text-sm text-white">إضافة دورة</Text>
                   </TouchableOpacity>
                 </View>
 
@@ -579,14 +597,16 @@ export default function TrainerRegistration() {
                     <View className="flex-row items-center justify-between">
                       <View className="flex-row items-center gap-2">
                         <Ionicons name="school-outline" size={18} color="#374151" />
-                        <Text className="font-semibold text-gray-700">الدورة {index + 1}</Text>
+                        <Text className="font-arabic-semibold text-sm text-gray-700">
+                          الدورة {index + 1}
+                        </Text>
                       </View>
                       {formData.courses.length > 1 && (
                         <TouchableOpacity
                           onPress={() => removeCourse(index)}
                           className="flex-row items-center gap-1 rounded-lg bg-red-100 px-3 py-1.5">
                           <Ionicons name="trash-outline" size={14} color="#DC2626" />
-                          <Text className="text-sm text-red-600">حذف</Text>
+                          <Text className="font-arabic-semibold text-sm text-red-600">حذف</Text>
                         </TouchableOpacity>
                       )}
                     </View>
@@ -594,36 +614,42 @@ export default function TrainerRegistration() {
                     <View className="gap-4">
                       <View className="gap-3">
                         <View className="gap-2">
-                          <Text className="text-xs text-gray-600">اسم الدورة</Text>
+                          <Text className="font-arabic-regular text-xs text-gray-600">
+                            اسم الدورة
+                          </Text>
                           <TextInput
                             value={course.name}
                             onChangeText={(value) => handleCourseChange(index, 'name', value)}
                             placeholder="اسم الدورة"
-                            className="w-full rounded-lg border border-gray-300 bg-white p-3 text-gray-900"
+                            className="font-arabic-regular w-full rounded-lg border border-gray-300 bg-white p-3 text-sm text-gray-900"
                             textAlign="right"
                           />
                         </View>
 
                         <View className="flex-row gap-3">
                           <View className="flex-1 gap-1">
-                            <Text className="text-xs text-gray-600">المدة (أشهر)</Text>
+                            <Text className="font-arabic-regular text-xs text-gray-600">
+                              المدة (أشهر)
+                            </Text>
                             <TextInput
                               value={course.duration}
                               onChangeText={(value) => handleCourseChange(index, 'duration', value)}
                               placeholder="3"
                               keyboardType="numeric"
-                              className="w-full rounded-lg border border-gray-300 bg-white p-3 text-gray-900"
+                              className="font-arabic-regular w-full rounded-lg border border-gray-300 bg-white p-3 text-sm text-gray-900"
                               textAlign="right"
                             />
                           </View>
                           <View className="flex-1 gap-1">
-                            <Text className="text-xs text-gray-600">عدد الجلسات</Text>
+                            <Text className="font-arabic-regular text-xs text-gray-600">
+                              عدد الجلسات
+                            </Text>
                             <TextInput
                               value={course.sessions}
                               onChangeText={(value) => handleCourseChange(index, 'sessions', value)}
                               placeholder="8"
                               keyboardType="numeric"
-                              className="w-full rounded-lg border border-gray-300 bg-white p-3 text-gray-900"
+                              className="font-arabic-regular w-full rounded-lg border border-gray-300 bg-white p-3 text-sm text-gray-900"
                               textAlign="right"
                             />
                           </View>
@@ -631,18 +657,22 @@ export default function TrainerRegistration() {
 
                         <View className="flex-row gap-3">
                           <View className="flex-1 gap-1">
-                            <Text className="text-xs text-gray-600">السعر (دينار كويتي)</Text>
+                            <Text className="font-arabic-regular text-xs text-gray-600">
+                              السعر (دينار كويتي)
+                            </Text>
                             <TextInput
                               value={course.price}
                               onChangeText={(value) => handleCourseChange(index, 'price', value)}
                               placeholder="1000"
                               keyboardType="numeric"
-                              className="w-full rounded-lg border border-gray-300 bg-white p-3 text-gray-900"
+                              className="font-arabic-regular w-full rounded-lg border border-gray-300 bg-white p-3 text-sm text-gray-900"
                               textAlign="right"
                             />
                           </View>
                           <View className="flex-1 gap-1">
-                            <Text className="text-xs text-gray-600">المستوى</Text>
+                            <Text className="font-arabic-regular text-xs text-gray-600">
+                              المستوى
+                            </Text>
                             <Picker
                               options={levelOptions}
                               value={course.level}
@@ -654,7 +684,7 @@ export default function TrainerRegistration() {
                         </View>
 
                         <View className="gap-1">
-                          <Text className="text-xs text-gray-600">الوصف</Text>
+                          <Text className="font-arabic-regular text-xs text-gray-600">الوصف</Text>
                           <TextInput
                             value={course.description}
                             onChangeText={(value) =>
@@ -663,7 +693,7 @@ export default function TrainerRegistration() {
                             placeholder="وصف الدورة والمحتوى"
                             multiline
                             numberOfLines={3}
-                            className="h-32 w-full rounded-lg border border-gray-300 bg-white p-3 text-gray-900"
+                            className="font-arabic-regular h-32 w-full rounded-lg border border-gray-300 bg-white p-3 text-sm text-gray-900"
                             textAlign="right"
                             textAlignVertical="top"
                           />
@@ -671,12 +701,16 @@ export default function TrainerRegistration() {
 
                         <View className="gap-2">
                           <View className="flex-row items-center justify-between">
-                            <Text className="text-xs text-gray-600">ما يشمل البرنامج</Text>
+                            <Text className="font-arabic-regular text-xs text-gray-600">
+                              ما يشمل البرنامج
+                            </Text>
                             <TouchableOpacity
                               onPress={() => addIncludeItem(index)}
                               className="flex-row items-center gap-1 rounded-lg bg-blue-100 px-3 py-1.5">
                               <Ionicons name="add-circle-outline" size={14} color="#2563EB" />
-                              <Text className="text-xs text-blue-600">إضافة عنصر</Text>
+                              <Text className="font-arabic-semibold text-xs text-blue-600">
+                                إضافة عنصر
+                              </Text>
                             </TouchableOpacity>
                           </View>
                           <View className="gap-2">
@@ -688,21 +722,21 @@ export default function TrainerRegistration() {
                                     handleIncludeChange(index, includeIndex, value)
                                   }
                                   placeholder="مثال: التقييم الشخصي، متابعة التقدم..."
-                                  className="flex-1 rounded-lg border border-gray-300 bg-white p-3 text-gray-900"
+                                  className="font-arabic-regular flex-1 rounded-lg border border-gray-300 bg-white p-3 text-sm text-gray-900"
                                   textAlign="right"
                                 />
                                 <TouchableOpacity
                                   onPress={() => removeIncludeItem(index, includeIndex)}
                                   className="flex-row items-center gap-1 rounded-lg bg-red-100 px-3 py-2">
                                   <Ionicons name="trash-outline" size={14} color="#DC2626" />
-                                  <Text className="text-red-600">حذف</Text>
+                                  <Text className="font-arabic-semibold text-red-600">حذف</Text>
                                 </TouchableOpacity>
                               </View>
                             ))}
                             {course.includes.length === 0 && (
                               <View className="items-center py-3">
                                 <Ionicons name="list-outline" size={24} color="#9CA3AF" />
-                                <Text className="mt-1 text-xs text-gray-500">
+                                <Text className="font-arabic-regular mt-1 text-xs text-gray-500">
                                   لا توجد عناصر مضافة
                                 </Text>
                               </View>
@@ -721,7 +755,7 @@ export default function TrainerRegistration() {
                 onPress={prevStep}
                 className="flex-1 flex-row items-center justify-center gap-2 rounded-lg border border-gray-300 bg-white py-3">
                 <Ionicons name="arrow-forward" size={20} color="#374151" />
-                <Text className="font-bold text-gray-700">السابق</Text>
+                <Text className="font-arabic-bold text-sm text-gray-700">السابق</Text>
               </TouchableOpacity>
 
               <TouchableOpacity
@@ -730,7 +764,7 @@ export default function TrainerRegistration() {
                 className={`flex-1 flex-row items-center justify-center gap-2 rounded-lg py-3 ${
                   isStep2Valid() ? 'bg-[#CAA453]' : 'bg-gray-300'
                 }`}>
-                <Text className="text-lg font-bold text-white">التالي</Text>
+                <Text className="font-arabic-bold text-base text-white">التالي</Text>
                 <Ionicons name="arrow-back" size={20} color="white" />
               </TouchableOpacity>
             </View>
@@ -743,19 +777,21 @@ export default function TrainerRegistration() {
             <View className="gap-1">
               <View className="flex-row items-center gap-2">
                 <Ionicons name="document-text-outline" size={20} color="#374151" />
-                <Text className="text-lg font-bold text-gray-800">
+                <Text className="font-arabic-bold text-base text-gray-800">
                   المستندات والمعلومات الإضافية
                 </Text>
               </View>
-              <Text className="text-sm text-gray-600">المستندات المطلوبة للتحقق</Text>
+              <Text className="font-arabic-regular text-sm text-gray-600">
+                المستندات المطلوبة للتحقق
+              </Text>
             </View>
 
             <View className="mb-2 rounded-xl border border-amber-200 bg-amber-50 p-4">
               <View className="flex-row items-start gap-2">
                 <Ionicons name="information-circle-outline" size={20} color="#D97706" />
-                <Text className="flex-1 text-amber-800">
-                  <Text className="font-bold">ملاحظة:</Text> يرجى تحميل المستند المطلوب حسب نوع
-                  النشاط.
+                <Text className="font-arabic-regular flex-1 text-sm text-amber-800">
+                  <Text className="font-arabic-bold">ملاحظة:</Text> يرجى تحميل المستند المطلوب حسب
+                  نوع النشاط.
                 </Text>
               </View>
             </View>
@@ -763,7 +799,7 @@ export default function TrainerRegistration() {
             <View className="gap-4">
               <View className="gap-2">
                 <View className="flex-row items-center gap-1">
-                  <Text className="text-sm font-medium text-gray-700">نوع المستند</Text>
+                  <Text className="font-arabic-semibold text-sm text-gray-700">نوع المستند</Text>
                   <Text className="text-red-500">*</Text>
                 </View>
                 <Picker
@@ -783,7 +819,7 @@ export default function TrainerRegistration() {
 
               <View className="gap-2">
                 <View className="flex-row items-center gap-1">
-                  <Text className="text-sm font-medium text-gray-700">رفع المستند</Text>
+                  <Text className="font-arabic-semibold text-sm text-gray-700">رفع المستند</Text>
                   <Text className="text-red-500">*</Text>
                 </View>
                 <ImageUpload
@@ -796,14 +832,16 @@ export default function TrainerRegistration() {
               </View>
 
               <View className="gap-2">
-                <Text className="text-sm font-medium text-gray-700">ملاحظات إضافية (إختياري)</Text>
+                <Text className="font-arabic-semibold text-sm text-gray-700">
+                  ملاحظات إضافية (إختياري)
+                </Text>
                 <TextInput
                   value={formData.additionalNotes}
                   onChangeText={(value) => handleChange('additionalNotes', value)}
                   placeholder="أوقات العمل، مميزات إضافية، معلومات أخرى..."
                   multiline
                   numberOfLines={3}
-                  className="h-56 w-full rounded-lg border border-gray-300 bg-white p-3 text-gray-900"
+                  className="font-arabic-regular h-56 w-full rounded-lg border border-gray-300 bg-white p-3 text-sm text-gray-900"
                   placeholderTextColor="#9CA3AF"
                   textAlign="right"
                   textAlignVertical="top"
@@ -821,10 +859,10 @@ export default function TrainerRegistration() {
                     {isAgreed && <Ionicons name="checkmark" size={16} color="white" />}
                   </View>
                   <View className="flex-1 gap-1">
-                    <Text className="text-gray-700">
+                    <Text className="font-arabic-regular text-gray-700">
                       أوافق على{' '}
                       <Text
-                        className="font-bold text-[#CAA453]"
+                        className="font-arabic-bold text-[#CAA453]"
                         onPress={(e) => {
                           e.stopPropagation();
                           router.push('/(stacks)/termsAndConditions');
@@ -834,7 +872,7 @@ export default function TrainerRegistration() {
                       </Text>{' '}
                       لمنصة بيتنا
                     </Text>
-                    <Text className="text-sm text-gray-500">
+                    <Text className="font-arabic-regular text-sm text-gray-500">
                       بموافقتي، أقر بأني قد قرأت وفهمت جميع الشروط والأحكام المذكورة
                     </Text>
                   </View>
@@ -848,7 +886,7 @@ export default function TrainerRegistration() {
                   onPress={prevStep}
                   className="flex-1 flex-row items-center justify-center gap-2 rounded-lg border border-gray-300 bg-white py-3">
                   <Ionicons name="arrow-forward" size={20} color="#374151" />
-                  <Text className="font-bold text-gray-700">السابق</Text>
+                  <Text className="font-arabic-bold text-sm text-gray-700">السابق</Text>
                 </TouchableOpacity>
 
                 <TouchableOpacity
@@ -860,12 +898,12 @@ export default function TrainerRegistration() {
                   {loading ? (
                     <>
                       <ActivityIndicator size="small" color="white" />
-                      <Text className="font-bold text-white">جاري التسجيل...</Text>
+                      <Text className="font-arabic-bold text-sm text-white">جاري التسجيل...</Text>
                     </>
                   ) : (
                     <>
                       <Ionicons name="checkmark-circle-outline" size={20} color="white" />
-                      <Text className="font-bold text-white">تقديم الطلب</Text>
+                      <Text className="font-arabic-bold text-base text-white">تقديم الطلب</Text>
                     </>
                   )}
                 </TouchableOpacity>
@@ -874,7 +912,7 @@ export default function TrainerRegistration() {
               <View className="rounded-lg bg-gray-100 p-3">
                 <View className="flex-row items-start gap-2">
                   <Ionicons name="time-outline" size={16} color="#6B7280" />
-                  <Text className="flex-1 text-sm text-gray-600">
+                  <Text className="font-arabic-regular flex-1 text-sm text-gray-600">
                     بعد تقديم الطلب، سيتم مراجعته من قبل الإدارة وسيتم إشعارك عند الموافقة
                   </Text>
                 </View>
