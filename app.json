@@ -4,7 +4,10 @@
     "slug": "BitnaExpo",
     "version": "1.0.0",
     "scheme": "BitnaExpo",
-    "platforms": ["ios", "android"],
+    "platforms": [
+      "ios",
+      "android"
+    ],
     "plugins": [
       [
         "expo-dev-client",
@@ -15,7 +18,15 @@
       "expo-router",
       "expo-web-browser",
       "expo-font",
-      "expo-localization"
+      "expo-localization",
+      [
+        "@sentry/react-native/expo",
+        {
+          "url": "https://sentry.io/",
+          "project": "react-native",
+          "organization": "obdev-solutions"
+        }
+      ]
     ],
     "extra": {
       "supportsRTL": true,
@@ -33,7 +44,9 @@
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
-    "assetBundlePatterns": ["**/*"],
+    "assetBundlePatterns": [
+      "**/*"
+    ],
     "ios": {
       "supportsTablet": true
     },

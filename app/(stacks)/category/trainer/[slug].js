@@ -132,23 +132,21 @@ export default function TrainerPage() {
 
               {/* Trainer Info */}
               <View className="flex-1">
-                <Text className="font-poppins text-2xl font-bold text-[#18344A]">
-                  {trainer.fullName}
-                </Text>
-                <Text className="font-inter mt-1 text-base font-medium text-[#CAA453]">
+                <Text className="font-arabic-bold text-xl text-[#18344A]">{trainer.fullName}</Text>
+                <Text className="font-arabic-semibold mt-1 text-sm text-[#CAA453]">
                   {trainer.specialization}
                 </Text>
 
                 <View className="mt-3 flex-row flex-wrap gap-2">
                   <View className="flex-row items-center rounded-full bg-[#F7F9FA] px-3 py-1.5">
                     <Ionicons name="school-outline" size={14} color="#4E6882" />
-                    <Text className="font-inter mr-2 text-sm text-[#4E6882]">
+                    <Text className="font-arabic-regular mr-2 text-xs text-[#4E6882]">
                       {trainer.category.nameAr}
                     </Text>
                   </View>
                   <View className="flex-row items-center rounded-full bg-[#F7F9FA] px-3 py-1.5">
                     <Ionicons name="location-outline" size={14} color="#4E6882" />
-                    <Text className="font-inter mr-2 text-sm text-[#4E6882]">
+                    <Text className="font-arabic-regular mr-2 text-xs text-[#4E6882]">
                       {trainer.city.nameAr}
                     </Text>
                   </View>
@@ -159,20 +157,20 @@ export default function TrainerPage() {
             {/* Quick Stats */}
             <View className="mt-4 flex-row justify-around border-t border-[#F0F2F5] pt-4">
               <View className="items-center">
-                <Text className="font-poppins text-lg font-bold text-[#1E2053]">
+                <Text className="font-arabic-bold text-base text-[#1E2053]">
                   {trainer.courses?.length || 0}
                 </Text>
-                <Text className="font-inter text-xs text-[#7A8699]">دورات</Text>
+                <Text className="font-arabic-regular text-xs text-[#7A8699]">دورات</Text>
               </View>
               <View className="items-center">
-                <Text className="font-poppins text-lg font-bold text-[#1E2053]">
+                <Text className="font-arabic-bold text-base text-[#1E2053]">
                   {trainer.galleryImages?.length || 0}
                 </Text>
-                <Text className="font-inter text-xs text-[#7A8699]">صور</Text>
+                <Text className="font-arabic-regular text-xs text-[#7A8699]">صور</Text>
               </View>
               <View className="items-center">
                 <Ionicons name="star" size={20} color="#FFB800" />
-                <Text className="font-inter mt-1 text-xs text-[#7A8699]">ممتاز</Text>
+                <Text className="font-arabic-regular mt-1 text-xs text-[#7A8699]">ممتاز</Text>
               </View>
             </View>
           </View>
@@ -193,9 +191,11 @@ export default function TrainerPage() {
           }}>
           <View className="mb-4 flex-row items-center">
             <View className="mr-3 h-8 w-1 rounded-full bg-[#CAA453]" />
-            <Text className="font-poppins text-xl font-bold text-[#18344A]">نبذة عن المدرب</Text>
+            <Text className="font-arabic-bold text-base text-[#18344A]">نبذة عن المدرب</Text>
           </View>
-          <Text className="font-inter text-sm leading-6 text-[#4E6882]">{trainer.description}</Text>
+          <Text className="font-arabic-regular text-sm leading-6 text-[#4E6882]">
+            {trainer.description}
+          </Text>
         </View>
 
         {/* Gallery Images */}
@@ -212,9 +212,9 @@ export default function TrainerPage() {
             <View className="mb-4 flex-row items-center justify-between">
               <View className="flex-row items-center">
                 <View className="mr-3 h-8 w-1 rounded-full bg-[#CAA453]" />
-                <Text className="font-poppins text-xl font-bold text-[#18344A]">معرض الصور</Text>
+                <Text className="font-arabic-bold text-base text-[#18344A]">معرض الصور</Text>
               </View>
-              <Text className="font-inter text-sm text-[#7A8699]">
+              <Text className="font-arabic-regular text-xs text-[#7A8699]">
                 {trainer.galleryImages.length} صورة
               </Text>
             </View>
@@ -248,11 +248,9 @@ export default function TrainerPage() {
             <View className="mb-4 flex-row items-center justify-between">
               <View className="flex-row items-center">
                 <View className="mr-3 h-8 w-1 rounded-full bg-[#CAA453]" />
-                <Text className="font-poppins text-xl font-bold text-[#18344A]">
-                  الدورات والخدمات
-                </Text>
+                <Text className="font-arabic-bold text-base text-[#18344A]">الدورات والخدمات</Text>
               </View>
-              <Text className="font-inter text-sm text-[#7A8699]">
+              <Text className="font-arabic-regular text-xs text-[#7A8699]">
                 {trainer.courses.length} دورة
               </Text>
             </View>
@@ -269,16 +267,16 @@ export default function TrainerPage() {
                     elevation: 1,
                   }}>
                   <View className="mb-3 flex-row items-start justify-between">
-                    <Text className="font-inter flex-1 text-base font-semibold text-[#18344A]">
+                    <Text className="font-arabic-semibold flex-1 text-sm text-[#18344A]">
                       {course.name}
                     </Text>
                     <View className="rounded-lg bg-[#1E2053] px-3 py-1">
-                      <Text className="font-inter text-xs text-white">{course.level}</Text>
+                      <Text className="font-arabic-regular text-xs text-white">{course.level}</Text>
                     </View>
                   </View>
 
                   {course.description && (
-                    <Text className="font-inter mb-3 text-sm text-[#4E6882]">
+                    <Text className="font-arabic-regular mb-3 text-xs text-[#4E6882]">
                       {course.description}
                     </Text>
                   )}
@@ -287,7 +285,7 @@ export default function TrainerPage() {
                     {course.duration && (
                       <View className="flex-row items-center gap-2">
                         <Ionicons name="time-outline" size={14} color="#7A8699" />
-                        <Text className="font-inter text-xs text-[#7A8699]">
+                        <Text className="font-arabic-regular text-xs text-[#7A8699]">
                           {course.duration} دقيقة
                         </Text>
                       </View>
@@ -295,7 +293,7 @@ export default function TrainerPage() {
                     {course.price && (
                       <View className="flex-row items-center gap-2">
                         <Ionicons name="cash-outline" size={14} color="#7A8699" />
-                        <Text className="font-inter text-xs text-[#7A8699]">
+                        <Text className="font-arabic-regular text-xs text-[#7A8699]">
                           {course.price} ريال
                         </Text>
                       </View>
@@ -303,7 +301,7 @@ export default function TrainerPage() {
                     {course.sessions && (
                       <View className="flex-row items-center gap-2">
                         <Ionicons name="book-outline" size={14} color="#7A8699" />
-                        <Text className="font-inter text-xs text-[#7A8699]">
+                        <Text className="font-arabic-regular text-xs text-[#7A8699]">
                           {course.sessions} جلسة
                         </Text>
                       </View>
@@ -312,7 +310,7 @@ export default function TrainerPage() {
 
                   {course.includes && course.includes.length > 0 && (
                     <View className="border-t border-[#F0F2F5] pt-3">
-                      <Text className="font-inter mb-2 text-xs font-medium text-[#7A8699]">
+                      <Text className="font-arabic-semibold mb-2 text-xs text-[#7A8699]">
                         يشمل:
                       </Text>
                       <View className="flex-row flex-wrap gap-2">
@@ -321,7 +319,9 @@ export default function TrainerPage() {
                             key={itemIndex}
                             className="flex-row items-center gap-1 rounded-lg bg-[#F7F9FA] px-2 py-1.5">
                             <Ionicons name="checkmark-circle" size={12} color="#CAA453" />
-                            <Text className="font-inter text-xs text-[#1E2053]">{item}</Text>
+                            <Text className="font-arabic-regular text-xs text-[#1E2053]">
+                              {item}
+                            </Text>
                           </View>
                         ))}
                       </View>
@@ -345,7 +345,7 @@ export default function TrainerPage() {
           }}>
           <View className="mb-4 flex-row items-center">
             <View className="mr-3 h-8 w-1 rounded-full bg-[#CAA453]" />
-            <Text className="font-poppins text-xl font-bold text-[#18344A]">معلومات التواصل</Text>
+            <Text className="font-arabic-bold text-base text-[#18344A]">معلومات التواصل</Text>
           </View>
 
           <View className="gap-3">
@@ -357,8 +357,10 @@ export default function TrainerPage() {
                   <Ionicons name="call-outline" size={20} color="white" />
                 </View>
                 <View className="flex-1">
-                  <Text className="font-inter text-xs text-[#7A8699]">رقم الجوال</Text>
-                  <Text className="font-inter mt-1 text-sm font-semibold text-[#18344A]">
+                  <Text className="font-arabic-regular text-xs text-[#7A8699]">رقم الجوال</Text>
+                  <Text
+                    className="font-arabic-semibold mt-1 text-sm text-[#18344A]"
+                    style={{ direction: 'ltr', textAlign: 'right' }}>
                     {trainer.phone}
                   </Text>
                 </View>
@@ -374,8 +376,10 @@ export default function TrainerPage() {
                   <Ionicons name="logo-whatsapp" size={20} color="white" />
                 </View>
                 <View className="flex-1">
-                  <Text className="font-inter text-xs text-[#7A8699]">الواتساب</Text>
-                  <Text className="font-inter mt-1 text-sm font-semibold text-[#18344A]">
+                  <Text className="font-arabic-regular text-xs text-[#7A8699]">الواتساب</Text>
+                  <Text
+                    className="font-arabic-semibold mt-1 text-sm text-[#18344A]"
+                    style={{ direction: 'ltr', textAlign: 'right' }}>
                     {trainer.whatsapp}
                   </Text>
                 </View>
@@ -391,8 +395,10 @@ export default function TrainerPage() {
                   <Ionicons name="mail-outline" size={20} color="white" />
                 </View>
                 <View className="flex-1">
-                  <Text className="font-inter text-xs text-[#7A8699]">البريد الإلكتروني</Text>
-                  <Text className="font-inter mt-1 text-sm font-semibold text-[#18344A]">
+                  <Text className="font-arabic-regular text-xs text-[#7A8699]">
+                    البريد الإلكتروني
+                  </Text>
+                  <Text className="font-arabic-semibold mt-1 text-sm text-[#18344A]">
                     {trainer.email}
                   </Text>
                 </View>
@@ -408,8 +414,10 @@ export default function TrainerPage() {
                   <Ionicons name="globe-outline" size={20} color="white" />
                 </View>
                 <View className="flex-1">
-                  <Text className="font-inter text-xs text-[#7A8699]">الموقع الإلكتروني</Text>
-                  <Text className="font-inter mt-1 text-sm font-semibold text-[#18344A]">
+                  <Text className="font-arabic-regular text-xs text-[#7A8699]">
+                    الموقع الإلكتروني
+                  </Text>
+                  <Text className="font-arabic-semibold mt-1 text-sm text-[#18344A]">
                     {trainer.website}
                   </Text>
                 </View>
@@ -425,8 +433,10 @@ export default function TrainerPage() {
                   <Ionicons name="logo-instagram" size={20} color="white" />
                 </View>
                 <View className="flex-1">
-                  <Text className="font-inter text-xs text-[#7A8699]">انستغرام</Text>
-                  <Text className="font-inter mt-1 text-sm font-semibold text-[#18344A]">
+                  <Text className="font-arabic-regular text-xs text-[#7A8699]">انستغرام</Text>
+                  <Text
+                    className="font-arabic-semibold mt-1 text-sm text-[#18344A]"
+                    style={{ direction: 'ltr', textAlign: 'right' }}>
                     {trainer.instagram}
                   </Text>
                 </View>
@@ -438,24 +448,24 @@ export default function TrainerPage() {
 
         {/* Quick Actions */}
         <View className="mb-6 rounded-2xl bg-gradient-to-r from-[#1E2053] to-[#2A4F68] p-5">
-          <Text className="font-poppins mb-4 text-xl font-bold text-white">تواصل سريع</Text>
+          <Text className="font-arabic-bold mb-4 text-base text-white">تواصل سريع</Text>
 
           <View className="flex-row gap-3">
             {trainer.whatsapp && (
               <TouchableOpacity
                 onPress={() => handleWhatsApp(trainer.whatsapp)}
-                className="flex-1 flex-row gap-1 items-center justify-center rounded-xl bg-gray-200 py-3 active:bg-white/90">
+                className="flex-1 flex-row items-center justify-center gap-1 rounded-xl bg-gray-200 py-3 active:bg-white/90">
                 <Ionicons name="chatbubble-outline" size={18} color="#1E2053" />
-                <Text className="font-inter mr-2 text-sm font-semibold text-[#1E2053]">واتساب</Text>
+                <Text className="font-arabic-semibold mr-2 text-sm text-[#1E2053]">واتساب</Text>
               </TouchableOpacity>
             )}
 
             {trainer.phone && (
               <TouchableOpacity
                 onPress={() => handlePhoneCall(trainer.phone)}
-                className="flex-1 flex-row gap-1 items-center justify-center rounded-xl bg-[#CAA453] py-3">
+                className="flex-1 flex-row items-center justify-center gap-1 rounded-xl bg-[#CAA453] py-3">
                 <Ionicons name="call-outline" size={18} color="#1E2053" />
-                <Text className="font-inter mr-2 text-sm font-semibold text-[#1E2053]">اتصال</Text>
+                <Text className="font-arabic-semibold mr-2 text-sm text-[#1E2053]">اتصال</Text>
               </TouchableOpacity>
             )}
           </View>
@@ -473,16 +483,16 @@ export default function TrainerPage() {
           }}>
           <View className="mb-4 flex-row items-center">
             <View className="mr-3 h-8 w-1 rounded-full bg-[#CAA453]" />
-            <Text className="font-poppins text-xl font-bold text-[#18344A]">معلومات إضافية</Text>
+            <Text className="font-arabic-bold text-base text-[#18344A]">معلومات إضافية</Text>
           </View>
 
           <View className="gap-4">
             <View className="flex-row items-center justify-between rounded-lg bg-[#F7F9FA] p-3">
               <View className="flex-row items-center gap-2">
                 <Ionicons name="briefcase-outline" size={16} color="#7A8699" />
-                <Text className="font-inter text-sm text-[#7A8699]">التخصص</Text>
+                <Text className="font-arabic-regular text-xs text-[#7A8699]">التخصص</Text>
               </View>
-              <Text className="font-inter text-sm font-semibold text-[#18344A]">
+              <Text className="font-arabic-semibold text-sm text-[#18344A]">
                 {trainer.specialization}
               </Text>
             </View>
@@ -490,9 +500,9 @@ export default function TrainerPage() {
             <View className="flex-row items-center justify-between rounded-lg bg-[#F7F9FA] p-3">
               <View className="flex-row items-center gap-2">
                 <Ionicons name="school-outline" size={16} color="#7A8699" />
-                <Text className="font-inter text-sm text-[#7A8699]">المجال</Text>
+                <Text className="font-arabic-regular text-xs text-[#7A8699]">المجال</Text>
               </View>
-              <Text className="font-inter text-sm font-semibold text-[#18344A]">
+              <Text className="font-arabic-semibold text-sm text-[#18344A]">
                 {trainer.category.nameAr}
               </Text>
             </View>
@@ -500,9 +510,9 @@ export default function TrainerPage() {
             <View className="flex-row items-center justify-between rounded-lg bg-[#F7F9FA] p-3">
               <View className="flex-row items-center gap-2">
                 <Ionicons name="location-outline" size={16} color="#7A8699" />
-                <Text className="font-inter text-sm text-[#7A8699]">المدينة</Text>
+                <Text className="font-arabic-regular text-xs text-[#7A8699]">المدينة</Text>
               </View>
-              <Text className="font-inter text-sm font-semibold text-[#18344A]">
+              <Text className="font-arabic-semibold text-sm text-[#18344A]">
                 {trainer.city.nameAr}
               </Text>
             </View>
@@ -510,9 +520,9 @@ export default function TrainerPage() {
             <View className="flex-row items-center justify-between rounded-lg bg-[#F7F9FA] p-3">
               <View className="flex-row items-center gap-2">
                 <Ionicons name="calendar-outline" size={16} color="#7A8699" />
-                <Text className="font-inter text-sm text-[#7A8699]">تاريخ التسجيل</Text>
+                <Text className="font-arabic-regular text-xs text-[#7A8699]">تاريخ التسجيل</Text>
               </View>
-              <Text className="font-inter text-sm font-semibold text-[#18344A]">
+              <Text className="font-arabic-semibold text-sm text-[#18344A]">
                 {formatDate(trainer.createdAt)}
               </Text>
             </View>

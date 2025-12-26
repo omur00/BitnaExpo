@@ -32,19 +32,21 @@ const MerchantProfile = ({ merchant, loading }) => {
                 />
               )}
               <View>
-                <Text className="font-inter mb-1 text-lg font-bold text-[#18344A]">
+                <Text className="font-arabic-bold mb-1 text-base text-[#18344A]">
                   {merchant?.businessName || 'اسم المتجر'}
                 </Text>
                 <View className="flex-row items-center gap-2">
                   {merchant?.category?.nameAr && (
-                    <Text className="rounded-full bg-[#F7F9FA] px-2 py-1 text-xs text-[#1E2053]">
+                    <Text className="font-arabic-regular rounded-full bg-[#F7F9FA] px-2 py-1 text-xs text-[#1E2053]">
                       {merchant.category.nameAr}
                     </Text>
                   )}
                   {merchant?.city?.nameAr && (
                     <View className="flex-row items-center gap-1">
                       <Ionicons name="location-outline" size={12} color="#4E6882" />
-                      <Text className="text-xs text-[#4E6882]">{merchant.city.nameAr}</Text>
+                      <Text className="font-arabic-regular text-xs text-[#4E6882]">
+                        {merchant.city.nameAr}
+                      </Text>
                     </View>
                   )}
                 </View>
@@ -55,12 +57,14 @@ const MerchantProfile = ({ merchant, loading }) => {
 
           <View className="flex-col items-start justify-between gap-3 pt-3 md:flex-row">
             {merchant?.description && (
-              <Text className="flex-1 text-sm text-[#4E6882]">{merchant.description}</Text>
+              <Text className="font-arabic-regular flex-1 text-sm text-[#4E6882]">
+                {merchant.description}
+              </Text>
             )}
             <TouchableOpacity
               onPress={() => router.push(`/(stacks)/category/merchant/${merchant?.slug}`)}
               className="rounded-md bg-[#CAA453] px-3 py-1">
-              <Text className="text-sm text-white">الصفحة الشخصية</Text>
+              <Text className="font-arabic-semibold text-sm text-white">الصفحة الشخصية</Text>
             </TouchableOpacity>
           </View>
         </View>
@@ -69,7 +73,9 @@ const MerchantProfile = ({ merchant, loading }) => {
       {loading ? (
         <View className="items-center py-8">
           <Loading />
-          <Text className="mt-2 text-sm text-[#4E6882]">جاري تحميل معلومات المتجر...</Text>
+          <Text className="font-arabic-regular mt-2 text-sm text-[#4E6882]">
+            جاري تحميل معلومات المتجر...
+          </Text>
         </View>
       ) : merchant ? (
         <>
@@ -84,7 +90,9 @@ const MerchantProfile = ({ merchant, loading }) => {
             }}
             className="flex w-full flex-row items-center gap-2 self-start rounded-lg border border-[#1E2053] px-6 py-4">
             <Ionicons name="pencil" size={16} color="#1E2053" />
-            <Text className="font-inter flex-shrink text-sm text-[#1E2053]" numberOfLines={1}>
+            <Text
+              className="font-arabic-semibold flex-shrink text-sm text-[#1E2053]"
+              numberOfLines={1}>
               تحديث بيانات المتجر
             </Text>
           </TouchableOpacity>
@@ -141,14 +149,18 @@ const MerchantProfile = ({ merchant, loading }) => {
           <View className="mb-4 h-16 w-16 items-center justify-center rounded-full bg-[#F7F9FA]">
             <Ionicons name="business-outline" size={32} color="#1E2053" />
           </View>
-          <Text className="mb-2 text-lg font-bold text-[#18344A]">لا توجد بيانات متجر</Text>
-          <Text className="mb-6 text-center text-sm text-[#4E6882]">
+          <Text className="font-arabic-bold mb-2 text-base text-[#18344A]">
+            لا توجد بيانات متجر
+          </Text>
+          <Text className="font-arabic-regular mb-6 text-center text-sm text-[#4E6882]">
             يمكنك إضافة بيانات متجرك لعرضه على المنصة والوصول إلى العملاء
           </Text>
           <TouchableOpacity
             onPress={() => router.push('/(auth)/dashboard/edit/merchantForm')}
-            className="rounded-lg bg-[#1E2053] px-6 py-4 w-[90%]">
-            <Text className="text-center text-sm text-white">إضافة بيانات المتجر</Text>
+            className="w-[90%] rounded-lg bg-[#1E2053] px-6 py-4">
+            <Text className="font-arabic-semibold text-center text-sm text-white">
+              إضافة بيانات المتجر
+            </Text>
           </TouchableOpacity>
         </View>
       )}

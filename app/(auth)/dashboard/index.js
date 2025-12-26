@@ -77,17 +77,17 @@ const UserDashboard = () => {
         <View className="container mx-auto max-w-7xl px-4">
           <View className="flex-row items-start justify-between gap-4 sm:flex-row sm:items-center">
             <View>
-              <Text className="font-poppins mb-1 text-xl font-bold text-white">
+              <Text className="font-arabic-bold mb-1 text-lg text-white">
                 مرحباً بك، {user.fullName}
               </Text>
-              <Text className="font-inter text-sm text-gray-300">لوحة تحكم حسابك الشخصي</Text>
+              <Text className="font-arabic-regular text-sm text-gray-300">
+                لوحة تحكم حسابك الشخصي
+              </Text>
             </View>
             <View className="flex-row items-center gap-2 rounded-lg border border-white/20 bg-white/10 px-3 py-2">
               <View>
-                <Text className="font-inter text-xs text-gray-300">نوع الحساب</Text>
-                <Text className="font-inter text-sm font-semibold text-white">
-                  {roleInfo.label}
-                </Text>
+                <Text className="font-arabic-regular text-xs text-gray-300">نوع الحساب</Text>
+                <Text className="font-arabic-semibold text-sm text-white">{roleInfo.label}</Text>
               </View>
             </View>
           </View>
@@ -101,10 +101,7 @@ const UserDashboard = () => {
           <View className="space-y-6 lg:flex-1">
             {/* Role Specific Content */}
             {user.role === 'merchant' && <MerchantProfile merchant={merchant} loading={loading} />}
-
-            {/* Trainer Section */}
             {user.role === 'trainer' && <TrainerProfile trainer={trainer} loading={loading} />}
-
             {user.role === 'user' && <UserProfile />}
           </View>
 
@@ -113,22 +110,30 @@ const UserDashboard = () => {
             <View className="flex-col gap-4 rounded-xl border border-[#E5E7EB] bg-white p-4">
               <View className="flex-row items-center gap-2 border-b border-[#F7F9FA] pb-2">
                 <Ionicons name="person-circle-outline" size={16} color="#CAA453" />
-                <Text className="text-sm font-semibold text-[#18344A]">معلومات الحساب</Text>
+                <Text className="font-arabic-semibold text-sm text-[#18344A]">معلومات الحساب</Text>
               </View>
               <View className="gap-4">
                 <View className="rounded-lg bg-[#F7F9FA] p-3">
-                  <Text className="mb-1 text-xs text-[#7A8699]">الاسم الكامل</Text>
-                  <Text className="text-sm font-semibold text-[#18344A]">{user.fullName}</Text>
+                  <Text className="font-arabic-regular mb-1 text-xs text-[#7A8699]">
+                    الاسم الكامل
+                  </Text>
+                  <Text className="font-arabic-semibold text-sm text-[#18344A]">
+                    {user.fullName}
+                  </Text>
                 </View>
                 <View className="rounded-lg bg-[#F7F9FA] p-3">
-                  <Text className="mb-1 text-xs text-[#7A8699]">البريد الإلكتروني</Text>
-                  <Text className="text-sm font-semibold text-[#18344A]">{user.email}</Text>
+                  <Text className="font-arabic-regular mb-1 text-xs text-[#7A8699]">
+                    البريد الإلكتروني
+                  </Text>
+                  <Text className="font-arabic-semibold text-sm text-[#18344A]">{user.email}</Text>
                 </View>
               </View>
               <TouchableOpacity
                 onPress={() => router.push('/(auth)/dashboard/profile/edit')}
                 className="rounded-lg bg-[#1E2053] px-6 py-4">
-                <Text className="text-center text-sm text-white">تعديل البيانات الشخصية</Text>
+                <Text className="font-arabic-semibold text-center text-sm text-white">
+                  تعديل البيانات الشخصية
+                </Text>
               </TouchableOpacity>
             </View>
           </View>

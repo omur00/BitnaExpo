@@ -17,7 +17,7 @@ export default function AuthLayout() {
             fontSize: 16,
           },
           headerLeft: () => {
-            if (route.name !== 'index') {
+            if (route.name !== 'dashboard') {
               return (
                 <TouchableOpacity onPress={navigation.goBack} style={{ marginRight: 15 }}>
                   <Ionicons name="arrow-forward" size={24} color="black" />
@@ -33,27 +33,28 @@ export default function AuthLayout() {
               </TouchableOpacity>
             );
           },
+          headerRight: () => (
+            <Image
+              source={logo}
+              style={{
+                width: 30,
+                height: 30,
+                resizeMode: 'contain',
+              }}
+            />
+          ),
         })}>
         <Stack.Screen
           name="index"
           options={{
             headerTitle: 'الرئيسية',
-            headerRight: () => (
-              <Image
-                source={logo}
-                style={{
-                  width: 30,
-                  height: 30,
-                  resizeMode: 'contain',
-                }}
-              />
-            ),
           }}
         />
         <Stack.Screen
           name="dashboard"
           options={{
             headerTitle: 'اللوحة الشخصية',
+            headerShown: false,
           }}
         />
       </Stack>

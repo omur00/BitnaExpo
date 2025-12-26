@@ -199,19 +199,21 @@ export default function CategoryManagement() {
         <View className="flex-1 justify-center bg-black/50 p-4">
           <View className="rounded-xl bg-white p-6">
             <View className="mb-4 flex-row items-center justify-between">
-              <Text className="text-lg font-bold text-gray-900">معلومات الأيقونات</Text>
+              <Text className="font-arabic-bold text-lg text-gray-900">معلومات الأيقونات</Text>
               <TouchableOpacity onPress={() => setShowIconsInfo(false)}>
                 <Ionicons name="close" size={24} color="#6B7280" />
               </TouchableOpacity>
             </View>
-            <Text className="mb-4 text-gray-700">
+            <Text className="font-arabic-regular mb-4 text-sm text-gray-700">
               يمكنك الحصول على أسماء الأيقونات من موقع Heroicons
             </Text>
             <TouchableOpacity
               onPress={() => Linking.openURL('https://heroicons.dev/')}
               className="flex-row items-center justify-center gap-2 rounded-lg bg-blue-600 py-3">
               <Ionicons name="open-outline" size={18} color="white" />
-              <Text className="text-center font-bold text-white">فتح موقع Heroicons</Text>
+              <Text className="font-arabic-bold text-center text-sm text-white">
+                فتح موقع Heroicons
+              </Text>
             </TouchableOpacity>
           </View>
         </View>
@@ -221,7 +223,9 @@ export default function CategoryManagement() {
         <View className="px-4 py-6">
           {/* Header */}
           <View className="mb-6">
-            <Text className="text-sm text-gray-600">إدارة التصنيفات والمدن المتاحة في المنصة</Text>
+            <Text className="font-arabic-regular text-sm text-gray-600">
+              إدارة التصنيفات والمدن المتاحة في المنصة
+            </Text>
           </View>
 
           {/* Tabs */}
@@ -239,7 +243,7 @@ export default function CategoryManagement() {
                     color={activeTab === 'categories' ? '#111827' : '#6B7280'}
                   />
                   <Text
-                    className={`font-medium ${
+                    className={`font-arabic-semibold text-sm ${
                       activeTab === 'categories' ? 'text-gray-900' : 'text-gray-500'
                     }`}>
                     الأقسام ({categories.length})
@@ -258,7 +262,7 @@ export default function CategoryManagement() {
                     color={activeTab === 'cities' ? '#111827' : '#6B7280'}
                   />
                   <Text
-                    className={`font-medium ${
+                    className={`font-arabic-semibold text-sm ${
                       activeTab === 'cities' ? 'text-gray-900' : 'text-gray-500'
                     }`}>
                     المدن ({cities.length})
@@ -276,7 +280,7 @@ export default function CategoryManagement() {
                 {/* Header with Add Button */}
                 <View className="rounded-xl border border-gray-200 bg-white p-4">
                   <View className="mb-4 flex-row items-center justify-between">
-                    <Text className="text-lg font-bold text-gray-900">الأقسام الرئيسية</Text>
+                    <Text className="font-arabic-bold text-lg text-gray-900">الأقسام الرئيسية</Text>
                     <TouchableOpacity
                       onPress={() => {
                         resetCategoryForm();
@@ -285,7 +289,7 @@ export default function CategoryManagement() {
                       }}
                       className="flex-row items-center gap-2 rounded-lg bg-gray-900 px-3 py-2.5">
                       <Ionicons name={showCategoryForm ? 'close' : 'add'} size={16} color="white" />
-                      <Text className="text-sm font-medium text-white">
+                      <Text className="font-arabic-semibold text-sm text-white">
                         {showCategoryForm ? 'إغلاق النموذج' : 'إضافة قسم جديد'}
                       </Text>
                     </TouchableOpacity>
@@ -296,14 +300,14 @@ export default function CategoryManagement() {
                     <View className="mb-6 rounded-xl border border-gray-200 bg-gray-50 p-4">
                       <View className="mb-4 flex-row items-center gap-2">
                         <Ionicons name="folder-outline" size={20} color="#374151" />
-                        <Text className="text-lg font-bold text-gray-900">
+                        <Text className="font-arabic-bold text-lg text-gray-900">
                           {editingCategory ? 'تعديل القسم' : 'إضافة قسم جديد'}
                         </Text>
                       </View>
 
                       <View className="gap-4">
                         <View className="gap-1">
-                          <Text className="text-sm font-medium text-gray-700">
+                          <Text className="font-arabic-semibold text-sm text-gray-700">
                             الاسم بالإنجليزية
                           </Text>
                           <TextInput
@@ -312,12 +316,12 @@ export default function CategoryManagement() {
                               setCategoryForm({ ...categoryForm, name: text })
                             }
                             placeholder="الاسم بالانجليزية"
-                            className="w-full rounded-lg border border-gray-300 bg-white px-3 py-3 text-right text-gray-900"
+                            className="font-arabic-regular w-full rounded-lg border border-gray-300 bg-white px-3 py-3 text-right text-sm text-gray-900"
                           />
                         </View>
 
                         <View className="gap-1">
-                          <Text className="text-sm font-medium text-gray-700">
+                          <Text className="font-arabic-semibold text-sm text-gray-700">
                             الاسم بالعربية *
                           </Text>
                           <TextInput
@@ -326,12 +330,12 @@ export default function CategoryManagement() {
                               setCategoryForm({ ...categoryForm, nameAr: text })
                             }
                             placeholder="الاسم بالعربية"
-                            className="w-full rounded-lg border border-gray-300 bg-white px-3 py-3 text-right text-gray-900"
+                            className="font-arabic-regular w-full rounded-lg border border-gray-300 bg-white px-3 py-3 text-right text-sm text-gray-900"
                           />
                         </View>
 
                         <View className="gap-1">
-                          <Text className="text-sm font-medium text-gray-700">الوصف</Text>
+                          <Text className="font-arabic-semibold text-sm text-gray-700">الوصف</Text>
                           <TextInput
                             value={categoryForm.description}
                             onChangeText={(text) =>
@@ -340,30 +344,36 @@ export default function CategoryManagement() {
                             placeholder="الوصف"
                             multiline
                             numberOfLines={3}
-                            className="w-full rounded-lg border border-gray-300 bg-white px-3 py-3 text-right text-gray-900"
+                            className="font-arabic-regular w-full rounded-lg border border-gray-300 bg-white px-3 py-3 text-right text-sm text-gray-900"
                           />
                         </View>
 
                         <View className="gap-1">
-                          <Text className="text-sm font-medium text-gray-700">الأيقونة</Text>
+                          <Text className="font-arabic-semibold text-sm text-gray-700">
+                            الأيقونة
+                          </Text>
                           <TextInput
                             value={categoryForm.icon}
                             onChangeText={(text) =>
                               setCategoryForm({ ...categoryForm, icon: text })
                             }
                             placeholder="📦"
-                            className="w-full rounded-lg border border-gray-300 bg-white px-3 py-3 text-right text-gray-900"
+                            className="font-arabic-regular w-full rounded-lg border border-gray-300 bg-white px-3 py-3 text-right text-sm text-gray-900"
                           />
                           <TouchableOpacity
                             onPress={() => setShowIconsInfo(true)}
                             className="mt-1 flex-row items-center gap-1">
                             <Ionicons name="information-circle-outline" size={16} color="#DC2626" />
-                            <Text className="text-xs text-red-700">الحصول على أسماء أيقونات</Text>
+                            <Text className="font-arabic-regular text-xs text-red-700">
+                              الحصول على أسماء أيقونات
+                            </Text>
                           </TouchableOpacity>
                         </View>
 
                         <View className="gap-1">
-                          <Text className="text-sm font-medium text-gray-700">ترتيب العرض</Text>
+                          <Text className="font-arabic-semibold text-sm text-gray-700">
+                            ترتيب العرض
+                          </Text>
                           <TextInput
                             value={categoryForm?.order?.toString()}
                             onChangeText={(text) =>
@@ -373,12 +383,12 @@ export default function CategoryManagement() {
                               })
                             }
                             keyboardType="numeric"
-                            className="w-full rounded-lg border border-gray-300 bg-white px-3 py-3 text-right text-gray-900"
+                            className="font-arabic-regular w-full rounded-lg border border-gray-300 bg-white px-3 py-3 text-right text-sm text-gray-900"
                           />
                         </View>
 
                         <View className="flex-row items-center justify-between rounded-lg bg-white p-3">
-                          <Text className="text-sm font-medium text-gray-700">نشط</Text>
+                          <Text className="font-arabic-semibold text-sm text-gray-700">نشط</Text>
                           <Switch
                             value={categoryForm.isActive}
                             onValueChange={(value) =>
@@ -392,7 +402,7 @@ export default function CategoryManagement() {
                             onPress={handleCategorySubmit}
                             className="flex-1 flex-row items-center justify-center gap-2 rounded-lg bg-gray-900 py-3">
                             <Ionicons name="checkmark-circle-outline" size={16} color="white" />
-                            <Text className="font-medium text-white">
+                            <Text className="font-arabic-semibold text-sm text-white">
                               {editingCategory ? 'تحديث' : 'إضافة'}
                             </Text>
                           </TouchableOpacity>
@@ -404,7 +414,7 @@ export default function CategoryManagement() {
                             }}
                             className="flex-1 flex-row items-center justify-center gap-2 rounded-lg bg-gray-500 py-3">
                             <Ionicons name="close-circle-outline" size={16} color="white" />
-                            <Text className="font-medium text-white">إلغاء</Text>
+                            <Text className="font-arabic-semibold text-sm text-white">إلغاء</Text>
                           </TouchableOpacity>
                         </View>
                       </View>
@@ -419,13 +429,15 @@ export default function CategoryManagement() {
                       key={category.id}
                       className="rounded-xl border border-gray-200 bg-white p-4">
                       <View className="mb-3 flex-row items-start justify-between">
-                        <View className="flex-row items-center gap-3">
+                        <View className="w-[70%] flex-row items-center  gap-3">
                           <Ionicons name="folder-outline" size={24} color="#9CA3AF" />
                           <View>
-                            <Text className="text-lg font-semibold text-gray-900">
+                            <Text className="font-arabic-semibold text-base text-gray-900">
                               {category.nameAr}
                             </Text>
-                            <Text className="text-sm text-gray-600">{category.name}</Text>
+                            <Text className="font-arabic-regular text-sm text-gray-600">
+                              {category.name}
+                            </Text>
                           </View>
                         </View>
                         <View
@@ -444,7 +456,7 @@ export default function CategoryManagement() {
                             color={category.isActive ? '#047857' : '#DC2626'}
                           />
                           <Text
-                            className={`text-xs font-medium ${
+                            className={`font-arabic-semibold text-xs ${
                               category.isActive ? 'text-emerald-700' : 'text-red-700'
                             }`}>
                             {category.isActive ? 'نشط' : 'معطل'}
@@ -453,24 +465,32 @@ export default function CategoryManagement() {
                       </View>
 
                       {category.description && (
-                        <Text className="mb-3 text-sm text-gray-600">{category.description}</Text>
+                        <Text className="font-arabic-regular mb-3 text-sm text-gray-600">
+                          {category.description}
+                        </Text>
                       )}
 
                       <View className="mb-3 flex-row items-center justify-between">
                         <View className="flex-row items-center gap-4">
                           <View className="flex-row items-center gap-1">
                             <Ionicons name="pricetag-outline" size={16} color="#6B7280" />
-                            <Text className="text-sm text-gray-500">الترتيب: {category.order}</Text>
+                            <Text className="font-arabic-regular text-xs text-gray-500">
+                              الترتيب: {category.order}
+                            </Text>
                           </View>
                         </View>
                         <View className="flex-row items-center gap-4">
                           <View className="flex-row items-center gap-1">
                             <Ionicons name="storefront-outline" size={16} color="#6B7280" />
-                            <Text className="text-sm text-gray-500">{category.merchantsCount}</Text>
+                            <Text className="font-arabic-regular text-xs text-gray-500">
+                              {category.merchantsCount}
+                            </Text>
                           </View>
                           <View className="flex-row items-center gap-1">
                             <Ionicons name="school-outline" size={16} color="#6B7280" />
-                            <Text className="text-sm text-gray-500">{category.trainersCount}</Text>
+                            <Text className="font-arabic-regular text-xs text-gray-500">
+                              {category.trainersCount}
+                            </Text>
                           </View>
                         </View>
                       </View>
@@ -480,13 +500,13 @@ export default function CategoryManagement() {
                           onPress={() => handleEditCategory(category)}
                           className="flex-1 flex-row items-center justify-center gap-2 rounded-lg bg-gray-100 py-2.5">
                           <Ionicons name="pencil-outline" size={16} color="#374151" />
-                          <Text className="font-medium text-gray-700">تعديل</Text>
+                          <Text className="font-arabic-semibold text-sm text-gray-700">تعديل</Text>
                         </TouchableOpacity>
                         <TouchableOpacity
                           onPress={() => handleDeleteCategory(category)}
                           className="flex-1 flex-row items-center justify-center gap-2 rounded-lg bg-red-100 py-2.5">
                           <Ionicons name="trash-outline" size={16} color="#DC2626" />
-                          <Text className="font-medium text-red-700">حذف</Text>
+                          <Text className="font-arabic-semibold text-sm text-red-700">حذف</Text>
                         </TouchableOpacity>
                       </View>
                     </View>
@@ -501,7 +521,7 @@ export default function CategoryManagement() {
                 {/* Header with Add Button */}
                 <View className="rounded-xl border border-gray-200 bg-white p-4">
                   <View className="mb-4 flex-row items-center justify-between">
-                    <Text className="text-lg font-bold text-gray-900">المدن المتاحة</Text>
+                    <Text className="font-arabic-bold text-lg text-gray-900">المدن المتاحة</Text>
                     <TouchableOpacity
                       onPress={() => {
                         resetCityForm();
@@ -510,7 +530,7 @@ export default function CategoryManagement() {
                       }}
                       className="flex-row items-center gap-2 rounded-lg bg-gray-900 px-3 py-2.5">
                       <Ionicons name={showCityForm ? 'close' : 'add'} size={16} color="white" />
-                      <Text className="text-sm font-medium text-white">
+                      <Text className="font-arabic-semibold text-sm text-white">
                         {showCityForm ? 'إغلاق النموذج' : 'إضافة مدينة جديدة'}
                       </Text>
                     </TouchableOpacity>
@@ -521,38 +541,38 @@ export default function CategoryManagement() {
                     <View className="mb-6 rounded-xl border border-gray-200 bg-gray-50 p-4">
                       <View className="mb-4 flex-row items-center gap-2">
                         <Ionicons name="location-outline" size={20} color="#374151" />
-                        <Text className="text-lg font-bold text-gray-900">
+                        <Text className="font-arabic-bold text-lg text-gray-900">
                           {editingCity ? 'تعديل المدينة' : 'إضافة مدينة جديدة'}
                         </Text>
                       </View>
 
                       <View className="gap-4">
                         <View className="gap-1">
-                          <Text className="text-sm font-medium text-gray-700">
+                          <Text className="font-arabic-semibold text-sm text-gray-700">
                             الاسم بالإنجليزية
                           </Text>
                           <TextInput
                             value={cityForm.name}
                             onChangeText={(text) => setCityForm({ ...cityForm, name: text })}
                             placeholder="الاسم بالانجليزية"
-                            className="w-full rounded-lg border border-gray-300 bg-white px-3 py-3 text-right text-gray-900"
+                            className="font-arabic-regular w-full rounded-lg border border-gray-300 bg-white px-3 py-3 text-right text-sm text-gray-900"
                           />
                         </View>
 
                         <View className="gap-1">
-                          <Text className="text-sm font-medium text-gray-700">
+                          <Text className="font-arabic-semibold text-sm text-gray-700">
                             الاسم بالعربية *
                           </Text>
                           <TextInput
                             value={cityForm.nameAr}
                             onChangeText={(text) => setCityForm({ ...cityForm, nameAr: text })}
                             placeholder="الاسم بالعربية"
-                            className="w-full rounded-lg border border-gray-300 bg-white px-3 py-3 text-right text-gray-900"
+                            className="font-arabic-regular w-full rounded-lg border border-gray-300 bg-white px-3 py-3 text-right text-sm text-gray-900"
                           />
                         </View>
 
                         <View className="flex-row items-center justify-between rounded-lg bg-white p-3">
-                          <Text className="text-sm font-medium text-gray-700">نشط</Text>
+                          <Text className="font-arabic-semibold text-sm text-gray-700">نشط</Text>
                           <Switch
                             value={cityForm.isActive}
                             onValueChange={(value) => setCityForm({ ...cityForm, isActive: value })}
@@ -564,7 +584,7 @@ export default function CategoryManagement() {
                             onPress={handleCitySubmit}
                             className="flex-1 flex-row items-center justify-center gap-2 rounded-lg bg-gray-900 py-3">
                             <Ionicons name="checkmark-circle-outline" size={16} color="white" />
-                            <Text className="font-medium text-white">
+                            <Text className="font-arabic-semibold text-sm text-white">
                               {editingCity ? 'تحديث' : 'إضافة'}
                             </Text>
                           </TouchableOpacity>
@@ -576,7 +596,7 @@ export default function CategoryManagement() {
                             }}
                             className="flex-1 flex-row items-center justify-center gap-2 rounded-lg bg-gray-500 py-3">
                             <Ionicons name="close-circle-outline" size={16} color="white" />
-                            <Text className="font-medium text-white">إلغاء</Text>
+                            <Text className="font-arabic-semibold text-sm text-white">إلغاء</Text>
                           </TouchableOpacity>
                         </View>
                       </View>
@@ -592,10 +612,12 @@ export default function CategoryManagement() {
                         <View className="flex-row items-center gap-3">
                           <Ionicons name="location-outline" size={24} color="#9CA3AF" />
                           <View>
-                            <Text className="text-lg font-semibold text-gray-900">
+                            <Text className="font-arabic-semibold text-base text-gray-900">
                               {city.nameAr}
                             </Text>
-                            <Text className="text-sm text-gray-600">{city.name}</Text>
+                            <Text className="font-arabic-regular text-sm text-gray-600">
+                              {city.name}
+                            </Text>
                           </View>
                         </View>
                         <View
@@ -612,7 +634,7 @@ export default function CategoryManagement() {
                             color={city.isActive ? '#047857' : '#DC2626'}
                           />
                           <Text
-                            className={`text-xs font-medium ${
+                            className={`font-arabic-semibold text-xs ${
                               city.isActive ? 'text-emerald-700' : 'text-red-700'
                             }`}>
                             {city.isActive ? 'نشط' : 'معطل'}
@@ -624,13 +646,15 @@ export default function CategoryManagement() {
                         <View className="flex-row items-center gap-4">
                           <View className="flex-row items-center gap-1">
                             <Ionicons name="storefront-outline" size={16} color="#6B7280" />
-                            <Text className="text-sm text-gray-500">
+                            <Text className="font-arabic-regular text-xs text-gray-500">
                               {city.merchantsCount} تاجر
                             </Text>
                           </View>
                           <View className="flex-row items-center gap-1">
                             <Ionicons name="school-outline" size={16} color="#6B7280" />
-                            <Text className="text-sm text-gray-500">{city.trainersCount} مدرب</Text>
+                            <Text className="font-arabic-regular text-xs text-gray-500">
+                              {city.trainersCount} مدرب
+                            </Text>
                           </View>
                         </View>
                       </View>
@@ -640,13 +664,13 @@ export default function CategoryManagement() {
                           onPress={() => handleEditCity(city)}
                           className="flex-1 flex-row items-center justify-center gap-2 rounded-lg bg-gray-100 py-2.5">
                           <Ionicons name="pencil-outline" size={16} color="#374151" />
-                          <Text className="font-medium text-gray-700">تعديل</Text>
+                          <Text className="font-arabic-semibold text-sm text-gray-700">تعديل</Text>
                         </TouchableOpacity>
                         <TouchableOpacity
                           onPress={() => handleDeleteCity(city)}
                           className="flex-1 flex-row items-center justify-center gap-2 rounded-lg bg-red-100 py-2.5">
                           <Ionicons name="trash-outline" size={16} color="#DC2626" />
-                          <Text className="font-medium text-red-700">حذف</Text>
+                          <Text className="font-arabic-semibold text-sm text-red-700">حذف</Text>
                         </TouchableOpacity>
                       </View>
                     </View>

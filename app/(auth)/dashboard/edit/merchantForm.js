@@ -40,7 +40,7 @@ const merchantForm = () => {
   const [selectedPCountry, setSelectedPCountry] = useState(null);
   const [selectedWCountry, setSelectedWCountry] = useState(null);
   const router = useRouter();
-  
+
   useEffect(() => {
     if (params.merchant) {
       try {
@@ -272,7 +272,8 @@ const merchantForm = () => {
         {/* Basic Information */}
         <View className="-mx-2 mb-4 flex-row flex-wrap">
           <View className="mb-4 w-full px-2 md:w-1/2">
-            <Text className="mb-2 text-sm font-semibold uppercase tracking-wide text-amber-600">
+            {/* Form labels - use arabic-bold for emphasis */}
+            <Text className="font-arabic-bold mb-2 text-sm uppercase tracking-wide text-amber-600">
               اسم النشاط *
             </Text>
             <TextInput
@@ -284,14 +285,17 @@ const merchantForm = () => {
                 isFieldValid('businessName') ? 'border-gray-300' : 'border-red-500'
               }`}
             />
+            {/* Error messages - use arabic-medium */}
             {!isFieldValid('businessName') && (
-              <Text className="mt-1 text-sm text-red-500">{getFieldError('businessName')}</Text>
+              <Text className="font-arabic-medium mt-1 text-sm text-red-500">
+                {getFieldError('businessName')}
+              </Text>
             )}
           </View>
         </View>
         {/* Description */}
         <View className="mb-4">
-          <Text className="mb-2 text-sm font-semibold uppercase tracking-wide text-amber-600">
+          <Text className="font-arabic-bold mb-2 text-sm uppercase tracking-wide text-amber-600">
             وصف النشاط *
           </Text>
           <TextInput
@@ -306,11 +310,13 @@ const merchantForm = () => {
             }`}
           />
           {!isFieldValid('description') && (
-            <Text className="mt-1 text-sm text-red-500">{getFieldError('description')}</Text>
+            <Text className="font-arabic-medium mt-1 text-sm text-red-500">
+              {getFieldError('description')}
+            </Text>
           )}
         </View>
         <View className="mb-4">
-          <Text className="mb-2 text-sm font-semibold uppercase tracking-wide text-amber-600">
+          <Text className="font-arabic-bold mb-2 text-sm uppercase tracking-wide text-amber-600">
             رقم هاتف*
           </Text>
           {/* PhoneInput component would go here */}
@@ -328,11 +334,13 @@ const merchantForm = () => {
           </View>
 
           {!isFieldValid('phone') && (
-            <Text className="mt-1 text-sm text-red-500">{getFieldError('phone')}</Text>
+            <Text className="font-arabic-medium mt-1 text-sm text-red-500">
+              {getFieldError('phone')}
+            </Text>
           )}
         </View>
         <View className="mb-4">
-          <Text className="mb-2 text-sm font-semibold uppercase tracking-wide text-amber-600">
+          <Text className="font-arabic-bold mb-2 text-sm uppercase tracking-wide text-amber-600">
             رقم الواتساب
           </Text>
           <View style={{ direction: 'ltr' }}>
@@ -348,13 +356,15 @@ const merchantForm = () => {
           </View>
 
           {!isFieldValid('whatsapp') && (
-            <Text className="mt-1 text-sm text-red-500">{getFieldError('whatsapp')}</Text>
+            <Text className="font-arabic-medium mt-1 text-sm text-red-500">
+              {getFieldError('whatsapp')}
+            </Text>
           )}
         </View>
         {/* Contact Information */}
         <View className="-mx-2 mb-4 flex-row flex-wrap">
           <View className="mb-4 w-full px-2 md:w-1/2">
-            <Text className="mb-2 text-sm font-semibold uppercase tracking-wide text-amber-600">
+            <Text className="font-arabic-bold mb-2 text-sm uppercase tracking-wide text-amber-600">
               البريد الإلكتروني
             </Text>
             <TextInput
@@ -368,12 +378,14 @@ const merchantForm = () => {
               }`}
             />
             {!isFieldValid('email') && (
-              <Text className="mt-1 text-sm text-red-500">{getFieldError('email')}</Text>
+              <Text className="font-arabic-medium mt-1 text-sm text-red-500">
+                {getFieldError('email')}
+              </Text>
             )}
           </View>
 
           <View className="mb-4 w-full px-2 md:w-1/2">
-            <Text className="mb-2 text-sm font-semibold uppercase tracking-wide text-amber-600">
+            <Text className="font-arabic-bold mb-2 text-sm uppercase tracking-wide text-amber-600">
               الموقع الإلكتروني
             </Text>
             <TextInput
@@ -387,11 +399,13 @@ const merchantForm = () => {
               }`}
             />
             {!isFieldValid('website') && (
-              <Text className="mt-1 text-sm text-red-500">{getFieldError('website')}</Text>
+              <Text className="font-arabic-medium mt-1 text-sm text-red-500">
+                {getFieldError('website')}
+              </Text>
             )}
           </View>
           <View className="mb-4 w-full px-2 md:w-1/2">
-            <Text className="mb-2 text-sm font-semibold uppercase tracking-wide text-amber-600">
+            <Text className="font-arabic-bold mb-2 text-sm uppercase tracking-wide text-amber-600">
               حساب انستغرام
             </Text>
             <TextInput
@@ -404,12 +418,15 @@ const merchantForm = () => {
               }`}
             />
             {!isFieldValid('instagram') && (
-              <Text className="mt-1 text-sm text-red-500">{getFieldError('website')}</Text>
+              <Text className="font-arabic-medium mt-1 text-sm text-red-500">
+                {getFieldError('website')}
+              </Text>
             )}
           </View>
         </View>
 
-        {/* Logo Upload */}
+        {/* ImageUpload components - assuming they have their own Text components */}
+        {/* Keep as is if they're separate components */}
         <ImageUpload
           label="شعار المتجر"
           value={formData.logo}
@@ -418,7 +435,6 @@ const merchantForm = () => {
           folder="/merchants/logos"
         />
 
-        {/* Cover Image Upload */}
         <ImageUpload
           label="صورة الغلاف"
           value={formData.coverImage}
@@ -429,7 +445,6 @@ const merchantForm = () => {
 
         {/* Gallery Images Upload */}
         <View>
-          {/* Add new gallery image */}
           <ImageUpload
             label="معرض الصور"
             value={formData.galleryImages.map((img) => img.url)}
@@ -442,10 +457,9 @@ const merchantForm = () => {
         {/* City and Category */}
         <View className="-mx-2 mb-4 flex-row flex-wrap">
           <View className="mb-4 w-full px-2 md:w-1/2">
-            <Text className="mb-2 text-sm font-semibold uppercase tracking-wide text-amber-600">
+            <Text className="font-arabic-bold mb-2 text-sm uppercase tracking-wide text-amber-600">
               الدولة
             </Text>
-            {/* CitySelection component would go here */}
             <CitySelection
               formData={formData}
               onChange={handleChange}
@@ -453,13 +467,14 @@ const merchantForm = () => {
               required={true}
             />
             {!isFieldValid('cityId') && (
-              <Text className="mt-1 text-sm text-red-500">{getFieldError('cityId')}</Text>
+              <Text className="font-arabic-medium mt-1 text-sm text-red-500">
+                {getFieldError('cityId')}
+              </Text>
             )}
           </View>
 
-          {/* CategorySelection component would go here */}
           <View className="mb-4 w-full px-2 md:w-1/2">
-            <Text className="mb-2 text-sm font-semibold uppercase tracking-wide text-amber-600">
+            <Text className="font-arabic-bold mb-2 text-sm uppercase tracking-wide text-amber-600">
               القسم
             </Text>
             <CategorySelection
@@ -472,13 +487,15 @@ const merchantForm = () => {
               }`}
             />
             {!isFieldValid('categoryId') && (
-              <Text className="mt-1 text-sm text-red-500">{getFieldError('categoryId')}</Text>
+              <Text className="font-arabic-medium mt-1 text-sm text-red-500">
+                {getFieldError('categoryId')}
+              </Text>
             )}
           </View>
         </View>
         {/* Address */}
         <View className="mb-4">
-          <Text className="mb-2 text-sm font-semibold uppercase tracking-wide text-amber-600">
+          <Text className="font-arabic-bold mb-2 text-sm uppercase tracking-wide text-amber-600">
             العنوان
           </Text>
           <TextInput
@@ -490,7 +507,7 @@ const merchantForm = () => {
         </View>
         {/* Additional Notes */}
         <View className="mb-4">
-          <Text className="mb-2 text-sm font-semibold uppercase tracking-wide text-amber-600">
+          <Text className="font-arabic-bold mb-2 text-sm uppercase tracking-wide text-amber-600">
             ملاحظات إضافية
           </Text>
           <TextInput
@@ -508,7 +525,10 @@ const merchantForm = () => {
         {/* Error Display */}
         {error && (
           <View className="mb-4 rounded-lg border border-red-200 bg-red-50 p-3">
-            <Text className="text-red-700">فشل في حفظ البيانات: {error.message}</Text>
+            {/* Error messages - use arabic-medium for readability */}
+            <Text className="font-arabic-medium text-red-700">
+              فشل في حفظ البيانات: {error.message}
+            </Text>
           </View>
         )}
         {/* Submit Button */}
@@ -520,9 +540,9 @@ const merchantForm = () => {
             {loading ? (
               <View className="h-5 w-5 animate-spin rounded-full border-2 border-white border-t-transparent" />
             ) : params.merchant ? (
-              <Text className="font-semibold text-white">تحديث البيانات</Text>
+              <Text className="font-arabic-bold text-white">تحديث البيانات</Text>
             ) : (
-              <Text className="font-semibold text-white">إضافة المتجر</Text>
+              <Text className="font-arabic-bold text-white">إضافة المتجر</Text>
             )}
           </TouchableOpacity>
         </View>

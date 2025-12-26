@@ -11,12 +11,32 @@ import { I18nManager } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
 import * as SplashScreen from 'expo-splash-screen';
 import { useFonts } from 'expo-font';
-
 import { NotificationProvider } from '@/context/notification-context';
 import RouteGuard from '@/components/RouteGuard';
 import NotificationContainer from '@/components/notification/NotificationContainer';
 import CustomDrawerContent from '@/components/CustomDrawerContent';
 import Loading from '@/components/Loading';
+import * as Sentry from '@sentry/react-native';
+
+Sentry.init({
+  dsn: 'https://a3f249b45b143d83de76fbf4c8034adc@o4509946261864448.ingest.de.sentry.io/4510581251178576',
+
+  // Adds more context data to events (IP address, cookies, user, etc.)
+  // For more information, visit: https://docs.sentry.io/platforms/react-native/data-management/data-collected/
+  sendDefaultPii: true,
+
+  // Enable Logs
+  enableLogs: true,
+
+  // Configure Session Replay
+  replaysSessionSampleRate: 0.1,
+  replaysOnErrorSampleRate: 1,
+  integrations: [Sentry.mobileReplayIntegration(), Sentry.feedbackIntegration()],
+  
+
+  // uncomment the line below to enable Spotlight (https://spotlightjs.com)
+  // spotlight: __DEV__,
+});
 
 SplashScreen.setOptions({
   duration: 1000,
@@ -72,7 +92,7 @@ const AppWrapper = ({ children }) => {
   return children;
 };
 
-export default function Layout() {
+export default Sentry.wrap(function Layout() {
   return (
     <SafeAreaProvider>
       <StatusBar style="auto" />
@@ -105,4 +125,4 @@ export default function Layout() {
       </GestureHandlerRootView>
     </SafeAreaProvider>
   );
-}
+});

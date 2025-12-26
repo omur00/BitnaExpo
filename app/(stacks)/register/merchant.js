@@ -23,18 +23,18 @@ export default function MerchantRegistration() {
   const [isAgreed, setIsAgreed] = useState(false);
   const router = useRouter();
   const [formData, setFormData] = useState({
-    businessName: 'aaaaaa',
-    description: 'aaaaaa',
+    businessName: '',
+    description: '',
     categoryId: '',
     cityId: '',
-    phone: '243423443',
-    whatsapp: '243423443',
-    email: 'omurjssd@sdsd.com',
+    phone: '',
+    whatsapp: '',
+    email: '',
     website: '',
     instagram: '',
-    password: '123123123',
-    confpassword: '123123123',
-    additionalNotes: 'asdasdasdasd',
+    password: '',
+    confpassword: '',
+    additionalNotes: '',
     documentType: '',
     verificationDocument: null,
   });
@@ -126,7 +126,9 @@ export default function MerchantRegistration() {
       {/* Header with Progress Bar */}
       <View className="border-b border-gray-200 bg-white px-6 pb-6 pt-8">
         <View className="mb-4">
-          <Text className="mt-1 text-gray-600">املأ البيانات التالية لعرض نشاطك على المنصة</Text>
+          <Text className="font-arabic-regular mt-1 text-sm text-gray-600">
+            املأ البيانات التالية لعرض نشاطك على المنصة
+          </Text>
         </View>
 
         {/* Progress Bar */}
@@ -141,14 +143,14 @@ export default function MerchantRegistration() {
                       : 'border-gray-300 bg-white'
                   }`}>
                   <Text
-                    className={`font-medium ${
+                    className={`font-arabic-semibold ${
                       currentStep >= step.number ? 'text-white' : 'text-gray-500'
                     }`}>
                     {step.number}
                   </Text>
                 </View>
                 {currentStep === step.number && (
-                  <Text className="text-sm font-medium text-[#CAA453]">{step.title}</Text>
+                  <Text className="font-arabic-semibold text-sm text-[#CAA453]">{step.title}</Text>
                 )}
               </View>
               {index < steps.length - 1 && (
@@ -169,7 +171,9 @@ export default function MerchantRegistration() {
           <View className="mb-6 rounded-xl border border-red-200 bg-red-50 p-4">
             <View className="flex-row items-start gap-2">
               <Ionicons name="alert-circle-outline" size={20} color="#DC2626" />
-              <Text className="flex-1 text-red-700">{error.message}</Text>
+              <Text className="font-arabic-regular flex-1 text-sm text-red-700">
+                {error.message}
+              </Text>
             </View>
           </View>
         )}
@@ -180,22 +184,26 @@ export default function MerchantRegistration() {
             <View className="gap-1">
               <View className="flex-row items-center gap-2">
                 <Ionicons name="business-outline" size={20} color="#374151" />
-                <Text className="text-lg font-bold text-gray-800">المعلومات الأساسية للنشاط</Text>
+                <Text className="font-arabic-bold text-base text-gray-800">
+                  المعلومات الأساسية للنشاط
+                </Text>
               </View>
-              <Text className="text-sm text-gray-600">البيانات الأساسية لنشاطك التجاري</Text>
+              <Text className="font-arabic-regular text-sm text-gray-600">
+                البيانات الأساسية لنشاطك التجاري
+              </Text>
             </View>
 
             <View className="gap-4">
               <View className="gap-2">
                 <View className="flex-row items-center gap-1">
-                  <Text className="text-sm font-medium text-gray-700">اسم النشاط</Text>
+                  <Text className="font-arabic-semibold text-sm text-gray-700">اسم النشاط</Text>
                   <Text className="text-red-500">*</Text>
                 </View>
                 <TextInput
                   value={formData.businessName}
                   onChangeText={(value) => handleChange('businessName', value)}
                   placeholder="مثال: مطعم السلام"
-                  className="w-full rounded-lg border border-gray-300 bg-white p-3 text-gray-900"
+                  className="font-arabic-regular w-full rounded-lg border border-gray-300 bg-white p-3 text-sm text-gray-900"
                   placeholderTextColor="#9CA3AF"
                   textAlign="right"
                 />
@@ -203,7 +211,7 @@ export default function MerchantRegistration() {
 
               <View className="gap-2">
                 <View className="flex-row items-center gap-1">
-                  <Text className="text-sm font-medium text-gray-700">القسم الرئيسي</Text>
+                  <Text className="font-arabic-semibold text-sm text-gray-700">القسم الرئيسي</Text>
                   <Text className="text-red-500">*</Text>
                 </View>
                 <Picker
@@ -223,7 +231,7 @@ export default function MerchantRegistration() {
 
               <View className="gap-2">
                 <View className="flex-row items-center gap-1">
-                  <Text className="text-sm font-medium text-gray-700">المدينة</Text>
+                  <Text className="font-arabic-semibold text-sm text-gray-700">المدينة</Text>
                   <Text className="text-red-500">*</Text>
                 </View>
                 <Picker
@@ -243,7 +251,7 @@ export default function MerchantRegistration() {
 
               <View className="gap-2">
                 <View className="flex-row items-center gap-1">
-                  <Text className="text-sm font-medium text-gray-700">وصف النشاط</Text>
+                  <Text className="font-arabic-semibold text-sm text-gray-700">وصف النشاط</Text>
                   <Text className="text-red-500">*</Text>
                 </View>
                 <TextInput
@@ -252,12 +260,12 @@ export default function MerchantRegistration() {
                   multiline
                   numberOfLines={4}
                   placeholder="صف نشاطك التجاري، المنتجات أو الخدمات التي تقدمها..."
-                  className="h-56 w-full rounded-lg border border-gray-300 bg-white p-3 text-gray-900"
+                  className="font-arabic-regular h-56 w-full rounded-lg border border-gray-300 bg-white p-3 text-sm text-gray-900"
                   placeholderTextColor="#9CA3AF"
                   textAlign="right"
                   textAlignVertical="top"
                 />
-                <Text className="text-xs text-gray-500">
+                <Text className="font-arabic-regular text-xs text-gray-500">
                   اكتب وصفاً واضحاً وشاملاً لنشاطك التجاري
                 </Text>
               </View>
@@ -269,7 +277,7 @@ export default function MerchantRegistration() {
               className={`flex-row items-center justify-center gap-2 rounded-lg py-3 ${
                 isStep1Valid() ? 'bg-[#CAA453]' : 'bg-gray-300'
               }`}>
-              <Text className="text-lg font-bold text-white">التالي</Text>
+              <Text className="font-arabic-bold text-base text-white">التالي</Text>
               <Ionicons name="arrow-back-outline" size={20} color="white" />
             </TouchableOpacity>
           </View>
@@ -281,17 +289,19 @@ export default function MerchantRegistration() {
             <View className="gap-1">
               <View className="flex-row items-center gap-2">
                 <Ionicons name="call-outline" size={20} color="#374151" />
-                <Text className="text-lg font-bold text-gray-800">معلومات التواصل</Text>
+                <Text className="font-arabic-bold text-base text-gray-800">معلومات التواصل</Text>
               </View>
-              <Text className="text-sm text-gray-600">وسائل التواصل التي سيظهر للعملاء</Text>
+              <Text className="font-arabic-regular text-sm text-gray-600">
+                وسائل التواصل التي سيظهر للعملاء
+              </Text>
             </View>
 
             <View className="mb-2 rounded-xl border border-blue-200 bg-blue-50 p-4">
               <View className="flex-row items-start gap-2">
                 <Ionicons name="information-circle-outline" size={20} color="#1D4ED8" />
-                <Text className="flex-1 text-blue-800">
-                  <Text className="font-bold">ملاحظة:</Text> يرجى تقديم وسائل التواصل التي تريد أن
-                  يراها العملاء على صفحتك
+                <Text className="font-arabic-regular flex-1 text-sm text-blue-800">
+                  <Text className="font-arabic-bold">ملاحظة:</Text> يرجى تقديم وسائل التواصل التي
+                  تريد أن يراها العملاء على صفحتك
                 </Text>
               </View>
             </View>
@@ -299,7 +309,7 @@ export default function MerchantRegistration() {
             <View className="gap-4">
               <View className="gap-2">
                 <View className="flex-row items-center gap-1">
-                  <Text className="text-sm font-medium text-gray-700">رقم الجوال</Text>
+                  <Text className="font-arabic-semibold text-sm text-gray-700">رقم الجوال</Text>
                   <Text className="text-red-500">*</Text>
                 </View>
                 <PhoneInputField
@@ -310,7 +320,9 @@ export default function MerchantRegistration() {
               </View>
 
               <View className="gap-2">
-                <Text className="text-sm font-medium text-gray-700">رقم الواتساب (إختياري)</Text>
+                <Text className="font-arabic-semibold text-sm text-gray-700">
+                  رقم الواتساب (إختياري)
+                </Text>
                 <PhoneInputField
                   value={formData.whatsapp}
                   onChangeText={(value) => handleChange('whatsapp', value)}
@@ -320,7 +332,9 @@ export default function MerchantRegistration() {
 
               <View className="gap-2">
                 <View className="flex-row items-center gap-1">
-                  <Text className="text-sm font-medium text-gray-700">البريد الإلكتروني</Text>
+                  <Text className="font-arabic-semibold text-sm text-gray-700">
+                    البريد الإلكتروني
+                  </Text>
                   <Text className="text-red-500">*</Text>
                 </View>
                 <TextInput
@@ -329,21 +343,21 @@ export default function MerchantRegistration() {
                   placeholder="example@email.com"
                   keyboardType="email-address"
                   autoCapitalize="none"
-                  className="w-full rounded-lg border border-gray-300 bg-white p-3 text-gray-900"
+                  className="font-arabic-regular w-full rounded-lg border border-gray-300 bg-white p-3 text-sm text-gray-900"
                   placeholderTextColor="#9CA3AF"
                   textAlign="right"
                 />
               </View>
 
               <View className="gap-2">
-                <Text className="text-sm font-medium text-gray-700">
+                <Text className="font-arabic-semibold text-sm text-gray-700">
                   الموقع الإلكتروني (إختياري)
                 </Text>
                 <TextInput
                   value={formData.website}
                   onChangeText={(value) => handleChange('website', value)}
                   placeholder="https://example.com"
-                  className="w-full rounded-lg border border-gray-300 bg-white p-3 text-gray-900"
+                  className="font-arabic-regular w-full rounded-lg border border-gray-300 bg-white p-3 text-sm text-gray-900"
                   placeholderTextColor="#9CA3AF"
                   textAlign="right"
                 />
@@ -351,7 +365,7 @@ export default function MerchantRegistration() {
 
               <View className="gap-2">
                 <View className="flex-row items-center gap-1">
-                  <Text className="text-sm font-medium text-gray-700" numberOfLines={1}>
+                  <Text className="font-arabic-semibold text-sm text-gray-700" numberOfLines={1}>
                     كلمة المرور
                   </Text>
                   <Text className="text-red-500">*</Text>
@@ -361,7 +375,7 @@ export default function MerchantRegistration() {
                   onChangeText={(value) => handleChange('password', value)}
                   secureTextEntry
                   placeholder="أدخل كلمة المرور"
-                  className="w-full rounded-lg border border-gray-300 bg-white p-3 text-gray-900"
+                  className="font-arabic-regular w-full rounded-lg border border-gray-300 bg-white p-3 text-sm text-gray-900"
                   placeholderTextColor="#9CA3AF"
                   textAlign="right"
                 />
@@ -369,7 +383,7 @@ export default function MerchantRegistration() {
 
               <View className="gap-2">
                 <View className="flex-row items-center gap-1">
-                  <Text className="text-sm font-medium text-gray-700" numberOfLines={1}>
+                  <Text className="font-arabic-semibold text-sm text-gray-700" numberOfLines={1}>
                     تأكيد كلمة المرور
                   </Text>
                   <Text className="text-red-500">*</Text>
@@ -379,14 +393,14 @@ export default function MerchantRegistration() {
                   onChangeText={(value) => handleChange('confpassword', value)}
                   secureTextEntry
                   placeholder="أعد إدخال كلمة المرور"
-                  className="w-full rounded-lg border border-gray-300 bg-white p-3 text-gray-900"
+                  className="font-arabic-regular w-full rounded-lg border border-gray-300 bg-white p-3 text-sm text-gray-900"
                   placeholderTextColor="#9CA3AF"
                   textAlign="right"
                 />
                 {formData.password !== formData.confpassword && (
                   <View className="flex-row items-center gap-1">
                     <Ionicons name="alert-circle-outline" size={16} color="#DC2626" />
-                    <Text className="text-sm text-red-600">
+                    <Text className="font-arabic-regular text-sm text-red-600">
                       كلمة المرور وتأكيد كلمة المرور غير متطابقتان
                     </Text>
                   </View>
@@ -394,12 +408,14 @@ export default function MerchantRegistration() {
               </View>
 
               <View className="gap-2">
-                <Text className="text-sm font-medium text-gray-700">حساب إنستجرام (إختياري)</Text>
+                <Text className="font-arabic-semibold text-sm text-gray-700">
+                  حساب إنستجرام (إختياري)
+                </Text>
                 <TextInput
                   value={formData.instagram}
                   onChangeText={(value) => handleChange('instagram', value)}
                   placeholder="@username"
-                  className="w-full rounded-lg border border-gray-300 bg-white p-3 text-gray-900"
+                  className="font-arabic-regular w-full rounded-lg border border-gray-300 bg-white p-3 text-sm text-gray-900"
                   placeholderTextColor="#9CA3AF"
                   textAlign="right"
                 />
@@ -411,7 +427,7 @@ export default function MerchantRegistration() {
                 onPress={prevStep}
                 className="flex-1 flex-row items-center justify-center gap-2 rounded-lg border border-gray-300 bg-white py-3">
                 <Ionicons name="arrow-forward" size={20} color="#374151" />
-                <Text className="font-bold text-gray-700">السابق</Text>
+                <Text className="font-arabic-bold text-sm text-gray-700">السابق</Text>
               </TouchableOpacity>
 
               <TouchableOpacity
@@ -420,7 +436,7 @@ export default function MerchantRegistration() {
                 className={`flex-1 flex-row items-center justify-center gap-2 rounded-lg py-3 ${
                   isStep2Valid() ? 'bg-[#CAA453]' : 'bg-gray-300'
                 }`}>
-                <Text className="text-lg font-bold text-white">التالي</Text>
+                <Text className="font-arabic-bold text-base text-white">التالي</Text>
                 <Ionicons name="arrow-back" size={20} color="white" />
               </TouchableOpacity>
             </View>
@@ -433,19 +449,21 @@ export default function MerchantRegistration() {
             <View className="gap-1">
               <View className="flex-row items-center gap-2">
                 <Ionicons name="document-text-outline" size={20} color="#374151" />
-                <Text className="text-lg font-bold text-gray-800">
+                <Text className="font-arabic-bold text-base text-gray-800">
                   المستندات والمعلومات الإضافية
                 </Text>
               </View>
-              <Text className="text-sm text-gray-600">المستندات المطلوبة للتحقق</Text>
+              <Text className="font-arabic-regular text-sm text-gray-600">
+                المستندات المطلوبة للتحقق
+              </Text>
             </View>
 
             <View className="mb-2 rounded-xl border border-amber-200 bg-amber-50 p-4">
               <View className="flex-row items-start gap-2">
                 <Ionicons name="information-circle-outline" size={20} color="#D97706" />
-                <Text className="flex-1 text-amber-800">
-                  <Text className="font-bold">ملاحظة:</Text> يرجى تحميل المستند المطلوب حسب نوع
-                  النشاط.
+                <Text className="font-arabic-regular flex-1 text-sm text-amber-800">
+                  <Text className="font-arabic-bold">ملاحظة:</Text> يرجى تحميل المستند المطلوب حسب
+                  نوع النشاط.
                 </Text>
               </View>
             </View>
@@ -453,7 +471,7 @@ export default function MerchantRegistration() {
             <View className="gap-4">
               <View className="gap-2">
                 <View className="flex-row items-center gap-1">
-                  <Text className="text-sm font-medium text-gray-700">نوع المستند</Text>
+                  <Text className="font-arabic-semibold text-sm text-gray-700">نوع المستند</Text>
                   <Text className="text-red-500">*</Text>
                 </View>
                 <Picker
@@ -475,7 +493,7 @@ export default function MerchantRegistration() {
 
               <View className="gap-2">
                 <View className="flex-row items-center gap-1">
-                  <Text className="text-sm font-medium text-gray-700">رفع المستند</Text>
+                  <Text className="font-arabic-semibold text-sm text-gray-700">رفع المستند</Text>
                   <Text className="text-red-500">*</Text>
                 </View>
                 <ImageUpload
@@ -488,14 +506,16 @@ export default function MerchantRegistration() {
               </View>
 
               <View className="gap-2">
-                <Text className="text-sm font-medium text-gray-700">ملاحظات إضافية (إختياري)</Text>
+                <Text className="font-arabic-semibold text-sm text-gray-700">
+                  ملاحظات إضافية (إختياري)
+                </Text>
                 <TextInput
                   value={formData.additionalNotes}
                   onChangeText={(value) => handleChange('additionalNotes', value)}
                   multiline
                   numberOfLines={3}
                   placeholder="أوقات العمل، مميزات إضافية، معلومات أخرى..."
-                  className="h-56 w-full rounded-lg border border-gray-300 bg-white p-3 text-gray-900"
+                  className="font-arabic-regular h-56 w-full rounded-lg border border-gray-300 bg-white p-3 text-sm text-gray-900"
                   placeholderTextColor="#9CA3AF"
                   textAlign="right"
                   textAlignVertical="top"
@@ -513,10 +533,10 @@ export default function MerchantRegistration() {
                     {isAgreed && <Ionicons name="checkmark" size={16} color="white" />}
                   </View>
                   <View className="flex-1 gap-1">
-                    <Text className="text-gray-700">
+                    <Text className="font-arabic-regular text-gray-700">
                       أوافق على{' '}
                       <Text
-                        className="font-bold text-[#CAA453]"
+                        className="font-arabic-bold text-[#CAA453]"
                         onPress={(e) => {
                           e.stopPropagation(); // Prevent triggering parent onPress
                           router.push('/(stacks)/termsAndConditions');
@@ -527,7 +547,7 @@ export default function MerchantRegistration() {
                       </Text>{' '}
                       لمنصة بيتنا
                     </Text>
-                    <Text className="text-sm text-gray-500">
+                    <Text className="font-arabic-regular text-sm text-gray-500">
                       بموافقتي، أقر بأني قد قرأت وفهمت جميع الشروط والأحكام المذكورة
                     </Text>
                   </View>
@@ -541,7 +561,7 @@ export default function MerchantRegistration() {
                   onPress={prevStep}
                   className="flex-1 flex-row items-center justify-center gap-2 rounded-lg border border-gray-300 bg-white py-3">
                   <Ionicons name="arrow-forward" size={20} color="#374151" />
-                  <Text className="font-bold text-gray-700">السابق</Text>
+                  <Text className="font-arabic-bold text-sm text-gray-700">السابق</Text>
                 </TouchableOpacity>
 
                 <TouchableOpacity
@@ -553,12 +573,12 @@ export default function MerchantRegistration() {
                   {loading ? (
                     <>
                       <ActivityIndicator size="small" color="white" />
-                      <Text className="font-bold text-white">جاري التسجيل...</Text>
+                      <Text className="font-arabic-bold text-sm text-white">جاري التسجيل...</Text>
                     </>
                   ) : (
                     <>
                       <Ionicons name="checkmark-circle-outline" size={20} color="white" />
-                      <Text className="font-bold text-white">تقديم الطلب</Text>
+                      <Text className="font-arabic-bold text-base text-white">تقديم الطلب</Text>
                     </>
                   )}
                 </TouchableOpacity>
@@ -567,7 +587,7 @@ export default function MerchantRegistration() {
               <View className="rounded-lg bg-gray-100 p-3">
                 <View className="flex-row items-start gap-2">
                   <Ionicons name="time-outline" size={16} color="#6B7280" />
-                  <Text className="flex-1 text-sm text-gray-600">
+                  <Text className="font-arabic-regular flex-1 text-sm text-gray-600">
                     بعد تقديم الطلب، سيتم مراجعته من قبل الإدارة وسيتم إشعارك عند الموافقة
                   </Text>
                 </View>

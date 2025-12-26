@@ -6,7 +6,8 @@ const InfoField = ({ icon, label, value, href, isImage = false }) => (
   <View className="flex-row items-start gap-3 border-b border-[#F7F9FA] py-2 last:border-b-0">
     <Ionicons name="information-circle-outline" size={16} color="#4E6882" />
     <View className="min-w-0 flex-1">
-      <Text className="font-inter mb-1 text-xs font-medium text-[#7A8699]">{label}</Text>
+      {/* Labels - arabic-medium */}
+      <Text className="font-arabic-medium mb-1 text-xs text-[#7A8699]">{label}</Text>
       {isImage ? (
         <Image
           source={{ uri: value }}
@@ -15,11 +16,12 @@ const InfoField = ({ icon, label, value, href, isImage = false }) => (
         />
       ) : href ? (
         <TouchableOpacity onPress={() => Linking.openURL(href)}>
-          <Text className="text-sm font-medium text-[#2A4F68]">{value}</Text>
+          {/* Links - arabic-medium */}
+          <Text className="font-arabic-medium text-sm text-[#2A4F68]">{value}</Text>
         </TouchableOpacity>
       ) : (
         <Text
-          className="text-right text-sm font-medium text-[#18344A]"
+          className="font-arabic-medium text-right text-sm text-[#18344A]"
           style={{ direction: 'ltr' }}>
           {value || 'غير محدد'}
         </Text>

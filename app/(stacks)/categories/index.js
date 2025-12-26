@@ -7,17 +7,17 @@ import {
   ActivityIndicator,
   RefreshControl,
 } from 'react-native';
-import { Link, useRouter } from 'expo-router';
 import { GET_ALL_CATEGORIES } from '@/utils/queries';
-import { ArrowLeft } from 'lucide-react-native';
 import { useQuery } from '@apollo/client/react';
 import Loading from '@/components/Loading';
 import { Ionicons } from '@expo/vector-icons';
+import { useRouter } from 'expo-router';
 
 export default function CategoriesPage() {
   const [page, setPage] = useState(1);
   const [hasMore, setHasMore] = useState(true);
   const [refreshing, setRefreshing] = useState(false);
+  const router = useRouter();
 
   const { data, loading, error, fetchMore, refetch } = useQuery(GET_ALL_CATEGORIES, {
     variables: { page: 1, limit: 10 }, // Load 10 items per page
@@ -105,28 +105,28 @@ export default function CategoriesPage() {
             <Ionicons name="grid-outline" size={28} color="#FFFFFF" />
           </View>
           <View className="absolute -right-2 -top-2 h-8 w-8 items-center justify-center rounded-full bg-[#CAA453]">
-            <Text className="text-xs font-bold text-white">{index + 1}</Text>
+            <Text className="font-arabic-bold text-xs text-white">{index + 1}</Text>
           </View>
         </View>
 
         {/* Text Content - Takes remaining space */}
         <View className="flex-1">
           <View className="mb-2">
-            <Text className="text-lg font-bold text-[#1E2053]" numberOfLines={1}>
+            <Text className="font-arabic-bold text-base text-[#1E2053]" numberOfLines={1}>
               {category.nameAr}
             </Text>
           </View>
           <View className="flex-row items-center gap-1">
-            <Text className="text-base font-semibold text-[#CAA453]">
+            <Text className="font-arabic-semibold text-sm text-[#CAA453]">
               {category.merchantsCount}
             </Text>
-            <Text className="text-sm text-[#7A8699]">نشاط تجاري</Text>
+            <Text className="font-arabic-regular text-xs text-[#7A8699]">نشاط تجاري</Text>
           </View>
         </View>
 
         {/* Arrow Icon */}
         <View className="ml-4">
-          <Ionicons name="chevron-forward" size={20} color="#CAA453" />
+          <Ionicons name="chevron-back" size={20} color="#CAA453" />
         </View>
       </View>
     </TouchableOpacity>
@@ -148,7 +148,7 @@ export default function CategoriesPage() {
       {/* Header */}
       <View className="bg-white px-4 py-8">
         <View className="container mx-auto">
-          <Text className="text-center text-lg text-[#4E6882]">
+          <Text className="font-arabic-regular text-center text-sm text-[#4E6882]">
             اكتشف جميع الأقسام والأنشطة المتاحة على المنصة
           </Text>
         </View>

@@ -111,7 +111,7 @@ const TermsAndConditions = () => {
               <View key={index} className="rounded-lg bg-white p-4 shadow-lg">
                 {/* Section Header */}
                 <View className="mb-3 flex-row items-center gap-2">
-                  <Text className="text-xl font-bold text-gray-800">{section.title}</Text>
+                  <Text className="font-arabic-bold text-lg text-gray-800">{section.title}</Text>
                   <View className="h-0.5 flex-1 bg-green-200" />
                 </View>
 
@@ -120,17 +120,21 @@ const TermsAndConditions = () => {
                   {section.content.map((item, itemIndex) => {
                     if (typeof item === 'string') {
                       return (
-                        <Text key={itemIndex} className="mb-2 text-base leading-6 text-gray-700">
+                        <Text
+                          key={itemIndex}
+                          className="font-arabic-regular mb-2 text-sm leading-6 text-gray-700">
                           {item}
                         </Text>
                       );
                     } else {
                       return (
                         <View key={itemIndex} className="mb-2 flex-row justify-end gap-3">
-                          <Text className="text-base font-semibold text-gray-700">
+                          <Text className="font-arabic-semibold text-sm text-gray-700">
                             {item.label}
                           </Text>
-                          <Text className="flex-1 text-base text-gray-700">{item.text}</Text>
+                          <Text className="font-arabic-regular flex-1 text-sm text-gray-700">
+                            {item.text}
+                          </Text>
                         </View>
                       );
                     }
@@ -142,7 +146,7 @@ const TermsAndConditions = () => {
 
           {/* Footer */}
           <View className="mt-4 border-t border-gray-200 bg-gray-100 p-4">
-            <Text className="text-center text-sm text-gray-600">
+            <Text className="font-arabic-regular text-center text-xs text-gray-600">
               آخر تحديث: {new Date().toLocaleDateString('ar-EG')}
             </Text>
           </View>

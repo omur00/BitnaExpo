@@ -111,11 +111,11 @@ export default function MerchantApprovals() {
   };
 
   return (
-    <ScrollView className="flex-1 bg-gray-50" showsVerticalScrollIndicator={false}>
+    <ScrollView className="flex-1" showsVerticalScrollIndicator={false}>
       <View className="px-4 py-6">
         {/* Header */}
         <View className="mb-6">
-          <Text className="text-sm text-gray-600">
+          <Text className="font-arabic-regular text-sm text-gray-600">
             مراجعة وموافقة على طلبات التسجيل للتجار والأسر المنتجة
           </Text>
         </View>
@@ -127,8 +127,10 @@ export default function MerchantApprovals() {
             <View className="min-w-[48%] flex-1 rounded-xl border border-gray-200 bg-white p-4">
               <View className="flex-row items-center justify-between">
                 <View>
-                  <Text className="mb-1 text-xs text-gray-600">إجمالي الطلبات</Text>
-                  <Text className="text-2xl font-bold text-gray-900">{totalCount}</Text>
+                  <Text className="font-arabic-regular mb-1 text-xs text-gray-600">
+                    إجمالي الطلبات
+                  </Text>
+                  <Text className="font-arabic-extrabold text-xl text-gray-900">{totalCount}</Text>
                 </View>
                 <Ionicons name="storefront-outline" size={24} color="#9CA3AF" />
               </View>
@@ -138,8 +140,12 @@ export default function MerchantApprovals() {
             <View className="min-w-[48%] flex-1 rounded-xl border border-gray-200 bg-white p-4">
               <View className="flex-row items-center justify-between">
                 <View>
-                  <Text className="mb-1 text-xs text-gray-600">قيد المراجعة</Text>
-                  <Text className="text-2xl font-bold text-amber-600">{pendingCount}</Text>
+                  <Text className="font-arabic-regular mb-1 text-xs text-gray-600">
+                    قيد المراجعة
+                  </Text>
+                  <Text className="font-arabic-extrabold text-xl text-amber-600">
+                    {pendingCount}
+                  </Text>
                 </View>
                 <Ionicons name="time-outline" size={24} color="#F59E0B" />
               </View>
@@ -149,8 +155,10 @@ export default function MerchantApprovals() {
             <View className="min-w-[48%] flex-1 rounded-xl border border-gray-200 bg-white p-4">
               <View className="flex-row items-center justify-between">
                 <View>
-                  <Text className="mb-1 text-xs text-gray-600">مقبول</Text>
-                  <Text className="text-2xl font-bold text-emerald-600">{approvedCount}</Text>
+                  <Text className="font-arabic-regular mb-1 text-xs text-gray-600">مقبول</Text>
+                  <Text className="font-arabic-extrabold text-xl text-emerald-600">
+                    {approvedCount}
+                  </Text>
                 </View>
                 <Ionicons name="checkmark-circle-outline" size={24} color="#10B981" />
               </View>
@@ -160,8 +168,10 @@ export default function MerchantApprovals() {
             <View className="min-w-[48%] flex-1 rounded-xl border border-gray-200 bg-white p-4">
               <View className="flex-row items-center justify-between">
                 <View>
-                  <Text className="mb-1 text-xs text-gray-600">مرفوض</Text>
-                  <Text className="text-2xl font-bold text-red-600">{rejectedCount}</Text>
+                  <Text className="font-arabic-regular mb-1 text-xs text-gray-600">مرفوض</Text>
+                  <Text className="font-arabic-extrabold text-xl text-red-600">
+                    {rejectedCount}
+                  </Text>
                 </View>
                 <Ionicons name="close-circle-outline" size={24} color="#EF4444" />
               </View>
@@ -175,14 +185,16 @@ export default function MerchantApprovals() {
             <View className="gap-4">
               <View className="flex-row items-center gap-2">
                 <Ionicons name="filter-outline" size={18} color="#6B7280" />
-                <Text className="text-sm font-medium text-gray-700">حالة الطلبات</Text>
+                <Text className="font-arabic-semibold text-sm text-gray-700">حالة الطلبات</Text>
               </View>
 
               <View className="relative">
                 <TouchableOpacity
                   onPress={() => setShowFilterDropdown(!showFilterDropdown)}
                   className="flex-row items-center justify-between rounded-lg border border-gray-300 px-3 py-3">
-                  <Text className="text-sm text-gray-700">{getFilterText()}</Text>
+                  <Text className="font-arabic-regular text-sm text-gray-700">
+                    {getFilterText()}
+                  </Text>
                   <Ionicons
                     name={showFilterDropdown ? 'chevron-up' : 'chevron-down'}
                     size={16}
@@ -200,7 +212,9 @@ export default function MerchantApprovals() {
                       className="border-b border-gray-100 px-3 py-3">
                       <View className="flex-row items-center gap-2">
                         <Ionicons name="time-outline" size={16} color="#6B7280" />
-                        <Text className="text-sm text-gray-700">قيد المراجعة</Text>
+                        <Text className="font-arabic-regular text-sm text-gray-700">
+                          قيد المراجعة
+                        </Text>
                       </View>
                     </TouchableOpacity>
                     <TouchableOpacity
@@ -211,7 +225,7 @@ export default function MerchantApprovals() {
                       className="border-b border-gray-100 px-3 py-3">
                       <View className="flex-row items-center gap-2">
                         <Ionicons name="checkmark-circle-outline" size={16} color="#6B7280" />
-                        <Text className="text-sm text-gray-700">المقبولون</Text>
+                        <Text className="font-arabic-regular text-sm text-gray-700">المقبولون</Text>
                       </View>
                     </TouchableOpacity>
                     <TouchableOpacity
@@ -222,7 +236,7 @@ export default function MerchantApprovals() {
                       className="border-b border-gray-100 px-3 py-3">
                       <View className="flex-row items-center gap-2">
                         <Ionicons name="close-circle-outline" size={16} color="#6B7280" />
-                        <Text className="text-sm text-gray-700">المرفوضون</Text>
+                        <Text className="font-arabic-regular text-sm text-gray-700">المرفوضون</Text>
                       </View>
                     </TouchableOpacity>
                     <TouchableOpacity
@@ -233,7 +247,9 @@ export default function MerchantApprovals() {
                       className="px-3 py-3">
                       <View className="flex-row items-center gap-2">
                         <Ionicons name="list-outline" size={16} color="#6B7280" />
-                        <Text className="text-sm text-gray-700">جميع الطلبات</Text>
+                        <Text className="font-arabic-regular text-sm text-gray-700">
+                          جميع الطلبات
+                        </Text>
                       </View>
                     </TouchableOpacity>
                   </View>
@@ -249,8 +265,8 @@ export default function MerchantApprovals() {
             {merchantsList.length === 0 ? (
               <View className="items-center gap-3 py-12">
                 <Ionicons name="storefront-outline" size={48} color="#D1D5DB" />
-                <Text className="text-lg font-semibold text-gray-900">لا توجد طلبات</Text>
-                <Text className="px-4 text-center text-sm text-gray-600">
+                <Text className="font-arabic-semibold text-base text-gray-900">لا توجد طلبات</Text>
+                <Text className="font-arabic-regular px-4 text-center text-sm text-gray-600">
                   لا توجد طلبات تجار تطابق الفلتر المحدد
                 </Text>
               </View>
@@ -268,7 +284,7 @@ export default function MerchantApprovals() {
                           onPress={() => router.push(`/admin/users/${merchant.userId}`)}>
                           <View className="flex-row items-center gap-2">
                             <Ionicons name="storefront-outline" size={18} color="#6B7280" />
-                            <Text className="flex-1 text-sm font-semibold text-gray-900">
+                            <Text className="font-arabic-semibold flex-1 text-sm text-gray-900">
                               {merchant.businessName}
                             </Text>
                           </View>
@@ -276,7 +292,7 @@ export default function MerchantApprovals() {
                         <View
                           className={`flex-row items-center gap-1 rounded-full border px-3 py-1.5 ${statusInfo.bg} ${statusInfo.border}`}>
                           <Ionicons name={statusInfo.icon} size={14} className={statusInfo.text} />
-                          <Text className={`text-xs font-medium ${statusInfo.text}`}>
+                          <Text className={`font-arabic-semibold text-xs ${statusInfo.text}`}>
                             {statusInfo.label}
                           </Text>
                         </View>
@@ -286,11 +302,15 @@ export default function MerchantApprovals() {
                       <View className="mb-3 flex-row items-center gap-4">
                         <View className="flex-row items-center gap-1">
                           <Ionicons name="call-outline" size={14} color="#6B7280" />
-                          <Text className="text-xs text-gray-600">{merchant.phone}</Text>
+                          <Text className="font-arabic-regular text-xs text-gray-600">
+                            {merchant.phone}
+                          </Text>
                         </View>
                         <View className="flex-row items-center gap-1">
                           <Ionicons name="location-outline" size={14} color="#6B7280" />
-                          <Text className="text-xs text-gray-600">{merchant.category.nameAr}</Text>
+                          <Text className="font-arabic-regular text-xs text-gray-600">
+                            {merchant.category.nameAr}
+                          </Text>
                         </View>
                       </View>
 
@@ -299,7 +319,7 @@ export default function MerchantApprovals() {
                         <View className="flex-row items-center justify-between">
                           <View className="flex-row items-center gap-1">
                             <Ionicons name="calendar-outline" size={14} color="#6B7280" />
-                            <Text className="text-xs text-gray-500">
+                            <Text className="font-arabic-regular text-xs text-gray-500">
                               {formatDate(merchant.createdAt)}
                             </Text>
                           </View>
@@ -309,7 +329,7 @@ export default function MerchantApprovals() {
                               onPress={() => router.push(`/(admin)/user/${merchant.userId}`)}
                               className="flex-row items-center gap-1 rounded-lg bg-gray-600 px-3 py-2">
                               <Ionicons name="eye-outline" size={14} color="white" />
-                              <Text className="text-xs font-medium text-white">عرض</Text>
+                              <Text className="font-arabic-semibold text-xs text-white">عرض</Text>
                             </TouchableOpacity>
 
                             {merchant.status === 'pending' && (
@@ -322,13 +342,17 @@ export default function MerchantApprovals() {
                                     size={14}
                                     color="white"
                                   />
-                                  <Text className="text-xs font-medium text-white">قبول</Text>
+                                  <Text className="font-arabic-semibold text-xs text-white">
+                                    قبول
+                                  </Text>
                                 </TouchableOpacity>
                                 <TouchableOpacity
                                   onPress={() => handleReject(merchant.id)}
                                   className="flex-row items-center gap-1 rounded-lg bg-red-600 px-3 py-2">
                                   <Ionicons name="close-circle-outline" size={14} color="white" />
-                                  <Text className="text-xs font-medium text-white">رفض</Text>
+                                  <Text className="font-arabic-semibold text-xs text-white">
+                                    رفض
+                                  </Text>
                                 </TouchableOpacity>
                               </>
                             )}

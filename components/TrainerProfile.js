@@ -20,7 +20,7 @@ const TrainerProfile = ({ trainer, loading }) => {
         />
       )}
       <View className="p-4">
-        <Text className="mb-6 text-lg font-bold text-[#18344A]">معلومات المدرب</Text>
+        <Text className="font-arabic-bold mb-6 text-base text-[#18344A]">معلومات المدرب</Text>
 
         {loading ? (
           <View className="py-6">
@@ -39,24 +39,32 @@ const TrainerProfile = ({ trainer, loading }) => {
               <View className="flex-1">
                 <View className="mb-2 flex-row justify-between">
                   <View className="flex-1">
-                    <Text className="text-lg font-bold text-[#18344A]">{trainer.fullName}</Text>
-                    <Text className="mt-1 text-sm text-[#4E6882]">{trainer.specialization}</Text>
+                    <Text className="font-arabic-bold text-base text-[#18344A]">
+                      {trainer.fullName}
+                    </Text>
+                    <Text className="font-arabic-regular mt-1 text-sm text-[#4E6882]">
+                      {trainer.specialization}
+                    </Text>
                   </View>
                   <StatusBadge status={trainer.status} />
                 </View>
                 {trainer.category && (
-                  <Text className="mt-1 text-sm text-[#7A8699]">{trainer.category.nameAr}</Text>
+                  <Text className="font-arabic-regular mt-1 text-sm text-[#7A8699]">
+                    {trainer.category.nameAr}
+                  </Text>
                 )}
               </View>
             </View>
 
             {trainer.description && (
               <View className="gap-3 rounded-lg bg-[#F7F9FA] p-4">
-                <Text className="text-sm text-[#4E6882]">{trainer.description}</Text>
+                <Text className="font-arabic-regular text-sm text-[#4E6882]">
+                  {trainer.description}
+                </Text>
                 <TouchableOpacity
                   onPress={() => router.push(`/(stacks)/category/trainer/${trainer.slug}`)}
                   className="self-start rounded-md bg-[#CAA453] px-4 py-2">
-                  <Text className="text-sm text-white">الصفحة الشخصية</Text>
+                  <Text className="font-arabic-semibold text-sm text-white">الصفحة الشخصية</Text>
                 </TouchableOpacity>
               </View>
             )}
@@ -72,7 +80,7 @@ const TrainerProfile = ({ trainer, loading }) => {
               }}
               className="w-full flex-row items-center gap-2 self-start rounded-lg bg-[#1E2053] px-6 py-4">
               <Ionicons name="create-outline" size={16} color="#FFFFFF" />
-              <Text className="text-sm text-white">تحديث البيانات</Text>
+              <Text className="font-arabic-semibold text-sm text-white">تحديث البيانات</Text>
             </TouchableOpacity>
 
             <View className="space-y-4">
@@ -112,8 +120,10 @@ const TrainerProfile = ({ trainer, loading }) => {
             <View className="mb-2 h-16 w-16 items-center justify-center rounded-full bg-[#F7F9FA]">
               <Ionicons name="person-outline" size={32} color="#1E2053" />
             </View>
-            <Text className="mb-2 text-lg font-bold text-[#18344A]">لا توجد بيانات حساب مدرب</Text>
-            <Text className="mb-6 text-center text-sm text-[#4E6882]">
+            <Text className="font-arabic-bold mb-2 text-base text-[#18344A]">
+              لا توجد بيانات حساب مدرب
+            </Text>
+            <Text className="font-arabic-regular mb-6 text-center text-sm text-[#4E6882]">
               يمكنك إضافة بياناتك لعرض خدماتك على المنصة
             </Text>
             <TouchableOpacity
@@ -124,9 +134,8 @@ const TrainerProfile = ({ trainer, loading }) => {
                 });
               }}
               className="flex-row items-center gap-2 rounded-lg bg-[#1E2053] px-6 py-3">
-              {/* Increased padding */}
               <Ionicons name="add-circle-outline" size={16} color="white" />
-              <Text className="text-sm text-white">إضافة بيانات المدرب</Text>
+              <Text className="font-arabic-semibold text-sm text-white">إضافة بيانات المدرب</Text>
             </TouchableOpacity>
           </View>
         )}

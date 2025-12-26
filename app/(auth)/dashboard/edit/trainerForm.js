@@ -343,402 +343,402 @@ const TrainerFormModal = ({ trainer, refetch }) => {
     }));
   };
 
-  return (
-    <ScrollView className="bg-gray-50">
-      {/* Header */}
-      <View className="px-4 py-6">
-        <Text className="text-2xl font-bold text-gray-900">
-          {trainer ? 'تحديث بيانات المدرب' : 'إضافة مدرب جديد'}
-        </Text>
-        <Text className="mt-1 text-blue-500">
-          {trainer ? 'قم بتحديث معلومات مدربك' : 'املأ النموذج لإضافة مدرب جديد'}
-        </Text>
+return (
+  <ScrollView className="bg-gray-50">
+    {/* Header */}
+    <View className="px-4 py-6">
+      <Text className="font-arabic-bold text-2xl text-gray-900">
+        {trainer ? 'تحديث بيانات المدرب' : 'إضافة مدرب جديد'}
+      </Text>
+      <Text className="font-arabic-medium mt-1 text-blue-500">
+        {trainer ? 'قم بتحديث معلومات مدربك' : 'املأ النموذج لإضافة مدرب جديد'}
+      </Text>
+    </View>
+
+    {/* Form content */}
+    <View className="px-4 pb-6">
+      {/* Basic Information Card */}
+      <View className="mb-6 overflow-hidden rounded-xl border border-gray-200 bg-white">
+        <View className="border-b border-gray-200 bg-blue-50 px-4 py-3">
+          <Text className="font-arabic-bold text-lg text-blue-700">المعلومات الأساسية</Text>
+          <Text className="font-arabic-regular text-sm text-gray-600">معلومات المدرب الشخصية والتخصص</Text>
+        </View>
+
+        <View className="p-4">
+          <View className="mb-4">
+            <View className="mb-1 flex-row items-center">
+              <Text className="font-arabic-bold text-gray-700">الاسم الكامل</Text>
+              <Text className="mr-1 text-red-500">*</Text>
+            </View>
+            <TextInput
+              value={formData.fullName}
+              onChangeText={(value) => handleChange('fullName', value)}
+              onBlur={() => handleBlur('fullName')}
+              placeholder="أدخل الاسم الكامل"
+              className={`h-12 rounded-lg border px-4 ${
+                isFieldValid('fullName')
+                  ? 'border-gray-300 bg-gray-50'
+                  : 'border-red-400 bg-red-50'
+              }`}
+            />
+            {!isFieldValid('fullName') && (
+              <Text className="font-arabic-medium mt-1 text-xs text-red-500">{getFieldError('fullName')}</Text>
+            )}
+          </View>
+
+          <View className="mb-4">
+            <View className="mb-1 flex-row items-center">
+              <Text className="font-arabic-bold text-gray-700">التخصص</Text>
+              <Text className="mr-1 text-red-500">*</Text>
+            </View>
+            <TextInput
+              value={formData.specialization}
+              onChangeText={(value) => handleChange('specialization', value)}
+              onBlur={() => handleBlur('specialization')}
+              placeholder="أدخل التخصص"
+              className={`h-12 rounded-lg border px-4 ${
+                isFieldValid('specialization')
+                  ? 'border-gray-300 bg-gray-50'
+                  : 'border-red-400 bg-red-50'
+              }`}
+            />
+            {!isFieldValid('specialization') && (
+              <Text className="font-arabic-medium mt-1 text-xs text-red-500">{getFieldError('specialization')}</Text>
+            )}
+          </View>
+
+          <View className="mb-4">
+            <View className="mb-1 flex-row items-center">
+              <Text className="font-arabic-bold text-gray-700">الوصف</Text>
+              <Text className="mr-1 text-red-500">*</Text>
+            </View>
+            <TextInput
+              value={formData.description}
+              onChangeText={(value) => handleChange('description', value)}
+              onBlur={() => handleBlur('description')}
+              placeholder="صف خبراتك ومؤهلاتك وأسلوب التدريب..."
+              multiline
+              numberOfLines={4}
+              className={`min-h-[120px] rounded-lg border px-4 py-3 text-right ${
+                isFieldValid('description')
+                  ? 'border-gray-300 bg-gray-50'
+                  : 'border-red-400 bg-red-50'
+              }`}
+              textAlignVertical="top"
+            />
+            {!isFieldValid('description') && (
+              <Text className="font-arabic-medium mt-1 text-xs text-red-500">{getFieldError('description')}</Text>
+            )}
+          </View>
+
+          <View className="mb-4">
+            <ImageUpload
+              label="صورة الملف الشخصي"
+              value={formData.profileImage}
+              onChange={handleProfileImageChange}
+              type="logo"
+              folder="/merchants/logos"
+            />
+          </View>
+          <View className="mb-4">
+            <ImageUpload
+              label="صورة الغلاف"
+              value={formData.coverImage}
+              onChange={handleCoverImageChange}
+              type="cover"
+              folder="/merchants/covers"
+            />
+          </View>
+        </View>
       </View>
 
-      {/* Form content */}
-      <View className="px-4 pb-6">
-        {/* Basic Information Card */}
-        <View className="mb-6 overflow-hidden rounded-xl border border-gray-200 bg-white">
-          <View className="border-b border-gray-200 bg-blue-50 px-4 py-3">
-            <Text className="text-lg font-bold text-blue-700">المعلومات الأساسية</Text>
-            <Text className="text-sm text-gray-600">معلومات المدرب الشخصية والتخصص</Text>
+      {/* Contact Information Card */}
+      <View className="mb-6 overflow-hidden rounded-xl border border-gray-200 bg-white">
+        <View className="border-b border-gray-200 bg-green-50 px-4 py-3">
+          <Text className="font-arabic-bold text-lg text-green-700">معلومات الاتصال</Text>
+          <Text className="font-arabic-regular text-sm text-gray-600">كيف يمكن للعملاء التواصل معك</Text>
+        </View>
+
+        <View className="p-4">
+          <View className="mb-4">
+            <View className="mb-1 flex-row items-center">
+              <Text className="font-arabic-bold text-gray-700">رقم الجوال</Text>
+              <Text className="mr-1 text-red-500">*</Text>
+            </View>
+            <View className="overflow-hidden rounded-lg border border-gray-300 bg-gray-50">
+              <PhoneInput
+                value={formData.phone}
+                onChangePhoneNumber={(value) => handleChange('phone', value)}
+                selectedCountry={selectedPCountry}
+                onChangeSelectedCountry={setSelectedPCountry}
+                placeholder="ادخل رقم الجوال"
+                inputStyle={{ height: 48, paddingHorizontal: 16 }}
+              />
+            </View>
+            {!isFieldValid('phone') && (
+              <Text className="font-arabic-medium mt-1 text-xs text-red-500">{getFieldError('phone')}</Text>
+            )}
           </View>
 
-          <View className="p-4">
-            <View className="mb-4">
-              <View className="mb-1 flex-row items-center">
-                <Text className="font-semibold text-gray-700">الاسم الكامل</Text>
-                <Text className="mr-1 text-red-500">*</Text>
-              </View>
-              <TextInput
-                value={formData.fullName}
-                onChangeText={(value) => handleChange('fullName', value)}
-                onBlur={() => handleBlur('fullName')}
-                placeholder="أدخل الاسم الكامل"
-                className={`h-12 rounded-lg border px-4 ${
-                  isFieldValid('fullName')
-                    ? 'border-gray-300 bg-gray-50'
-                    : 'border-red-400 bg-red-50'
-                }`}
+          <View className="mb-4">
+            <Text className="font-arabic-bold mb-1 text-gray-700">رقم الواتساب</Text>
+            <View className="overflow-hidden rounded-lg border border-gray-300 bg-gray-50">
+              <PhoneInput
+                value={formData.whatsapp}
+                onChangePhoneNumber={(value) => handleChange('whatsapp', value)}
+                selectedCountry={selectedWCountry}
+                onChangeSelectedCountry={setSelectedWCountry}
+                placeholder="ادخل رقم الواتساب"
+                inputStyle={{ height: 48, paddingHorizontal: 16 }}
               />
-              {!isFieldValid('fullName') && (
-                <Text className="mt-1 text-xs text-red-500">{getFieldError('fullName')}</Text>
-              )}
             </View>
+            {!isFieldValid('whatsapp') && (
+              <Text className="font-arabic-medium mt-1 text-xs text-red-500">{getFieldError('whatsapp')}</Text>
+            )}
+          </View>
 
-            <View className="mb-4">
-              <View className="mb-1 flex-row items-center">
-                <Text className="font-semibold text-gray-700">التخصص</Text>
-                <Text className="mr-1 text-red-500">*</Text>
-              </View>
-              <TextInput
-                value={formData.specialization}
-                onChangeText={(value) => handleChange('specialization', value)}
-                onBlur={() => handleBlur('specialization')}
-                placeholder="أدخل التخصص"
-                className={`h-12 rounded-lg border px-4 ${
-                  isFieldValid('specialization')
-                    ? 'border-gray-300 bg-gray-50'
-                    : 'border-red-400 bg-red-50'
-                }`}
-              />
-              {!isFieldValid('specialization') && (
-                <Text className="mt-1 text-xs text-red-500">{getFieldError('specialization')}</Text>
-              )}
-            </View>
+          <View className="mb-4">
+            <Text className="font-arabic-bold mb-1 text-gray-700">البريد الإلكتروني</Text>
+            <TextInput
+              value={formData.email}
+              onChangeText={(value) => handleChange('email', value)}
+              onBlur={() => handleBlur('email')}
+              placeholder="email@example.com"
+              keyboardType="email-address"
+              className={`h-12 rounded-lg border px-4 ${
+                isFieldValid('email') ? 'border-gray-300 bg-gray-50' : 'border-red-400 bg-red-50'
+              }`}
+            />
+            {!isFieldValid('email') && (
+              <Text className="font-arabic-medium mt-1 text-xs text-red-500">{getFieldError('email')}</Text>
+            )}
+          </View>
+          <View className="mb-4">
+            <Text className="font-arabic-bold mb-1 text-gray-700">الموقع الإلكتروني</Text>
+            <TextInput
+              value={formData.website}
+              onChangeText={(value) => handleChange('website', value)}
+              onBlur={() => handleBlur('website')}
+              placeholder="https://example.com"
+              keyboardType="url"
+              className={`h-12 rounded-lg border px-4 ${
+                isFieldValid('website')
+                  ? 'border-gray-300 bg-gray-50'
+                  : 'border-red-400 bg-red-50'
+              }`}
+            />
+            {!isFieldValid('website') && (
+              <Text className="font-arabic-medium mt-1 text-xs text-red-500">{getFieldError('website')}</Text>
+            )}
+          </View>
+          <View className="mb-4">
+            <Text className="font-arabic-bold mb-1 text-gray-700">حساب انستغرام</Text>
+            <TextInput
+              value={formData.instagram}
+              onChangeText={(value) => handleChange('instagram', value)}
+              onBlur={() => handleBlur('instagram')}
+              placeholder="@username"
+              keyboardType=""
+              className={`h-12 rounded-lg border px-4 ${
+                isFieldValid('instagram')
+                  ? 'border-gray-300 bg-gray-50'
+                  : 'border-red-400 bg-red-50'
+              }`}
+            />
+            {!isFieldValid('instagram') && (
+              <Text className="font-arabic-medium mt-1 text-xs text-red-500">{getFieldError('instagram')}</Text>
+            )}
+          </View>
+        </View>
+      </View>
 
-            <View className="mb-4">
-              <View className="mb-1 flex-row items-center">
-                <Text className="font-semibold text-gray-700">الوصف</Text>
-                <Text className="mr-1 text-red-500">*</Text>
-              </View>
-              <TextInput
-                value={formData.description}
-                onChangeText={(value) => handleChange('description', value)}
-                onBlur={() => handleBlur('description')}
-                placeholder="صف خبراتك ومؤهلاتك وأسلوب التدريب..."
-                multiline
-                numberOfLines={4}
-                className={`min-h-[120px] rounded-lg border px-4 py-3 text-right ${
-                  isFieldValid('description')
-                    ? 'border-gray-300 bg-gray-50'
-                    : 'border-red-400 bg-red-50'
-                }`}
-                textAlignVertical="top"
-              />
-              {!isFieldValid('description') && (
-                <Text className="mt-1 text-xs text-red-500">{getFieldError('description')}</Text>
-              )}
+      {/* Courses Section Card */}
+      <View className="mb-6 overflow-hidden rounded-xl border border-gray-200 bg-white">
+        <View className="border-b border-gray-200 bg-purple-50 px-4 py-3">
+          <View className="flex-row items-center justify-between">
+            <View>
+              <Text className="font-arabic-bold text-lg text-purple-700">الدورات التدريبية</Text>
+              <Text className="font-arabic-regular text-sm text-gray-600">الدورات والبرامج التدريبية المقدمة</Text>
             </View>
-
-            <View className="mb-4">
-              <ImageUpload
-                label="صورة الملف الشخصي"
-                value={formData.profileImage}
-                onChange={handleProfileImageChange}
-                type="logo"
-                folder="/merchants/logos"
-              />
-            </View>
-            <View className="mb-4">
-              <ImageUpload
-                label="صورة الغلاف"
-                value={formData.coverImage}
-                onChange={handleCoverImageChange}
-                type="cover"
-                folder="/merchants/covers"
-              />
-            </View>
+            <TouchableOpacity
+              onPress={addCourse}
+              className="flex-row items-center rounded-lg bg-purple-600 px-3 py-2">
+              <Text className="font-arabic-bold ml-1 text-white">+</Text>
+              <Text className="font-arabic-bold text-white">إضافة دورة</Text>
+            </TouchableOpacity>
           </View>
         </View>
 
-        {/* Contact Information Card */}
-        <View className="mb-6 overflow-hidden rounded-xl border border-gray-200 bg-white">
-          <View className="border-b border-gray-200 bg-green-50 px-4 py-3">
-            <Text className="text-lg font-bold text-green-700">معلومات الاتصال</Text>
-            <Text className="text-sm text-gray-600">كيف يمكن للعملاء التواصل معك</Text>
-          </View>
-
-          <View className="p-4">
-            <View className="mb-4">
-              <View className="mb-1 flex-row items-center">
-                <Text className="font-semibold text-gray-700">رقم الجوال</Text>
-                <Text className="mr-1 text-red-500">*</Text>
-              </View>
-              <View className="overflow-hidden rounded-lg border border-gray-300 bg-gray-50">
-                <PhoneInput
-                  value={formData.phone}
-                  onChangePhoneNumber={(value) => handleChange('phone', value)}
-                  selectedCountry={selectedPCountry}
-                  onChangeSelectedCountry={setSelectedPCountry}
-                  placeholder="ادخل رقم الجوال"
-                  inputStyle={{ height: 48, paddingHorizontal: 16 }}
-                />
-              </View>
-              {!isFieldValid('phone') && (
-                <Text className="mt-1 text-xs text-red-500">{getFieldError('phone')}</Text>
-              )}
-            </View>
-
-            <View className="mb-4">
-              <Text className="mb-1 font-semibold text-gray-700">رقم الواتساب</Text>
-              <View className="overflow-hidden rounded-lg border border-gray-300 bg-gray-50">
-                <PhoneInput
-                  value={formData.whatsapp}
-                  onChangePhoneNumber={(value) => handleChange('whatsapp', value)}
-                  selectedCountry={selectedWCountry}
-                  onChangeSelectedCountry={setSelectedWCountry}
-                  placeholder="ادخل رقم الواتساب"
-                  inputStyle={{ height: 48, paddingHorizontal: 16 }}
-                />
-              </View>
-              {!isFieldValid('whatsapp') && (
-                <Text className="mt-1 text-xs text-red-500">{getFieldError('whatsapp')}</Text>
-              )}
-            </View>
-
-            <View className="mb-4">
-              <Text className="mb-1 font-semibold text-gray-700">البريد الإلكتروني</Text>
-              <TextInput
-                value={formData.email}
-                onChangeText={(value) => handleChange('email', value)}
-                onBlur={() => handleBlur('email')}
-                placeholder="email@example.com"
-                keyboardType="email-address"
-                className={`h-12 rounded-lg border px-4 ${
-                  isFieldValid('email') ? 'border-gray-300 bg-gray-50' : 'border-red-400 bg-red-50'
-                }`}
-              />
-              {!isFieldValid('email') && (
-                <Text className="mt-1 text-xs text-red-500">{getFieldError('email')}</Text>
-              )}
-            </View>
-            <View className="mb-4">
-              <Text className="mb-1 font-semibold text-gray-700">الموقع الإلكتروني</Text>
-              <TextInput
-                value={formData.website}
-                onChangeText={(value) => handleChange('website', value)}
-                onBlur={() => handleBlur('website')}
-                placeholder="https://example.com"
-                keyboardType="url"
-                className={`h-12 rounded-lg border px-4 ${
-                  isFieldValid('website')
-                    ? 'border-gray-300 bg-gray-50'
-                    : 'border-red-400 bg-red-50'
-                }`}
-              />
-              {!isFieldValid('website') && (
-                <Text className="mt-1 text-xs text-red-500">{getFieldError('website')}</Text>
-              )}
-            </View>
-            <View className="mb-4">
-              <Text className="mb-1 font-semibold text-gray-700">حساب انستغرام</Text>
-              <TextInput
-                value={formData.instagram}
-                onChangeText={(value) => handleChange('instagram', value)}
-                onBlur={() => handleBlur('instagram')}
-                placeholder="@username"
-                keyboardType=""
-                className={`h-12 rounded-lg border px-4 ${
-                  isFieldValid('instagram')
-                    ? 'border-gray-300 bg-gray-50'
-                    : 'border-red-400 bg-red-50'
-                }`}
-              />
-              {!isFieldValid('instagram') && (
-                <Text className="mt-1 text-xs text-red-500">{getFieldError('instagram')}</Text>
-              )}
-            </View>
-          </View>
-        </View>
-
-        {/* Courses Section Card */}
-        <View className="mb-6 overflow-hidden rounded-xl border border-gray-200 bg-white">
-          <View className="border-b border-gray-200 bg-purple-50 px-4 py-3">
-            <View className="flex-row items-center justify-between">
-              <View>
-                <Text className="text-lg font-bold text-purple-700">الدورات التدريبية</Text>
-                <Text className="text-sm text-gray-600">الدورات والبرامج التدريبية المقدمة</Text>
-              </View>
-              <TouchableOpacity
-                onPress={addCourse}
-                className="flex-row items-center rounded-lg bg-purple-600 px-3 py-2">
-                <Text className="ml-1 text-white">+</Text>
-                <Text className="font-semibold text-white">إضافة دورة</Text>
-              </TouchableOpacity>
-            </View>
-          </View>
-
-          <View className="p-4">
-            {formData.courses.map((course, index) => (
-              <View
-                key={index}
-                className="mb-4 overflow-hidden rounded-lg border border-gray-200 bg-gray-50">
-                <View className="border-b border-gray-200 bg-white px-3 py-2">
-                  <View className="flex-row items-center justify-between">
-                    <View className="flex-row items-center">
-                      <View className="mr-2 h-7 w-7 items-center justify-center rounded-full bg-purple-100">
-                        <Text className="font-bold text-purple-600">{index + 1}</Text>
-                      </View>
-                      <Text className="font-bold text-gray-700">
-                        {course.name.trim() || `الدورة ${index + 1}`}
-                      </Text>
+        <View className="p-4">
+          {formData.courses.map((course, index) => (
+            <View
+              key={index}
+              className="mb-4 overflow-hidden rounded-lg border border-gray-200 bg-gray-50">
+              <View className="border-b border-gray-200 bg-white px-3 py-2">
+                <View className="flex-row items-center justify-between">
+                  <View className="flex-row items-center">
+                    <View className="mr-2 h-7 w-7 items-center justify-center rounded-full bg-purple-100">
+                      <Text className="font-arabic-bold text-purple-600">{index + 1}</Text>
                     </View>
-                    {formData.courses.length > 1 && (
-                      <TouchableOpacity
-                        onPress={() => removeCourse(index)}
-                        className="rounded bg-red-100 px-2 py-1">
-                        <Text className="text-sm font-semibold text-red-600">حذف</Text>
-                      </TouchableOpacity>
-                    )}
+                    <Text className="font-arabic-bold text-gray-700">
+                      {course.name.trim() || `الدورة ${index + 1}`}
+                    </Text>
                   </View>
+                  {formData.courses.length > 1 && (
+                    <TouchableOpacity
+                      onPress={() => removeCourse(index)}
+                      className="rounded bg-red-100 px-2 py-1">
+                      <Text className="font-arabic-bold text-sm text-red-600">حذف</Text>
+                    </TouchableOpacity>
+                  )}
+                </View>
+              </View>
+
+              <View className="p-3">
+                <View className="mb-3">
+                  <Text className="font-arabic-medium mb-1 text-sm text-gray-600">اسم الدورة</Text>
+                  <TextInput
+                    value={course.name}
+                    onChangeText={(value) => handleCourseChange(index, 'name', value)}
+                    placeholder="اسم الدورة"
+                    className="h-12 rounded-lg border border-gray-300 bg-white px-3"
+                    scrollEnabled={false}
+                  />
                 </View>
 
-                <View className="p-3">
-                  <View className="mb-3">
-                    <Text className="mb-1 text-sm font-medium text-gray-600">اسم الدورة</Text>
+                <View className="mb-3">
+                  <Text className="font-arabic-medium mb-1 text-sm text-gray-600">وصف الدورة</Text>
+                  <TextInput
+                    value={course.description}
+                    onChangeText={(value) => handleCourseChange(index, 'description', value)}
+                    placeholder="وصف مفصل للدورة..."
+                    multiline
+                    numberOfLines={2}
+                    className="min-h-[80px] rounded-lg border border-gray-300 bg-white px-3 py-2"
+                    textAlignVertical="top"
+                    scrollEnabled={false}
+                  />
+                </View>
+
+                <View className="-mx-1 flex-row flex-wrap">
+                  <View className="mb-3 w-1/2 px-1">
+                    <Text className="font-arabic-medium mb-1 text-sm text-gray-600">المدة</Text>
                     <TextInput
-                      value={course.name}
-                      onChangeText={(value) => handleCourseChange(index, 'name', value)}
-                      placeholder="اسم الدورة"
+                      value={course.duration}
+                      onChangeText={(value) => handleCourseChange(index, 'duration', value)}
+                      placeholder="3 أشهر"
+                      keyboardType="numeric"
                       className="h-12 rounded-lg border border-gray-300 bg-white px-3"
                       scrollEnabled={false}
                     />
                   </View>
 
-                  <View className="mb-3">
-                    <Text className="mb-1 text-sm font-medium text-gray-600">وصف الدورة</Text>
+                  <View className="mb-3 w-1/2 px-1">
+                    <Text className="font-arabic-medium mb-1 text-sm text-gray-600">عدد الجلسات</Text>
                     <TextInput
-                      value={course.description}
-                      onChangeText={(value) => handleCourseChange(index, 'description', value)}
-                      placeholder="وصف مفصل للدورة..."
-                      multiline
-                      numberOfLines={2}
-                      className="min-h-[80px] rounded-lg border border-gray-300 bg-white px-3 py-2"
-                      textAlignVertical="top"
+                      value={course.sessions}
+                      onChangeText={(value) => handleCourseChange(index, 'sessions', value)}
+                      placeholder="12"
+                      keyboardType="numeric"
+                      className="h-12 rounded-lg border border-gray-300 bg-white px-3"
                       scrollEnabled={false}
                     />
                   </View>
 
-                  <View className="-mx-1 flex-row flex-wrap">
-                    <View className="mb-3 w-1/2 px-1">
-                      <Text className="mb-1 text-sm font-medium text-gray-600">المدة</Text>
-                      <TextInput
-                        value={course.duration}
-                        onChangeText={(value) => handleCourseChange(index, 'duration', value)}
-                        placeholder="3 أشهر"
-                        keyboardType="numeric"
-                        className="h-12 rounded-lg border border-gray-300 bg-white px-3"
-                        scrollEnabled={false}
-                      />
-                    </View>
+                  <View className="mb-3 w-1/2 px-1">
+                    <Text className="font-arabic-medium mb-1 text-sm text-gray-600">
+                      السعر (دينار كويتي)
+                    </Text>
+                    <TextInput
+                      value={course.price}
+                      onChangeText={(value) => handleCourseChange(index, 'price', value)}
+                      placeholder="250"
+                      keyboardType="numeric"
+                      className="h-12 rounded-lg border border-gray-300 bg-white px-3"
+                      scrollEnabled={false}
+                    />
+                  </View>
 
-                    <View className="mb-3 w-1/2 px-1">
-                      <Text className="mb-1 text-sm font-medium text-gray-600">عدد الجلسات</Text>
-                      <TextInput
-                        value={course.sessions}
-                        onChangeText={(value) => handleCourseChange(index, 'sessions', value)}
-                        placeholder="12"
-                        keyboardType="numeric"
-                        className="h-12 rounded-lg border border-gray-300 bg-white px-3"
-                        scrollEnabled={false}
-                      />
-                    </View>
-
-                    <View className="mb-3 w-1/2 px-1">
-                      <Text className="mb-1 text-sm font-medium text-gray-600">
-                        السعر (دينار كويتي)
-                      </Text>
-                      <TextInput
-                        value={course.price}
-                        onChangeText={(value) => handleCourseChange(index, 'price', value)}
-                        placeholder="250"
-                        keyboardType="numeric"
-                        className="h-12 rounded-lg border border-gray-300 bg-white px-3"
-                        scrollEnabled={false}
-                      />
-                    </View>
-
-                    <View className="mb-3 w-1/2 px-1">
-                      <Text className="mb-1 text-sm font-medium text-gray-600">المستوى</Text>
-                      <Picker
-                        options={[
-                          { label: 'اختر المستوى', value: '' },
-                          { label: 'مبتدئ', value: 'Beginner' },
-                          { label: 'متوسط', value: 'Intermediate' },
-                          { label: 'متقدم', value: 'Advanced' },
-                          { label: 'جميع المستويات', value: 'All Levels' },
-                        ]}
-                        value={course.level || ''}
-                        onValueChange={(value) => handleCourseChange(index, 'level', value)}
-                        placeholder="اختر المستوى"
-                        style={{
-                          borderColor: '#D1D5DB',
-                          backgroundColor: 'white',
-                          borderRadius: 8,
-                        }}
-                      />
-                    </View>
+                  <View className="mb-3 w-1/2 px-1">
+                    <Text className="font-arabic-medium mb-1 text-sm text-gray-600">المستوى</Text>
+                    <Picker
+                      options={[
+                        { label: 'اختر المستوى', value: '' },
+                        { label: 'مبتدئ', value: 'Beginner' },
+                        { label: 'متوسط', value: 'Intermediate' },
+                        { label: 'متقدم', value: 'Advanced' },
+                        { label: 'جميع المستويات', value: 'All Levels' },
+                      ]}
+                      value={course.level || ''}
+                      onValueChange={(value) => handleCourseChange(index, 'level', value)}
+                      placeholder="اختر المستوى"
+                      style={{
+                        borderColor: '#D1D5DB',
+                        backgroundColor: 'white',
+                        borderRadius: 8,
+                      }}
+                    />
                   </View>
                 </View>
               </View>
-            ))}
-          </View>
-        </View>
-
-        {/* Additional Notes Card */}
-        <View className="mb-6 overflow-hidden rounded-xl border border-gray-200 bg-white">
-          <View className="border-b border-gray-200 bg-amber-50 px-4 py-3">
-            <Text className="text-lg font-bold text-amber-700">ملاحظات إضافية</Text>
-            <Text className="text-sm text-gray-600">أي معلومات إضافية تريد إضافتها</Text>
-          </View>
-
-          <View className="p-4">
-            <TextInput
-              value={formData.additionalNotes}
-              onChangeText={(value) => handleChange('additionalNotes', value)}
-              placeholder="مثل: الشهادات، الخبرات السابقة، طريقة التدريب..."
-              multiline
-              numberOfLines={3}
-              className="min-h-[100px] rounded-lg border border-gray-300 bg-gray-50 px-4 py-3"
-              textAlignVertical="top"
-            />
-          </View>
-        </View>
-
-        {/* Error Display */}
-        {error && (
-          <View className="mb-6 rounded-lg border border-red-200 bg-red-50 p-4">
-            <View className="flex-row items-center">
-              <View className="mr-2 h-6 w-6 items-center justify-center rounded-full bg-red-100">
-                <Text className="font-bold text-red-600">!</Text>
-              </View>
-              <Text className="font-semibold text-red-700">فشل في حفظ البيانات</Text>
             </View>
-            <Text className="mt-2 text-red-600">{error.message}</Text>
-          </View>
-        )}
-
-        {/* Submit Button */}
-        <View className="flex-row justify-between pt-4">
-          <TouchableOpacity
-            onPress={handleSubmit}
-            disabled={loading}
-            className="flex-1 rounded-lg bg-blue-600 py-4">
-            {loading ? (
-              <View className="items-center">
-                <View className="h-6 w-6 animate-spin rounded-full border-2 border-white border-t-transparent" />
-              </View>
-            ) : trainer ? (
-              <Text className="text-center text-lg font-bold text-white">تحديث البيانات</Text>
-            ) : (
-              <Text className="text-center text-lg font-bold text-white">إضافة المدرب</Text>
-            )}
-          </TouchableOpacity>
+          ))}
         </View>
       </View>
-    </ScrollView>
-  );
+
+      {/* Additional Notes Card */}
+      <View className="mb-6 overflow-hidden rounded-xl border border-gray-200 bg-white">
+        <View className="border-b border-gray-200 bg-amber-50 px-4 py-3">
+          <Text className="font-arabic-bold text-lg text-amber-700">ملاحظات إضافية</Text>
+          <Text className="font-arabic-regular text-sm text-gray-600">أي معلومات إضافية تريد إضافتها</Text>
+        </View>
+
+        <View className="p-4">
+          <TextInput
+            value={formData.additionalNotes}
+            onChangeText={(value) => handleChange('additionalNotes', value)}
+            placeholder="مثل: الشهادات، الخبرات السابقة، طريقة التدريب..."
+            multiline
+            numberOfLines={3}
+            className="min-h-[100px] rounded-lg border border-gray-300 bg-gray-50 px-4 py-3"
+            textAlignVertical="top"
+          />
+        </View>
+      </View>
+
+      {/* Error Display */}
+      {error && (
+        <View className="mb-6 rounded-lg border border-red-200 bg-red-50 p-4">
+          <View className="flex-row items-center">
+            <View className="mr-2 h-6 w-6 items-center justify-center rounded-full bg-red-100">
+              <Text className="font-arabic-bold text-red-600">!</Text>
+            </View>
+            <Text className="font-arabic-bold text-red-700">فشل في حفظ البيانات</Text>
+          </View>
+          <Text className="font-arabic-medium mt-2 text-red-600">{error.message}</Text>
+        </View>
+      )}
+
+      {/* Submit Button */}
+      <View className="flex-row justify-between pt-4">
+        <TouchableOpacity
+          onPress={handleSubmit}
+          disabled={loading}
+          className="flex-1 rounded-lg bg-blue-600 py-4">
+          {loading ? (
+            <View className="items-center">
+              <View className="h-6 w-6 animate-spin rounded-full border-2 border-white border-t-transparent" />
+            </View>
+          ) : trainer ? (
+            <Text className="font-arabic-bold text-center text-lg text-white">تحديث البيانات</Text>
+          ) : (
+            <Text className="font-arabic-bold text-center text-lg text-white">إضافة المدرب</Text>
+          )}
+        </TouchableOpacity>
+      </View>
+    </View>
+  </ScrollView>
+);
 };
 
 export default TrainerFormModal;

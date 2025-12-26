@@ -192,21 +192,21 @@ export default function CategoryDirectoryPage() {
         )}
       </View>
       <View className="border-l-4 border-[#CAA453] p-3">
-        <Text className="font-inter mb-1 text-base font-bold text-[#18344A]" numberOfLines={1}>
+        <Text className="font-arabic-bold mb-1 text-sm text-[#18344A]" numberOfLines={1}>
           {item.businessName}
         </Text>
-        <Text className="font-inter mb-2 text-xs text-[#4E6882]" numberOfLines={2}>
+        <Text className="font-arabic-regular mb-2 text-xs text-[#4E6882]" numberOfLines={2}>
           {item.description}
         </Text>
         <View className="flex-row items-center justify-between">
           <View className="flex-row items-center gap-1">
             <Ionicons name="location-outline" size={12} color="#7A8699" />
-            <Text className="font-inter text-xs text-[#7A8699]">{item.city.nameAr}</Text>
+            <Text className="font-arabic-regular text-xs text-[#7A8699]">{item.city.nameAr}</Text>
           </View>
           {item.whatsapp && (
             <View className="flex-row items-center gap-1">
               <Ionicons name="chatbubble-outline" size={12} color="#2A4F68" />
-              <Text className="font-inter text-xs text-[#2A4F68]">واتساب</Text>
+              <Text className="font-arabic-regular text-xs text-[#2A4F68]">واتساب</Text>
             </View>
           )}
         </View>
@@ -240,29 +240,30 @@ export default function CategoryDirectoryPage() {
         )}
       </View>
       <View className="border-l-4 border-[#CAA453] p-3">
-        <Text className="font-inter mb-1 text-base font-bold text-[#18344A]" numberOfLines={1}>
+        <Text className="font-arabic-bold mb-1 text-sm text-[#18344A]" numberOfLines={1}>
           {item.fullName}
         </Text>
-        <Text className="font-inter mb-1 text-xs text-[#4E6882]">{item.specialization}</Text>
-        <Text className="font-inter mb-2 text-xs text-[#4E6882]" numberOfLines={2}>
+        <Text className="font-arabic-regular mb-1 text-xs text-[#4E6882]">
+          {item.specialization}
+        </Text>
+        <Text className="font-arabic-regular mb-2 text-xs text-[#4E6882]" numberOfLines={2}>
           {item.description}
         </Text>
         <View className="flex-row items-center justify-between">
           <View className="flex-row items-center gap-1">
             <Ionicons name="location-outline" size={12} color="#7A8699" />
-            <Text className="font-inter text-xs text-[#7A8699]">{item.city.nameAr}</Text>
+            <Text className="font-arabic-regular text-xs text-[#7A8699]">{item.city.nameAr}</Text>
           </View>
           {item.whatsapp && (
             <View className="flex-row items-center gap-1">
               <Ionicons name="chatbubble-outline" size={12} color="#2A4F68" />
-              <Text className="font-inter text-xs text-[#2A4F68]">واتساب</Text>
+              <Text className="font-arabic-regular text-xs text-[#2A4F68]">واتساب</Text>
             </View>
           )}
         </View>
       </View>
     </TouchableOpacity>
   );
-
   const renderMerchantFooter = () => {
     if (!hasMoreMerchants) return null;
 
@@ -303,10 +304,10 @@ export default function CategoryDirectoryPage() {
       <View className="border-b border-[#E5E7EB] bg-white px-4 py-4">
         <View className="flex-row items-center justify-between">
           <View className="flex-1">
-            <Text className="font-poppins text-xl font-bold text-[#1E2053]">
+            <Text className="font-arabic-bold text-lg text-[#1E2053]">
               {currentCategory?.nameAr || ''}
             </Text>
-            <Text className="font-inter mt-1 text-sm text-[#4E6882]" numberOfLines={3}>
+            <Text className="font-arabic-regular mt-1 text-sm text-[#4E6882]" numberOfLines={3}>
               {currentCategory?.description || ''}
             </Text>
           </View>
@@ -327,7 +328,7 @@ export default function CategoryDirectoryPage() {
               category.id === categoryId ? 'bg-[#1E2053]' : 'border border-[#E5E7EB] bg-[#F7F9FA]'
             }`}>
             <Text
-              className={`font-inter text-sm ${
+              className={`font-arabic-regular text-sm ${
                 category.id === categoryId ? 'text-white' : 'text-[#4E6882]'
               }`}>
               {category.nameAr}
@@ -347,12 +348,12 @@ export default function CategoryDirectoryPage() {
               <View className="mb-4 flex-row items-center justify-between px-4">
                 <View className="flex-row items-center gap-2">
                   <Ionicons name="storefront-outline" size={20} color="#1E2053" />
-                  <Text className="font-poppins text-lg font-bold text-[#18344A]">
+                  <Text className="font-arabic-bold text-base text-[#18344A]">
                     التجار والأسر المنتجة
                   </Text>
                 </View>
                 <View className="rounded-full bg-[#F7F9FA] px-3 py-1">
-                  <Text className="font-inter text-xs font-medium text-[#1E2053]">
+                  <Text className="font-arabic-semibold text-xs text-[#1E2053]">
                     {merchants.length} من {totalMerchants}
                   </Text>
                 </View>
@@ -383,12 +384,12 @@ export default function CategoryDirectoryPage() {
               <View className="mb-4 flex-row items-center justify-between px-4">
                 <View className="flex-row items-center gap-2">
                   <Ionicons name="school-outline" size={20} color="#1E2053" />
-                  <Text className="font-poppins text-lg font-bold text-[#18344A]">
+                  <Text className="font-arabic-bold text-base text-[#18344A]">
                     المدربون ومقدمو الخدمات
                   </Text>
                 </View>
                 <View className="rounded-full bg-[#F7F9FA] px-3 py-1">
-                  <Text className="font-inter text-xs font-medium text-[#1E2053]">
+                  <Text className="font-arabic-semibold text-xs text-[#1E2053]">
                     {trainers.length} من {totalTrainers}
                   </Text>
                 </View>
@@ -419,17 +420,15 @@ export default function CategoryDirectoryPage() {
               <View className="mb-4 h-20 w-20 items-center justify-center rounded-full bg-[#F7F9FA]">
                 <Ionicons name="file-tray-outline" size={32} color="#1E2053" />
               </View>
-              <Text className="font-poppins mb-2 text-xl font-bold text-[#18344A]">
-                لا توجد أنشطة
-              </Text>
-              <Text className="font-inter mb-6 text-center text-sm text-[#4E6882]">
+              <Text className="font-arabic-bold mb-2 text-lg text-[#18344A]">لا توجد أنشطة</Text>
+              <Text className="font-arabic-regular mb-6 text-center text-sm text-[#4E6882]">
                 لا توجد أنشطة مسجلة في هذا القسم بعد
               </Text>
               {!user && (
                 <TouchableOpacity
                   onPress={() => router.push('/register')}
                   className="rounded-lg bg-[#1E2053] px-6 py-3">
-                  <Text className="font-inter text-sm font-semibold text-white">
+                  <Text className="font-arabic-semibold text-sm text-white">
                     كن أول من يسجل في هذا القسم
                   </Text>
                 </TouchableOpacity>

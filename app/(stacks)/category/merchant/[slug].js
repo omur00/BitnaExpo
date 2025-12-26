@@ -82,7 +82,7 @@ export default function MerchantPage() {
   const hasGalleryImages = merchant.galleryImages && merchant.galleryImages.length > 0;
 
   return (
-    <ScrollView className="flex-1 bg-white" showsVerticalScrollIndicator={false}>
+    <ScrollView className="flex-1" showsVerticalScrollIndicator={false}>
       {/* Header Section */}
       <View className="relative">
         {/* Cover Image */}
@@ -105,7 +105,7 @@ export default function MerchantPage() {
               <View>
                 {hasLogo ? (
                   <Image
-                    source={{ uri: merchant.logo.url }} // FIXED: Access .url property
+                    source={{ uri: merchant.logo.url }}
                     className="h-20 w-20 rounded-lg border-2 border-white"
                     resizeMode="cover"
                   />
@@ -118,21 +118,21 @@ export default function MerchantPage() {
 
               {/* Business Info */}
               <View className="mr-4 flex-1">
-                <Text className="font-poppins text-xl font-bold text-[#18344A]">
-                  {businessName}
-                </Text>
-                <Text className="font-inter mt-1 text-sm text-[#4E6882]">
+                <Text className="font-arabic-bold text-lg text-[#18344A]">{businessName}</Text>
+                <Text className="font-arabic-regular mt-1 text-sm text-[#4E6882]">
                   {merchant.specialization || merchant.category?.nameAr}
                 </Text>
 
                 <View className="mt-3 flex-row flex-wrap gap-2">
                   <View className="flex-row items-center gap-2 rounded-full bg-[#F7F9FA] px-3 py-1.5">
                     <Ionicons name="business-outline" size={14} color="#4E6882" />
-                    <Text className="font-inter text-sm text-[#4E6882]">{categoryName}</Text>
+                    <Text className="font-arabic-regular text-xs text-[#4E6882]">
+                      {categoryName}
+                    </Text>
                   </View>
                   <View className="flex-row items-center gap-2 rounded-full bg-[#F7F9FA] px-3 py-1.5">
                     <Ionicons name="location-outline" size={14} color="#4E6882" />
-                    <Text className="font-inter text-sm text-[#4E6882]">{cityName}</Text>
+                    <Text className="font-arabic-regular text-xs text-[#4E6882]">{cityName}</Text>
                   </View>
                 </View>
               </View>
@@ -145,7 +145,7 @@ export default function MerchantPage() {
                   onPress={() => handleWhatsApp(whatsappNumber)}
                   className="flex-1 flex-row items-center justify-center gap-1 rounded-lg bg-[#1E2053] py-3">
                   <Ionicons name="chatbubble-outline" size={16} color="white" />
-                  <Text className="font-inter mr-2 text-sm font-semibold text-white">واتساب</Text>
+                  <Text className="font-arabic-semibold mr-2 text-sm text-white">واتساب</Text>
                 </TouchableOpacity>
               )}
               {merchant.phone && (
@@ -153,9 +153,7 @@ export default function MerchantPage() {
                   onPress={() => handlePhoneCall(merchant.phone)}
                   className="flex-1 flex-row items-center justify-center gap-1 rounded-lg bg-[#CAA453] py-3">
                   <Ionicons name="call-outline" size={16} color="#1E2053" />
-                  <Text className="font-inter mr-2 text-sm font-semibold text-[#1E2053]">
-                    اتصال
-                  </Text>
+                  <Text className="font-arabic-semibold mr-2 text-sm text-[#1E2053]">اتصال</Text>
                 </TouchableOpacity>
               )}
             </View>
@@ -169,9 +167,11 @@ export default function MerchantPage() {
         <View className="mb-6 rounded-xl border border-[#E5E7EB] bg-white p-5">
           <View className="mb-4 flex-row items-center gap-2">
             <Ionicons name="document-text-outline" size={20} color="#CAA453" />
-            <Text className="font-poppins text-lg font-bold text-[#18344A]">عن النشاط</Text>
+            <Text className="font-arabic-bold text-base text-[#18344A]">عن النشاط</Text>
           </View>
-          <Text className="font-inter text-sm leading-6 text-[#4E6882]">{description}</Text>
+          <Text className="font-arabic-regular text-sm leading-6 text-[#4E6882]">
+            {description}
+          </Text>
         </View>
 
         {/* Gallery Images */}
@@ -179,9 +179,9 @@ export default function MerchantPage() {
           <View className="mb-4 flex-row items-center justify-between">
             <View className="flex-row items-center gap-2">
               <Ionicons name="images-outline" size={20} color="#CAA453" />
-              <Text className="font-poppins text-lg font-bold text-[#18344A]">معرض الصور</Text>
+              <Text className="font-arabic-bold text-base text-[#18344A]">معرض الصور</Text>
             </View>
-            <Text className="font-inter text-sm text-[#7A8699]">
+            <Text className="font-arabic-regular text-xs text-[#7A8699]">
               {hasGalleryImages ? `${merchant.galleryImages.length} صورة` : 'لا توجد صور'}
             </Text>
           </View>
@@ -192,7 +192,7 @@ export default function MerchantPage() {
                 {merchant.galleryImages.map((image, index) => (
                   <Image
                     key={image.id || index}
-                    source={{ uri: image.url }} // FIXED: Access .url property
+                    source={{ uri: image.url }}
                     className="h-36 w-36 rounded-lg"
                     resizeMode="cover"
                   />
@@ -202,7 +202,9 @@ export default function MerchantPage() {
           ) : (
             <View className="items-center py-8">
               <Ionicons name="image-outline" size={40} color="#CBD0D6" />
-              <Text className="font-inter mt-3 text-sm text-[#4E6882]">لا توجد صور إضافية</Text>
+              <Text className="font-arabic-regular mt-3 text-sm text-[#4E6882]">
+                لا توجد صور إضافية
+              </Text>
             </View>
           )}
         </View>
@@ -212,9 +214,11 @@ export default function MerchantPage() {
           <View className="mb-6 rounded-xl border border-l-4 border-[#CAA453] border-[#E5E7EB] bg-white p-5">
             <View className="mb-4 flex-row items-center gap-2">
               <Ionicons name="pricetag-outline" size={20} color="#CAA453" />
-              <Text className="font-poppins text-lg font-bold text-[#18344A]">ملاحظات إضافية</Text>
+              <Text className="font-arabic-bold text-base text-[#18344A]">ملاحظات إضافية</Text>
             </View>
-            <Text className="font-inter text-sm text-[#4E6882]">{merchant.additionalNotes}</Text>
+            <Text className="font-arabic-regular text-sm text-[#4E6882]">
+              {merchant.additionalNotes}
+            </Text>
           </View>
         )}
 
@@ -222,35 +226,33 @@ export default function MerchantPage() {
         <View className="mb-6 rounded-xl border border-[#E5E7EB] bg-white p-5">
           <View className="mb-4 flex-row items-center gap-2">
             <Ionicons name="information-circle-outline" size={20} color="#CAA453" />
-            <Text className="font-poppins text-lg font-bold text-[#18344A]">معلومات النشاط</Text>
+            <Text className="font-arabic-bold text-base text-[#18344A]">معلومات النشاط</Text>
           </View>
 
           <View className="gap-4">
             <View className="flex-row items-center justify-between rounded-lg bg-[#F7F9FA] p-3">
               <View className="flex-row items-center gap-2">
                 <Ionicons name="business-outline" size={16} color="#7A8699" />
-                <Text className="font-inter text-sm text-[#7A8699]">المجال</Text>
+                <Text className="font-arabic-regular text-xs text-[#7A8699]">المجال</Text>
               </View>
-              <Text className="font-inter text-sm font-semibold text-[#18344A]">
-                {categoryName}
-              </Text>
+              <Text className="font-arabic-semibold text-sm text-[#18344A]">{categoryName}</Text>
             </View>
 
             <View className="flex-row items-center justify-between rounded-lg bg-[#F7F9FA] p-3">
               <View className="flex-row items-center gap-2">
                 <Ionicons name="location-outline" size={16} color="#7A8699" />
-                <Text className="font-inter text-sm text-[#7A8699]">المدينة</Text>
+                <Text className="font-arabic-regular text-xs text-[#7A8699]">المدينة</Text>
               </View>
-              <Text className="font-inter text-sm font-semibold text-[#18344A]">{cityName}</Text>
+              <Text className="font-arabic-semibold text-sm text-[#18344A]">{cityName}</Text>
             </View>
 
             {merchant.businessType && (
               <View className="flex-row items-center justify-between rounded-lg bg-[#F7F9FA] p-3">
                 <View className="flex-row items-center gap-2">
                   <Ionicons name="briefcase-outline" size={16} color="#7A8699" />
-                  <Text className="font-inter text-sm text-[#7A8699]">نوع النشاط</Text>
+                  <Text className="font-arabic-regular text-xs text-[#7A8699]">نوع النشاط</Text>
                 </View>
-                <Text className="font-inter text-sm font-semibold text-[#18344A]">
+                <Text className="font-arabic-semibold text-sm text-[#18344A]">
                   {merchant.businessType}
                 </Text>
               </View>
@@ -260,9 +262,9 @@ export default function MerchantPage() {
               <View className="flex-row items-center justify-between rounded-lg bg-[#F7F9FA] p-3">
                 <View className="flex-row items-center gap-2">
                   <Ionicons name="calendar-outline" size={16} color="#7A8699" />
-                  <Text className="font-inter text-sm text-[#7A8699]">سنة التأسيس</Text>
+                  <Text className="font-arabic-regular text-xs text-[#7A8699]">سنة التأسيس</Text>
                 </View>
-                <Text className="font-inter text-sm font-semibold text-[#18344A]">
+                <Text className="font-arabic-semibold text-sm text-[#18344A]">
                   {merchant.establishedYear}
                 </Text>
               </View>
@@ -274,7 +276,7 @@ export default function MerchantPage() {
         <View className="mb-6 rounded-xl border border-[#E5E7EB] bg-white p-5">
           <View className="mb-4 flex-row items-center gap-2">
             <Ionicons name="call-outline" size={20} color="#CAA453" />
-            <Text className="font-poppins text-lg font-bold text-[#18344A]">معلومات التواصل</Text>
+            <Text className="font-arabic-bold text-base text-[#18344A]">معلومات التواصل</Text>
           </View>
 
           <View className="gap-3">
@@ -286,12 +288,14 @@ export default function MerchantPage() {
                   <Ionicons name="call-outline" size={20} color="white" />
                 </View>
                 <View className="flex-1">
-                  <Text className="font-inter text-xs text-[#7A8699]">رقم الجوال</Text>
-                  <Text className="font-inter mt-1 text-sm font-semibold text-[#18344A]">
+                  <Text className="font-arabic-regular text-xs text-[#7A8699]">رقم الجوال</Text>
+                  <Text
+                    className="font-arabic-semibold mt-1 text-sm text-[#18344A]"
+                    style={{ direction: 'ltr', textAlign: 'right' }}>
                     {merchant.phone}
                   </Text>
                 </View>
-                <Ionicons name="chevron-forward" size={20} color="#CBD0D6" />
+                <Ionicons name="chevron-back" size={20} color="#CBD0D6" />
               </TouchableOpacity>
             )}
 
@@ -303,12 +307,14 @@ export default function MerchantPage() {
                   <Ionicons name="logo-whatsapp" size={20} color="white" />
                 </View>
                 <View className="flex-1">
-                  <Text className="font-inter text-xs text-[#7A8699]">الواتساب</Text>
-                  <Text className="font-inter mt-1 text-sm font-semibold text-[#18344A]">
+                  <Text className="font-arabic-regular text-xs text-[#7A8699]">الواتساب</Text>
+                  <Text
+                    className="font-arabic-semibold mt-1 text-sm text-[#18344A]"
+                    style={{ direction: 'ltr', textAlign: 'right' }}>
                     {merchant.whatsapp}
                   </Text>
                 </View>
-                <Ionicons name="chevron-forward" size={20} color="#CBD0D6" />
+                <Ionicons name="chevron-back" size={20} color="#CBD0D6" />
               </TouchableOpacity>
             )}
 
@@ -320,12 +326,14 @@ export default function MerchantPage() {
                   <Ionicons name="mail-outline" size={20} color="white" />
                 </View>
                 <View className="flex-1">
-                  <Text className="font-inter text-xs text-[#7A8699]">البريد الإلكتروني</Text>
-                  <Text className="font-inter mt-1 text-sm font-semibold text-[#18344A]">
+                  <Text className="font-arabic-regular text-xs text-[#7A8699]">
+                    البريد الإلكتروني
+                  </Text>
+                  <Text className="font-arabic-semibold mt-1 text-sm text-[#18344A]">
                     {merchant.email}
                   </Text>
                 </View>
-                <Ionicons name="chevron-forward" size={20} color="#CBD0D6" />
+                <Ionicons name="chevron-back" size={20} color="#CBD0D6" />
               </TouchableOpacity>
             )}
 
@@ -334,15 +342,17 @@ export default function MerchantPage() {
                 onPress={() => handleWebsite(merchant.website)}
                 className="flex-row items-center rounded-xl bg-[#F7F9FA] p-4">
                 <View className="mr-3 h-10 w-10 items-center justify-center rounded-lg bg-[#4285F4]">
-                  <Ionicons name="globe-outline" size={20} color="white" />
+                  <Ionicons name="globe-back" size={20} color="white" />
                 </View>
                 <View className="flex-1">
-                  <Text className="font-inter text-xs text-[#7A8699]">الموقع الإلكتروني</Text>
-                  <Text className="font-inter mt-1 text-sm font-semibold text-[#18344A]">
+                  <Text className="font-arabic-regular text-xs text-[#7A8699]">
+                    الموقع الإلكتروني
+                  </Text>
+                  <Text className="font-arabic-semibold mt-1 text-sm text-[#18344A]">
                     {merchant.website}
                   </Text>
                 </View>
-                <Ionicons name="chevron-forward" size={20} color="#CBD0D6" />
+                <Ionicons name="chevron-back" size={20} color="#CBD0D6" />
               </TouchableOpacity>
             )}
 
@@ -354,12 +364,12 @@ export default function MerchantPage() {
                   <Ionicons name="logo-instagram" size={20} color="white" />
                 </View>
                 <View className="flex-1">
-                  <Text className="font-inter text-xs text-[#7A8699]">انستغرام</Text>
-                  <Text className="font-inter mt-1 text-sm font-semibold text-[#363636]">
+                  <Text className="font-arabic-regular text-xs text-[#7A8699]">انستغرام</Text>
+                  <Text className="font-arabic-semibold mt-1 text-sm text-[#363636]">
                     {merchant.instagram}
                   </Text>
                 </View>
-                <Ionicons name="chevron-forward" size={20} color="#CBD0D6" />
+                <Ionicons name="chevron-back" size={20} color="#CBD0D6" />
               </TouchableOpacity>
             )}
           </View>

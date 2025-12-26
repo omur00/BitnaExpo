@@ -41,14 +41,14 @@ export default function TrainerRegistration() {
   const [isAgreed, setIsAgreed] = useState(false);
 
   const [formData, setFormData] = useState({
-    fullName: 'aaaaa',
-    specialization: 'asddsad',
-    description: 'asdsadasdadasdasd',
+    fullName: '',
+    specialization: '',
+    description: '',
     categoryId: '',
     cityId: '',
-    phone: '223323333',
-    whatsapp: '223323333',
-    email: 'asdasd@dasda.com',
+    phone: '',
+    whatsapp: '',
+    email: '',
     website: '',
     instagram: '',
     courses: [
@@ -62,8 +62,8 @@ export default function TrainerRegistration() {
         includes: [],
       },
     ],
-    password: '123123123',
-    confpassword: '123123123',
+    password: '',
+    confpassword: '',
     additionalNotes: '',
     documentType: '',
     verificationDocument: null,
