@@ -30,7 +30,11 @@
     ],
     "extra": {
       "supportsRTL": true,
-      "forcesRTL": true
+      "forcesRTL": true,
+      "router": {},
+      "eas": {
+        "projectId": "e8e083b4-a948-407f-b605-08af1f851f43"
+      }
     },
     "experiments": {
       "typedRoutes": true,
@@ -48,7 +52,11 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "infoPlist": {
+        "ExpoLocalization_supportsRTL": true,
+        "ExpoLocalization_forcesRTL": true
+      }
     },
     "android": {
       "userInterfaceStyle": "light",
@@ -56,7 +64,7 @@
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "package": "com.omur00.BitnaExpo"
+      "package": "com.omarbx.BitnaExpo"
     }
   }
 }

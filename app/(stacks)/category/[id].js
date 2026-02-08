@@ -30,11 +30,7 @@ export default function CategoryDirectoryPage() {
   const router = useRouter();
   const { user } = useAuth();
   const [categoryId, setCategoryId] = useState(id);
-  const [merchantPage, setMerchantPage] = useState(1);
-  const [trainerPage, setTrainerPage] = useState(1);
   const [refreshing, setRefreshing] = useState(false);
-  const [hasMoreMerchants, setHasMoreMerchants] = useState(true);
-  const [hasMoreTrainers, setHasMoreTrainers] = useState(true);
 
   // Fetch categories
   const { data: categoriesData } = useQuery(GET_CATEGORIES);
@@ -48,8 +44,8 @@ export default function CategoryDirectoryPage() {
   } = useQuery(GET_APPROVED_MERCHANTS_BY_CATEGORY, {
     variables: {
       categoryId: categoryId,
-      page: 1,
       limit: 10,
+      offset: 0, // Use offset instead of page
     },
     notifyOnNetworkStatusChange: true,
   });
@@ -63,8 +59,8 @@ export default function CategoryDirectoryPage() {
   } = useQuery(GET_APPROVED_TRAINERS_BY_CATEGORY, {
     variables: {
       categoryId: categoryId,
-      page: 1,
       limit: 10,
+      offset: 0, // Use offset instead of page
     },
     notifyOnNetworkStatusChange: true,
   });
@@ -78,38 +74,32 @@ export default function CategoryDirectoryPage() {
   const totalMerchants = merchantsData?.approvedMerchantsByCategory?.totalCount || 0;
   const totalTrainers = trainersData?.approvedTrainersByCategory?.totalCount || 0;
 
+  // Get pagination info from API response
+  const hasNextPageMerchants = merchantsData?.approvedMerchantsByCategory?.hasNextPage || false;
+  const hasNextPageTrainers = trainersData?.approvedTrainersByCategory?.hasNextPage || false;
+
+  // Reset when category changes
   useEffect(() => {
-    setMerchantPage(1);
-    setTrainerPage(1);
-    setHasMoreMerchants(true);
-    setHasMoreTrainers(true);
+    // Apollo will automatically refetch when categoryId changes
   }, [categoryId]);
 
-  useEffect(() => {
-    if (merchants.length >= totalMerchants && totalMerchants > 0) {
-      setHasMoreMerchants(false);
-    }
-  }, [merchants.length, totalMerchants]);
-
-  useEffect(() => {
-    if (trainers.length >= totalTrainers && totalTrainers > 0) {
-      setHasMoreTrainers(false);
-    }
-  }, [trainers.length, totalTrainers]);
-
   const loadMoreMerchants = () => {
-    if (!hasMoreMerchants || merchantsLoading) return;
+    // Use hasNextPage from API response
+    if (!hasNextPageMerchants || merchantsLoading) return;
 
-    const nextPage = merchantPage + 1;
+    // Calculate next offset based on current number of items
+    const currentOffset = merchants.length;
 
     fetchMoreMerchants({
       variables: {
-        page: nextPage,
+        categoryId: categoryId,
         limit: 10,
+        offset: currentOffset, // Send current offset
       },
       updateQuery: (prevResult, { fetchMoreResult }) => {
         if (!fetchMoreResult) return prevResult;
 
+        // Merge the new merchants with existing ones
         return {
           approvedMerchantsByCategory: {
             ...fetchMoreResult.approvedMerchantsByCategory,
@@ -121,19 +111,18 @@ export default function CategoryDirectoryPage() {
         };
       },
     });
-
-    setMerchantPage(nextPage);
   };
 
   const loadMoreTrainers = () => {
-    if (!hasMoreTrainers || trainersLoading) return;
+    if (!hasNextPageTrainers || trainersLoading) return;
 
-    const nextPage = trainerPage + 1;
+    const currentOffset = trainers.length;
 
     fetchMoreTrainers({
       variables: {
-        page: nextPage,
+        categoryId: categoryId,
         limit: 10,
+        offset: currentOffset,
       },
       updateQuery: (prevResult, { fetchMoreResult }) => {
         if (!fetchMoreResult) return prevResult;
@@ -149,18 +138,23 @@ export default function CategoryDirectoryPage() {
         };
       },
     });
-
-    setTrainerPage(nextPage);
   };
 
   const onRefresh = async () => {
     setRefreshing(true);
     try {
-      await Promise.all([refetchMerchants(), refetchTrainers()]);
-      setMerchantPage(1);
-      setTrainerPage(1);
-      setHasMoreMerchants(true);
-      setHasMoreTrainers(true);
+      await Promise.all([
+        refetchMerchants({
+          categoryId: categoryId,
+          limit: 10,
+          offset: 0,
+        }),
+        refetchTrainers({
+          categoryId: categoryId,
+          limit: 10,
+          offset: 0,
+        }),
+      ]);
     } finally {
       setRefreshing(false);
     }
@@ -192,10 +186,10 @@ export default function CategoryDirectoryPage() {
         )}
       </View>
       <View className="border-l-4 border-[#CAA453] p-3">
-        <Text className="font-arabic-bold mb-1 text-sm text-[#18344A]" numberOfLines={1}>
+        <Text className="mb-1 font-arabic-bold text-sm text-[#18344A]" numberOfLines={1}>
           {item.businessName}
         </Text>
-        <Text className="font-arabic-regular mb-2 text-xs text-[#4E6882]" numberOfLines={2}>
+        <Text className="mb-2 font-arabic-regular text-xs text-[#4E6882]" numberOfLines={2}>
           {item.description}
         </Text>
         <View className="flex-row items-center justify-between">
@@ -240,13 +234,13 @@ export default function CategoryDirectoryPage() {
         )}
       </View>
       <View className="border-l-4 border-[#CAA453] p-3">
-        <Text className="font-arabic-bold mb-1 text-sm text-[#18344A]" numberOfLines={1}>
+        <Text className="mb-1 font-arabic-bold text-sm text-[#18344A]" numberOfLines={1}>
           {item.fullName}
         </Text>
-        <Text className="font-arabic-regular mb-1 text-xs text-[#4E6882]">
+        <Text className="mb-1 font-arabic-regular text-xs text-[#4E6882]">
           {item.specialization}
         </Text>
-        <Text className="font-arabic-regular mb-2 text-xs text-[#4E6882]" numberOfLines={2}>
+        <Text className="mb-2 font-arabic-regular text-xs text-[#4E6882]" numberOfLines={2}>
           {item.description}
         </Text>
         <View className="flex-row items-center justify-between">
@@ -264,8 +258,9 @@ export default function CategoryDirectoryPage() {
       </View>
     </TouchableOpacity>
   );
+
   const renderMerchantFooter = () => {
-    if (!hasMoreMerchants) return null;
+    if (!hasNextPageMerchants) return null;
 
     return (
       <View className="items-center justify-center" style={{ width: CARD_WIDTH, marginRight: 16 }}>
@@ -276,7 +271,7 @@ export default function CategoryDirectoryPage() {
   };
 
   const renderTrainerFooter = () => {
-    if (!hasMoreTrainers) return null;
+    if (!hasNextPageTrainers) return null;
 
     return (
       <View className="items-center justify-center" style={{ width: CARD_WIDTH, marginRight: 16 }}>
@@ -286,7 +281,9 @@ export default function CategoryDirectoryPage() {
     );
   };
 
-  const loading = merchantsLoading && merchantPage === 1;
+  // Show loading only for initial load
+  const initialLoading =
+    merchantsLoading && trainersLoading && merchants.length === 0 && trainers.length === 0;
 
   return (
     <ScrollView
@@ -307,7 +304,7 @@ export default function CategoryDirectoryPage() {
             <Text className="font-arabic-bold text-lg text-[#1E2053]">
               {currentCategory?.nameAr || ''}
             </Text>
-            <Text className="font-arabic-regular mt-1 text-sm text-[#4E6882]" numberOfLines={3}>
+            <Text className="mt-1 font-arabic-regular text-sm text-[#4E6882]" numberOfLines={3}>
               {currentCategory?.description || ''}
             </Text>
           </View>
@@ -338,7 +335,7 @@ export default function CategoryDirectoryPage() {
       </ScrollView>
 
       {/* Content */}
-      {loading ? (
+      {initialLoading ? (
         <Loading />
       ) : (
         <View className="py-6">
@@ -415,13 +412,13 @@ export default function CategoryDirectoryPage() {
           )}
 
           {/* Empty State */}
-          {merchants.length === 0 && trainers.length === 0 && !loading && (
+          {merchants.length === 0 && trainers.length === 0 && !initialLoading && (
             <View className="items-center px-4 py-12">
               <View className="mb-4 h-20 w-20 items-center justify-center rounded-full bg-[#F7F9FA]">
                 <Ionicons name="file-tray-outline" size={32} color="#1E2053" />
               </View>
-              <Text className="font-arabic-bold mb-2 text-lg text-[#18344A]">لا توجد أنشطة</Text>
-              <Text className="font-arabic-regular mb-6 text-center text-sm text-[#4E6882]">
+              <Text className="mb-2 font-arabic-bold text-lg text-[#18344A]">لا توجد أنشطة</Text>
+              <Text className="mb-6 text-center font-arabic-regular text-sm text-[#4E6882]">
                 لا توجد أنشطة مسجلة في هذا القسم بعد
               </Text>
               {!user && (

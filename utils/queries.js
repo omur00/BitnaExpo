@@ -1148,6 +1148,45 @@ export const GET_ALL_FEATURED_TRAINERS = gql`
   }
 `;
 
+export const GET_APPROVED_MERCHANTS_BY_CATEGORY = gql`
+  query GetMerchantsByCategory($categoryId: ID!, $limit: Int = 10, $offset: Int = 0) {
+    approvedMerchantsByCategory: approvedMerchants(
+      categoryId: $categoryId
+      limit: $limit
+      offset: $offset
+    ) {
+      merchants {
+        id
+        businessName
+        description
+        logo {
+          id
+          url
+        }
+        coverImage {
+          id
+          url
+        }
+        galleryImages {
+          id
+          url
+        }
+        slug
+        phone
+        whatsapp
+        city {
+          nameAr
+        }
+      }
+      totalPages
+      currentPage
+      hasNextPage
+      hasPreviousPage
+      totalCount
+    }
+  }
+`;
+
 export const GET_APPROVED_TRAINERS_BY_CATEGORY = gql`
   query GetApprovedTrainersByCategory($categoryId: ID!, $limit: Int = 10, $offset: Int = 0) {
     approvedTrainersByCategory: approvedTrainers(
@@ -1192,41 +1231,6 @@ export const GET_APPROVED_TRAINERS_BY_CATEGORY = gql`
   }
 `;
 
-export const GET_APPROVED_MERCHANTS_BY_CATEGORY = gql`
-  query GetMerchantsByCategory($categoryId: ID!) {
-    approvedMerchantsByCategory: approvedMerchants(categoryId: $categoryId) {
-      merchants {
-        id
-        businessName
-        description
-        logo {
-          id
-          url
-        }
-        coverImage {
-          id
-          url
-        }
-        galleryImages {
-          id
-          url
-        }
-        slug
-        phone
-        whatsapp
-        city {
-          nameAr
-        }
-      }
-      totalPages
-      currentPage
-      hasNextPage
-      hasPreviousPage
-      totalCount
-    }
-  }
-`;
-
 export const REQUEST_PASSWORD_RESET = gql`
   mutation RequestPasswordReset($email: String!) {
     requestPasswordReset(email: $email) {
@@ -1257,17 +1261,15 @@ export const RESET_PASSWORD = gql`
   }
 `;
 
-export const UPLOAD_IMAGE_MUTATION = gql`
-  mutation UploadImage($file: String!, $fileName: String, $folder: String) {
-    uploadImage(file: $file, fileName: $fileName, folder: $folder) {
-      url
-      fileId
-      success
+export const GET_IMAGEKIT_AUTH = gql`
+  query GetImageKitAuth {
+    getImageKitAuth {
+      token
+      expire
+      signature
     }
   }
 `;
-
-
 
 export const UPDATE_MERCHANT_GALLERY = gql`
   mutation UpdateMerchantGallery($input: UpdateGalleryInput!) {

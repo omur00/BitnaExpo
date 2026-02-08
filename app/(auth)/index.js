@@ -20,8 +20,8 @@ import { useMutation } from '@apollo/client/react';
 export default function LoginScreen() {
   const router = useRouter();
   const [formData, setFormData] = useState({
-    email: 'omur0070@gmail.com',
-    password: '123123123',
+    email: '',
+    password: '',
   });
   const { login } = useAuth();
   const [loading, setLoading] = useState(false);
@@ -76,92 +76,110 @@ export default function LoginScreen() {
   };
 
   return (
-    <KeyboardAvoidingView
-      className="flex-1 bg-white"
-      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
-      <ScrollView
-        contentContainerStyle={{ flexGrow: 1, justifyContent: 'center' }}
-        className="p-5"
-        keyboardShouldPersistTaps="handled">
-        <View className="rounded-xl border border-gray-200 bg-white p-5 shadow-lg">
-          {/* Header */}
-          <View className="mb-6 items-center">
-            <Text className="font-arabic-bold mb-2 text-2xl text-[#1E2053]">تسجيل الدخول</Text>
-            <Text className="font-arabic-regular text-base text-gray-600">ادخل إلى حسابك</Text>
-          </View>
-
-          {/* Form */}
-          <View className="gap-4">
-            {/* Email Input */}
-            <View className="gap-2">
-              <Text className="font-arabic-semibold text-sm text-gray-800">
-                البريد الإلكتروني *
-              </Text>
-              <View className="flex-row-reverse items-center rounded-lg border border-gray-300 bg-white">
-                <Ionicons name="mail-outline" size={20} color="#4E6882" className="mx-3" />
-                <TextInput
-                  className="font-arabic-regular flex-1 px-4 py-3 text-sm text-gray-800"
-                  placeholder="example@email.com"
-                  placeholderTextColor="#9CA3AF"
-                  value={formData.email}
-                  onChangeText={(text) => handleChange('email', text)}
-                  keyboardType="email-address"
-                  autoCapitalize="none"
-                  autoCorrect={false}
-                />
-              </View>
+    <View className="flex-1 bg-white">
+      <KeyboardAvoidingView
+        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+        style={{ flex: 1 }}
+        keyboardVerticalOffset={Platform.OS === 'ios' ? 60 : 20}>
+        <ScrollView
+          contentContainerStyle={{
+            flexGrow: 1,
+            justifyContent: 'center',
+            paddingBottom: 20, // Add some bottom padding
+          }}
+          className="p-5"
+          keyboardShouldPersistTaps="handled"
+          showsVerticalScrollIndicator={false}>
+          <View className="rounded-xl border border-gray-200 bg-white p-5 shadow-lg">
+            {/* Header */}
+            <View className="mb-6 items-center">
+              <Text className="mb-2 font-arabic-bold text-2xl text-[#1E2053]">تسجيل الدخول</Text>
+              <Text className="font-arabic-regular text-base text-gray-600">ادخل إلى حسابك</Text>
             </View>
 
-            {/* Password Input */}
-            <View className="gap-2">
-              <Text className="font-arabic-semibold text-sm text-gray-800">كلمة المرور *</Text>
-              <View className="flex-row-reverse items-center rounded-lg border border-gray-300 bg-white">
-                <Ionicons name="lock-closed-outline" size={20} color="#4E6882" className="mx-3" />
-                <TextInput
-                  className="font-arabic-regular flex-1 px-4 py-3 text-sm text-gray-800"
-                  placeholder="أدخل كلمة المرور"
-                  placeholderTextColor="#9CA3AF"
-                  value={formData.password}
-                  onChangeText={(text) => handleChange('password', text)}
-                  secureTextEntry
-                />
+            {/* Form */}
+            <View className="gap-4">
+              {/* Email Input */}
+              <View className="gap-2">
+                <Text className="font-arabic-semibold text-sm text-gray-800">
+                  البريد الإلكتروني *
+                </Text>
+                <View className="flex-row-reverse items-center rounded-lg border border-gray-300 bg-white">
+                  <Ionicons name="mail-outline" size={20} color="#4E6882" className="mx-3" />
+                  <TextInput
+                    style={{
+                      height: 52,
+                    }}
+                    className="flex-1 px-4 py-3 text-sm text-gray-800"
+                    placeholder="Example@email.com"
+                    placeholderTextColor="#9CA3AF"
+                    value={formData.email}
+                    onChangeText={(text) => handleChange('email', text)}
+                    keyboardType="email-address"
+                    autoCapitalize="none"
+                    autoCorrect={false}
+                    textAlignVertical="center"
+                  />
+                </View>
               </View>
-            </View>
 
-            {/* Login Button */}
-            <TouchableOpacity
-              className={`mt-2 rounded-lg py-4 ${loading ? 'bg-gray-400' : 'bg-[#1E2053]'}`}
-              onPress={handleSubmit}
-              disabled={loading}>
-              {loading ? (
-                <ActivityIndicator color="#FFF" />
-              ) : (
-                <Text className="font-arabic-semibold text-center text-base text-white">
-                  تسجيل الدخول
-                </Text>
-              )}
-            </TouchableOpacity>
+              {/* Password Input */}
+              <View className="gap-2">
+                <Text className="font-arabic-semibold text-sm text-gray-800">كلمة المرور *</Text>
+                <View className="flex-row-reverse items-center rounded-lg border border-gray-300 bg-white">
+                  <Ionicons name="lock-closed-outline" size={20} color="#4E6882" className="mx-3" />
+                  <TextInput
+                    style={{
+                      height: 52,
+                    }}
+                    className="flex-1 px-4 py-3 text-sm text-gray-800"
+                    placeholder="Password"
+                    placeholderTextColor="#9CA3AF"
+                    value={formData.password}
+                    onChangeText={(text) => handleChange('password', text)}
+                    secureTextEntry
+                    textAlignVertical="center"
+                  />
+                </View>
+              </View>
 
-            {/* Links */}
-            <View className="mt-4 items-center gap-3">
-              <TouchableOpacity onPress={() => router.push('/(stacks)/register')} className="py-1">
-                <Text className="font-arabic-regular text-center text-sm text-gray-600">
-                  <Text>لا تملك حساب؟ </Text>
-                  <Text className="font-arabic-semibold text-[#1E2053]">أنشئ حساب جديد</Text>
-                </Text>
-              </TouchableOpacity>
-
+              {/* Login Button */}
               <TouchableOpacity
-                onPress={() => router.push('/(auth)/forgotPassword')}
-                className="py-1">
-                <Text className="font-arabic-regular text-center text-sm text-gray-600">
-                  نسيت كلمة المرور؟
-                </Text>
+                className={`mt-2 rounded-lg py-4 ${loading ? 'bg-gray-400' : 'bg-[#1E2053]'}`}
+                onPress={handleSubmit}
+                disabled={loading}>
+                {loading ? (
+                  <ActivityIndicator color="#FFF" />
+                ) : (
+                  <Text className="text-center font-arabic-semibold text-base text-white">
+                    تسجيل الدخول
+                  </Text>
+                )}
               </TouchableOpacity>
+
+              {/* Links */}
+              <View className="mt-4 items-center gap-3">
+                <TouchableOpacity
+                  onPress={() => router.push('/(stacks)/register')}
+                  className="py-1">
+                  <Text className="text-center font-arabic-regular text-sm text-gray-600">
+                    <Text>لا تملك حساب؟ </Text>
+                    <Text className="font-arabic-semibold text-[#1E2053]">أنشئ حساب جديد</Text>
+                  </Text>
+                </TouchableOpacity>
+
+                <TouchableOpacity
+                  onPress={() => router.push('/(auth)/forgotPassword')}
+                  className="py-1">
+                  <Text className="text-center font-arabic-regular text-sm text-gray-600">
+                    نسيت كلمة المرور؟
+                  </Text>
+                </TouchableOpacity>
+              </View>
             </View>
           </View>
-        </View>
-      </ScrollView>
-    </KeyboardAvoidingView>
+        </ScrollView>
+      </KeyboardAvoidingView>
+    </View>
   );
 }

@@ -9,9 +9,11 @@ import {
   ScrollView,
 } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
-import { useMutation } from '@apollo/client/react';
-import { UPLOAD_IMAGE_MUTATION } from '@/utils/queries';
 import { Trash2, Image as ImageIcon } from 'lucide-react-native';
+import { GET_IMAGEKIT_AUTH } from '@/utils/queries';
+import imagekit from '@/lib/imagekit';
+import { useLazyQuery } from '@apollo/client/react';
+
 
 // Configuration for each type
 const TYPE_CONFIG = {
@@ -73,11 +75,10 @@ const ImageUpload = ({ label, value, onChange, type = 'logo', folder = '/merchan
   const [loading, setLoading] = useState(false);
   const [uploadingCount, setUploadingCount] = useState(0);
   const config = TYPE_CONFIG[type] || TYPE_CONFIG.logo;
+  const [getImageKitAuth] = useLazyQuery(GET_IMAGEKIT_AUTH);
 
   // Ensure value is array for gallery, string for others
   const normalizedValue = type === 'gallery' ? (Array.isArray(value) ? value : []) : value;
-
-  const [uploadImageMutation] = useMutation(UPLOAD_IMAGE_MUTATION);
 
   const pickImage = async () => {
     // Check if gallery has reached max count
@@ -161,60 +162,79 @@ const ImageUpload = ({ label, value, onChange, type = 'logo', folder = '/merchan
     setUploadingCount(0);
   };
 
+  // In your ImageUpload component - REPLACE the uploadImage function
   const uploadImage = async (uri, silent = false) => {
     setLoading(true);
 
     try {
-      // Modern approach: Use fetch to get blob directly
+      console.log('📸 Starting upload...');
+
+      // 1. Convert image URI to base64
       const response = await fetch(uri);
       const blob = await response.blob();
 
-      // Check file size
-      const fileSizeMB = blob.size / (1024 * 1024);
-      if (fileSizeMB > config.maxSize) {
-        Alert.alert(
-          'File too large',
-          `Maximum file size is ${config.maxSize}MB. Your file is ${fileSizeMB.toFixed(1)}MB.`
-        );
-        return null;
-      }
-
-      // Convert blob to base64
       const base64 = await new Promise((resolve, reject) => {
         const reader = new FileReader();
-        reader.onloadend = () => resolve(reader.result);
+        reader.onloadend = () => {
+          console.log('✅ Base64 conversion complete');
+          resolve(reader.result);
+        };
         reader.onerror = reject;
-        reader.readAsDataURL(blob); // This creates a data:image/ URL with base64
+        reader.readAsDataURL(blob);
       });
 
       const fileName = `${type}_${Date.now()}.jpg`;
+      console.log('📝 File name:', fileName);
 
-      const { data } = await uploadImageMutation({
-        variables: {
-          file: base64, // Already includes data:image/ prefix
-          fileName: fileName,
-          folder: folder,
-        },
+      // 2. Get auth from backend using useLazyQuery
+      console.log('🔐 Getting ImageKit auth...');
+      const { data, error } = await getImageKitAuth();
+
+      if (error) {
+        console.error('❌ Auth error:', error);
+        throw error;
+      }
+
+      console.log('✅ Auth received');
+      const { token, expire, signature } = data.getImageKitAuth;
+
+      // 3. Upload DIRECTLY to ImageKit
+      console.log('🔼 Uploading to ImageKit...');
+      const result = await new Promise((resolve, reject) => {
+        imagekit.upload(
+          {
+            file: base64,
+            fileName: fileName,
+            folder: folder,
+            useUniqueFileName: true,
+            token,
+            expire,
+            signature,
+          },
+          (error, result) => {
+            if (error) {
+              console.error('❌ ImageKit upload error:', error);
+              reject(error);
+            } else {
+              console.log('✅ ImageKit upload successful!');
+              console.log('📊 URL:', result.url);
+              resolve(result);
+            }
+          }
+        );
       });
 
-      if (data?.uploadImage?.success) {
-        if (type === 'gallery') {
-          // For gallery, we just return the URL to be added to array
-
-          onChange(data.uploadImage.url);
-          return data.uploadImage.url;
-        } else {
-          // For single images, update directly
-          onChange(data.uploadImage.url);
-          if (!silent) {
-            Alert.alert('Success', `${config.placeholderText} uploaded successfully!`);
-          }
-        }
+      // 4. Handle result
+      if (type === 'gallery') {
+        return result.url;
       } else {
-        throw new Error('Upload failed');
+        onChange(result.url);
+        if (!silent) {
+          Alert.alert('Success', `${config.placeholderText} uploaded successfully!`);
+        }
       }
     } catch (error) {
-      console.error('Upload error:', error);
+      console.error('🔥 Upload error:', error);
       if (!silent) {
         Alert.alert('Upload Failed', error.message || 'Failed to upload image');
       }
@@ -318,9 +338,9 @@ const ImageUpload = ({ label, value, onChange, type = 'logo', folder = '/merchan
           onPress={() => removeImage()}
           className={`
             absolute -right-2 -top-2 h-8 w-8 items-center justify-center 
-            rounded-full border-2 border-white bg-gradient-to-br
-            from-red-500 to-red-600 shadow-lg
-            active:scale-95
+            rounded-full border-2 border-white bg-gray-500
+            bg-gradient-to-br from-red-500 to-red-600
+            shadow-lg active:scale-95
           `}>
           <Trash2 size={16} color="white" />
         </TouchableOpacity>
@@ -364,9 +384,9 @@ const ImageUpload = ({ label, value, onChange, type = 'logo', folder = '/merchan
                     <View className="mb-3 h-12 w-12 items-center justify-center rounded-full bg-amber-100">
                       <Text className="text-2xl text-amber-600">+</Text>
                     </View>
-                    <Text className="text-sm font-medium text-gray-600">Add More</Text>
+                    <Text className="text-sm font-medium text-gray-600">إضافة المزيد</Text>
                     <Text className="mt-1 text-xs text-gray-400">
-                      {config.maxCount - normalizedValue.length} remaining
+                      {config.maxCount - normalizedValue.length} متبقي
                     </Text>
                   </>
                 )}
@@ -376,7 +396,7 @@ const ImageUpload = ({ label, value, onChange, type = 'logo', folder = '/merchan
         </ScrollView>
 
         <Text className="mt-2 text-center text-xs text-gray-500">
-          {normalizedValue.length} of {config.maxCount} images uploaded
+          {normalizedValue.length} من {config.maxCount} صور مرفوعه
         </Text>
       </View>
     );
@@ -385,7 +405,7 @@ const ImageUpload = ({ label, value, onChange, type = 'logo', folder = '/merchan
   return (
     <View className="mb-6">
       <View className="mb-3 flex-row items-center justify-between">
-        <Text className="text-base font-bold text-gray-800">{label}</Text>
+        <Text className="w-full font-arabic-bold text-amber-600">{label}</Text>
         {type === 'gallery' && Array.isArray(normalizedValue) && (
           <Text className="text-sm text-gray-500">
             {normalizedValue.length} / {config.maxCount}

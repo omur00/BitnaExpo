@@ -7,7 +7,7 @@ import {
 } from '@/utils/queries';
 import { Ionicons } from '@expo/vector-icons';
 import { formatDate } from '@/utils/formatDate';
-import { useLocalSearchParams, useRouter } from 'expo-router';
+import { useLocalSearchParams } from 'expo-router';
 import { useState } from 'react';
 import {
   View,
@@ -26,7 +26,6 @@ export default function UserApplication() {
   const params = useLocalSearchParams();
   const userId = params.id;
   const [selectedImage, setSelectedImage] = useState(null);
-  const router = useRouter();
 
   const { data, loading } = useQuery(GET_USER_DETAILS, {
     variables: { id: userId },
